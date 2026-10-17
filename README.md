@@ -4,8 +4,10 @@ Static site files for cherri. The app and all of its bundled scripts, styles, fo
 
 ## Open the site
 
-The runnable site is hosted with GitHub Pages:
+Run the site directly from jsDelivr using the SVG entry point:
 
-<https://bombedbyxander.github.io/svg/>
+<https://cdn.jsdelivr.net/gh/BombedByXander/svg@main/index.svg>
 
-The repository root redirects to `b/index.html`. The app loads its bundled assets from paths relative to that directory. jsDelivr serves the repository files as static downloads, but returns HTML as `text/plain`, so it cannot run the app as a website directly. Features that use external services still need those services to be available in the browser.
+The SVG entry runs the existing Cherri loader and app. The app uses external network services for some features.
+
+GitHub Pages is also enabled at <https://bombedbyxander.github.io/svg/>.
