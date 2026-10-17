@@ -1,13 +1,5 @@
-# cherri
+# cherri (work in progress)
 
 Static site files for cherri. The app and all of its bundled scripts, styles, fonts, and images are in `b/`.
 
-## Open the site
-
-Run the site directly from jsDelivr using the SVG entry point:
-
-<https://cdn.jsdelivr.net/gh/BombedByXander/svg@main/index.svg>
-
-The SVG entry runs the existing Cherri loader and app. The app uses external network services for some features.
-
-GitHub Pages is also enabled at <https://bombedbyxander.github.io/svg/>.
+The public CDN link is paused while the site is being updated. A new link will be published when it is ready.
