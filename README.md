@@ -1,5 +1,11 @@
 # berri (work in progress)
 
-Static site files for berri. The app and all of its bundled scripts, styles, fonts, and images are in `b/`.
+Static site files for berri. The app and its bundled scripts, styles, fonts, and images are in `b/`.
 
-The public CDN link is paused while the site is being updated. A new link will be published when it is ready.
+## Open the site
+
+Run the site directly from jsDelivr using the SVG entry point:
+
+https://cdn.jsdelivr.net/gh/BombedByXander/svg@main/index.svg
+
+The SVG entry starts the signed loader and app. The app uses external network services for some features.
