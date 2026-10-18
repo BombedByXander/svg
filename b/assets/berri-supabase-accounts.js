@@ -71,6 +71,28 @@
     return `u${encoded}@users.${PROJECT_REF}.supabase.co`;
   }
 
+  async function signupConfigurationError() {
+    let settingsResponse;
+    try {
+      settingsResponse = await nativeFetch(`${SUPABASE_URL}/auth/v1/settings`, {
+        headers: { apikey: SUPABASE_KEY },
+        cache: "no-store",
+      });
+    } catch {
+      return "Could not check Supabase signup settings. Please try again.";
+    }
+    if (!settingsResponse.ok) return "Could not check Supabase signup settings. Please try again.";
+    let settings;
+    try { settings = await settingsResponse.json(); } catch {
+      return "Could not check Supabase signup settings. Please try again.";
+    }
+    if (!settings.external?.email) return "Enable the Email provider in Supabase Authentication settings.";
+    if (settings.mailer_autoconfirm !== true) {
+      return "Turn off Confirm email in Supabase Authentication settings before creating accounts. No account was created.";
+    }
+    return null;
+  }
+
   function mapProfile(row, tags = [], recoveryEmail = null) {
     const gradient = row.card_gradient ?? null;
     return {
@@ -168,13 +190,21 @@
       const username = normalizedUsername(body.username);
       if (!/^[a-z0-9_.-]{3,24}$/.test(username)) return response({ error: "Username must be 3–24 letters, numbers, dots, dashes, or underscores." }, 400);
       if (typeof body.password !== "string" || body.password.length < 6) return response({ error: "Password must be at least 6 characters." }, 400);
+      const configurationError = await signupConfigurationError();
+      if (configurationError) return response({ error: configurationError }, 503);
       const { data, error } = await db.auth.signUp({
         email: authEmail(username),
         password: body.password,
         options: { data: { username, display_name: username, recovery_email: String(body.email || "").trim() || null } },
       });
-      if (error) return response({ error: error.message }, 400);
-      if (!data.session) return response({ error: "Turn off Confirm email in Supabase Authentication settings, then try again." }, 400);
+      if (error) {
+        const message = String(error.message || "");
+        if (/already registered|already exists|duplicate key/i.test(message)) {
+          return response({ error: "That username is already registered in Supabase Auth. Check Authentication → Users for a pending account, or choose another username." }, 409);
+        }
+        return response({ error: message || "Supabase could not create this account." }, 400);
+      }
+      if (!data.session) return response({ error: "Supabase did not create a login session. Check Authentication → Users before trying again." }, 400);
       const profile = await profileForUser(db, data.user, true);
       return response({ token: data.session.access_token, user: profile || { id: data.user.id, username, display: username, email: body.email || null } });
     }
@@ -353,7 +383,7 @@
   window.fetch = async (input, init) => {
     const rawUrl = typeof input === "string" ? input : input?.url || String(input);
     const url = new URL(rawUrl, location.href);
-    if (url.origin !== location.origin || !url.pathname.startsWith(API_PREFIX)) return nativeFetch(input, init);
+    if (!url.pathname.startsWith(API_PREFIX)) return nativeFetch(input, init);
     const authPaths = new Set(["/api/auth/register", "/api/auth/login", "/api/auth/logout", "/api/auth/me", "/api/auth/email"]);
     if (authPaths.has(url.pathname)) {
       const authResponse = await handleAuth(url.pathname, init);
