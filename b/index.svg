@@ -31,18 +31,18 @@ window.__SW_FILE__="9byt8m.js",window.__swRegistration=navigator.serviceWorker?(
 /*]]>*/
 </script>
 
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="./assets/blueberry.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>berri</title>
     <meta name="description" content="berri" />
     <script src="cfvi4/szst2w.js"></script>
     <script src="6m9rd/ybnwpk.js"></script>
-    <link rel="stylesheet" crossorigin="crossorigin" href="./assets/index-ByczedaP-c399e40e.css" />
+    <link rel="stylesheet" crossorigin="crossorigin" href="./assets/berri-home.css" />
   
       </head>
       <body>
 
-    <main id="_jig29al"><img src="./favicon.svg" alt="" width="64" height="64" style="position:fixed;inset:0;margin:auto;transform:translateY(-30px);animation:boot-in .45s cubic-bezier(.2,0,0,1) both" /><div style="position:fixed;left:0;right:0;top:calc(50% + 26px);display:flex;flex-direction:column;align-items:center;gap:12px;font:500 12px system-ui,sans-serif;letter-spacing:.01em;color:var(--text-muted,#888)"><style>
+    <main id="_jig29al"><img src="./assets/blueberry.svg" alt="" width="64" height="64" style="position:fixed;inset:0;margin:auto;transform:translateY(-30px);animation:boot-in .45s cubic-bezier(.2,0,0,1) both" /><div style="position:fixed;left:0;right:0;top:calc(50% + 26px);display:flex;flex-direction:column;align-items:center;gap:12px;font:500 12px system-ui,sans-serif;letter-spacing:.01em;color:var(--text-muted,#888)"><style>
 /*<![CDATA[*/
 @keyframes boot-in{from{opacity:0;transform:translateY(-22px) scale(.9)}}@keyframes boot-run{from{transform:translateX(-110%)}to{transform:translateX(310%)}}@media (prefers-reduced-motion:reduce){main>img,main>div>div>div{animation:none!important}}
 /*]]>*/
