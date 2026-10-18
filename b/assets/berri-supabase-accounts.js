@@ -199,10 +199,13 @@
       });
       if (error) {
         const message = String(error.message || "");
-        if (/already registered|already exists|duplicate key/i.test(message)) {
+        // Supabase Auth can surface database-trigger failures during sign-up.
+        // Those are not proof that the username/email exists, so only map the
+        // Auth-specific duplicate-email response to the username conflict UI.
+        if (/user already registered|email.*already registered|already been registered/i.test(message)) {
           return response({ error: "That username is already registered in Supabase Auth. Check Authentication → Users for a pending account, or choose another username." }, 409);
         }
-        return response({ error: message || "Supabase could not create this account." }, 400);
+        return response({ error: `Supabase signup failed: ${message || "unknown error"}${error.code ? ` (${error.code})` : ""}` }, 400);
       }
       if (!data.session) return response({ error: "Supabase did not create a login session. Check Authentication → Users before trying again." }, 400);
       const profile = await profileForUser(db, data.user, true);
