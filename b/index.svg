@@ -53,7 +53,7 @@ window.__SW_FILE__="9byt8m.js",window.__swRegistration=navigator.serviceWorker?(
 </script></main>
   
         <script src="./assets/bundle-berri-20261017.js"></script>
-        <script src="./assets/berri-live-presence.js" integrity="sha384-Evu0Si7cGkaRxlKX3btYgYhbqLw4glrrf9v++W3CzilK10e0Sev3mEwpzyv0yAp/" crossorigin="anonymous"></script>
+        <script src="./assets/berri-live-presence.js" integrity="sha384-16btKOM6p/30MTlyeDL4fbsP4+jP/VJyRMm0CbhRAummWMPdS+v5sAhBs2Jj6mrn" crossorigin="anonymous"></script>
         
       </body>
     </html>

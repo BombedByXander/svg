@@ -1,6 +1,6 @@
 (() => {
-  const supabaseUrl = "https://qhuyvlpqshpetbtogeec.supabase.co";
-  const publishableKey = "sb_publishable_h-ecLD2O_MtPca6xn9JEEg_w5V0orLM";
+  const supabaseUrl = "https://hulovfywovcxwprxdnoa.supabase.co";
+  const publishableKey = "sb_publishable_bu5a4_y67XUXuQiiayz3pQ_CpaI_ni2";
   const eventName = "berri:presence-count";
   const channelName = "berri-live-active-users-v1";
   let client = null;
