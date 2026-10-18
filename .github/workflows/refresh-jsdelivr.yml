@@ -21,6 +21,7 @@ jobs:
           else
             files=$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA")
           fi
+          files=$(printf '%s\n' index.svg b/index.svg "$files" | sort -u)
           while IFS= read -r file; do
             [[ -n "$file" ]] || continue
             encoded=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe="/"))' "$file")
