@@ -15,6 +15,25 @@ jobs:
         env:
           AFTER_SHA: ${{ github.sha }}
         run: git push origin "$AFTER_SHA:refs/heads/latest" --force
+      - name: Publish a patch version for the stable @latest URL
+        env:
+          AFTER_SHA: ${{ github.sha }}
+        run: |
+          existing=$(git tag --points-at "$AFTER_SHA" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1 || true)
+          if [[ -n "$existing" ]]; then
+            echo "Commit already has release tag $existing"
+            exit 0
+          fi
+          latest=$(git tag -l | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)
+          IFS=. read -r major minor patch <<< "$latest"
+          next="$major.$minor.$((patch + 1))"
+          while git ls-remote --exit-code --tags origin "refs/tags/$next" >/dev/null 2>&1; do
+            patch=$((patch + 1))
+            next="$major.$minor.$patch"
+          done
+          git tag "$next" "$AFTER_SHA"
+          git push origin "refs/tags/$next"
+          echo "Published $next for $AFTER_SHA"
       - name: Purge changed files from jsDelivr
         env:
           BEFORE_SHA: ${{ github.event.before }}
