@@ -69,5 +69,21 @@ jobs:
             done
             latest_url="https://purge.jsdelivr.net/gh/BombedByXander/svg@latest/$encoded"
             echo "Purging $latest_url"
-            curl --fail --silent --show-error --retry 3 --retry-delay 2 "$latest_url"
+            for attempt in {1..8}; do
+              response=$(curl --fail --silent --show-error --retry 3 --retry-delay 2 "$latest_url")
+              echo "$response"
+              result=$(python3 -c 'import json,sys; d=json.load(sys.stdin); item=next(iter(d.get("paths", d.get("files",{})).values()),{}); print("throttled" if item.get("throttled") is True else "ok" if "throttled" in item else "invalid"); print(int(item.get("throttlingReset",0)))' <<< "$response")
+              state=$(sed -n '1p' <<< "$result")
+              reset_ms=$(sed -n '2p' <<< "$result")
+              if [[ "$state" == "ok" ]]; then
+                break
+              fi
+              if [[ "$state" != "throttled" || "$attempt" == 8 ]]; then
+                echo "Latest alias purge failed for $file (state: $state)" >&2
+                exit 1
+              fi
+              delay=$(( (reset_ms + 999) / 1000 + 1 ))
+              echo "Latest alias purge throttled; retrying $file in ${delay}s (attempt $attempt/8)"
+              sleep "$delay"
+            done
           done <<< "$files"
