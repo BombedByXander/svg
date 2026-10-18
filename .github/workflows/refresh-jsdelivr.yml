@@ -1,0 +1,31 @@
+name: Refresh jsDelivr branch cache
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Purge changed files from jsDelivr
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        run: |
+          if [[ "$BEFORE_SHA" =~ ^0+$ ]]; then
+            files=$(git ls-files)
+          else
+            files=$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA")
+          fi
+          while IFS= read -r file; do
+            [[ -n "$file" ]] || continue
+            encoded=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe="/"))' "$file")
+            url="https://purge.jsdelivr.net/gh/BombedByXander/svg@main/$encoded"
+            echo "Purging $file"
+            curl --fail --silent --show-error --retry 3 --retry-delay 2 "$url"
+            echo
+          done <<< "$files"
