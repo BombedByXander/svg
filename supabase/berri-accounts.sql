@@ -13,20 +13,39 @@ create table if not exists public.profiles (
   pronouns text not null default '' check (char_length(pronouns) <= 32),
   avatar_url text,
   banner_url text,
+  avatar_crop jsonb not null default '{"focusX":50,"focusY":50,"zoom":1}'::jsonb,
+  banner_crop jsonb not null default '{"focusX":50,"focusY":50,"zoom":1}'::jsonb,
   primary_color text not null default '#ec4899'
     check (primary_color ~ '^#[0-9A-Fa-f]{6}$'),
   secondary_color text not null default '#7c3aed'
     check (secondary_color ~ '^#[0-9A-Fa-f]{6}$'),
+  card_gradient jsonb,
+  username_style jsonb,
+  last_username_change timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
+alter table public.profiles add column if not exists avatar_crop jsonb not null default '{"focusX":50,"focusY":50,"zoom":1}'::jsonb;
+alter table public.profiles add column if not exists banner_crop jsonb not null default '{"focusX":50,"focusY":50,"zoom":1}'::jsonb;
+alter table public.profiles add column if not exists card_gradient jsonb;
+alter table public.profiles add column if not exists username_style jsonb;
+alter table public.profiles add column if not exists last_username_change timestamptz;
+
 -- Keep recovery addresses private; never expose them on public profiles.
 create table if not exists public.private_account_data (
   user_id uuid primary key references auth.users (id) on delete cascade,
+  login_email text not null,
   recovery_email text,
   updated_at timestamptz not null default now()
 );
+
+alter table public.private_account_data add column if not exists login_email text;
+update public.private_account_data pad
+set login_email = au.email
+from auth.users au
+where au.id = pad.user_id and pad.login_email is null and au.email is not null;
+alter table public.private_account_data alter column login_email set not null;
 
 create table if not exists public.user_settings (
   user_id uuid primary key references auth.users (id) on delete cascade,
@@ -56,10 +75,15 @@ create table if not exists public.game_stats (
 create table if not exists public.profile_tags (
   user_id uuid not null references auth.users (id) on delete cascade,
   tag text not null check (char_length(tag) between 1 and 32),
+  icon text,
+  color text,
   assigned_at timestamptz not null default now(),
   assigned_by uuid references auth.users (id) on delete set null,
   primary key (user_id, tag)
 );
+
+alter table public.profile_tags add column if not exists icon text;
+alter table public.profile_tags add column if not exists color text;
 
 create or replace function public.set_updated_at()
 returns trigger
@@ -127,14 +151,37 @@ begin
 
   v_recovery_email := nullif(btrim(new.raw_user_meta_data ->> 'recovery_email'), '');
   if v_recovery_email is not null then
-    insert into public.private_account_data (user_id, recovery_email)
-    values (new.id, v_recovery_email)
-    on conflict (user_id) do update set recovery_email = excluded.recovery_email;
+    insert into public.private_account_data (user_id, login_email, recovery_email)
+    values (new.id, new.email, v_recovery_email)
+    on conflict (user_id) do update set login_email = excluded.login_email, recovery_email = excluded.recovery_email;
+  else
+    insert into public.private_account_data (user_id, login_email)
+    values (new.id, new.email)
+    on conflict (user_id) do update set login_email = excluded.login_email;
   end if;
 
   return new;
 end;
 $$;
+
+-- Username/password UI maps each username to a private synthetic Auth email.
+-- This SECURITY DEFINER lookup returns only that internal Auth identifier; it
+-- avoids exposing the optional recovery address and lets usernames be changed.
+create or replace function public.auth_email_for_username(p_username text)
+returns text
+language sql
+stable
+security definer
+set search_path = ''
+as $$
+  select pad.login_email
+  from public.profiles p
+  join public.private_account_data pad on pad.user_id = p.id
+  where p.username = lower(btrim(p_username))
+  limit 1;
+$$;
+revoke all on function public.auth_email_for_username(text) from public;
+grant execute on function public.auth_email_for_username(text) to anon, authenticated;
 
 drop trigger if exists on_auth_user_created_berri on auth.users;
 create trigger on_auth_user_created_berri
@@ -211,5 +258,49 @@ create policy "Public playtime stats are readable" on public.game_stats
 drop policy if exists "Public profile tags are readable" on public.profile_tags;
 create policy "Public profile tags are readable" on public.profile_tags
   for select to anon, authenticated using (true);
+
+-- Profile image/banner uploads are public to read and restricted to the owner's folder.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'berri-profile-media',
+  'berri-profile-media',
+  true,
+  3145728,
+  array['image/png', 'image/jpeg', 'image/webp', 'image/gif']
+)
+on conflict (id) do update set
+  public = excluded.public,
+  file_size_limit = excluded.file_size_limit,
+  allowed_mime_types = excluded.allowed_mime_types;
+
+drop policy if exists "Berri profile media is public" on storage.objects;
+create policy "Berri profile media is public" on storage.objects
+  for select to anon, authenticated
+  using (bucket_id = 'berri-profile-media');
+drop policy if exists "Users upload their own Berri profile media" on storage.objects;
+create policy "Users upload their own Berri profile media" on storage.objects
+  for insert to authenticated
+  with check (
+    bucket_id = 'berri-profile-media'
+    and (storage.foldername(name))[1] = (select auth.uid())::text
+  );
+drop policy if exists "Users update their own Berri profile media" on storage.objects;
+create policy "Users update their own Berri profile media" on storage.objects
+  for update to authenticated
+  using (
+    bucket_id = 'berri-profile-media'
+    and (storage.foldername(name))[1] = (select auth.uid())::text
+  )
+  with check (
+    bucket_id = 'berri-profile-media'
+    and (storage.foldername(name))[1] = (select auth.uid())::text
+  );
+drop policy if exists "Users delete their own Berri profile media" on storage.objects;
+create policy "Users delete their own Berri profile media" on storage.objects
+  for delete to authenticated
+  using (
+    bucket_id = 'berri-profile-media'
+    and (storage.foldername(name))[1] = (select auth.uid())::text
+  );
 
 commit;
