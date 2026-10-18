@@ -241,6 +241,20 @@
     return null;
   }
 
+  async function handleAdminAccess(path, init) {
+    if (path !== "/api/mod/access" || (init?.method || "GET").toUpperCase() !== "GET") return null;
+    const db = await loadClient();
+    const token = new Headers(init?.headers).get("Authorization")?.replace(/^Bearer\s+/i, "");
+    const user = await getUser(db, token);
+    if (!user) return response({ riskTier: "none" }, 401);
+    const { data, error } = await db.rpc("berri_my_admin_tier");
+    if (error) {
+      console.error("Could not check Berri admin access:", error);
+      return response({ riskTier: "none", error: "Admin access is not configured in Supabase yet." }, 503);
+    }
+    return response({ riskTier: typeof data === "string" ? data : "none" });
+  }
+
   async function handleProfile(path, url, init) {
     const db = await loadClient();
     const method = (init?.method || (init?.body ? "POST" : "GET")).toUpperCase();
@@ -388,6 +402,10 @@
     if (authPaths.has(url.pathname)) {
       const authResponse = await handleAuth(url.pathname, init);
       if (authResponse) return authResponse;
+    }
+    if (url.pathname === "/api/mod/access") {
+      const accessResponse = await handleAdminAccess(url.pathname, init);
+      if (accessResponse) return accessResponse;
     }
     const path = url.pathname;
     const isProfilePath = path.startsWith("/api/users/profile/")

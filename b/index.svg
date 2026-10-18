@@ -52,7 +52,7 @@ window.__SW_FILE__="9byt8m.js",window.__swRegistration=navigator.serviceWorker?(
 /*]]>*/
 </script></main>
   
-        <script src="./assets/berri-supabase-accounts.js" integrity="sha384-r/Zy6SAKjtnkfSJ2xWAY0VU3TKs737Q28UDQCopdYhlN/okpWoWE8kbUDwrmzkK8" crossorigin="anonymous"></script>
+        <script src="./assets/berri-supabase-accounts.js" integrity="sha384-an5YalXJSQtm5TAON1AuxgaFalEx7WAuzuWB3xuC2JBaSaxjIl2PCOkasVqCYahU" crossorigin="anonymous"></script>
         <script src="./assets/bundle-berri-20261017.js"></script>
         <script src="./assets/berri-live-presence.js" integrity="sha384-16btKOM6p/30MTlyeDL4fbsP4+jP/VJyRMm0CbhRAummWMPdS+v5sAhBs2Jj6mrn" crossorigin="anonymous"></script>
         
