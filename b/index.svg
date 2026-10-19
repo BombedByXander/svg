@@ -33,8 +33,8 @@ window.__SW_FILE__="9byt8m.js",window.__swRegistration=navigator.serviceWorker?(
 
     <link rel="icon" type="image/svg+xml" href="./assets/blueberry.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>berri</title>
-    <meta name="description" content="berri" />
+    <title>vaulted</title>
+    <meta name="description" content="vaulted" />
     <script src="cfvi4/szst2w.js"></script>
     <script src="6m9rd/ybnwpk.js"></script>
     <link rel="stylesheet" crossorigin="crossorigin" href="./assets/berri-home.css" />
@@ -53,7 +53,7 @@ window.__SW_FILE__="9byt8m.js",window.__swRegistration=navigator.serviceWorker?(
 </script></main>
   
         <script src="./assets/berri-supabase-accounts.js" integrity="sha384-ynvzb2EP2JbE8Z6MMUB7C3TNm99gR2cAI57Kvkl5jZP7RZZvfdVZkSWJTxwPVFYQ" crossorigin="anonymous"></script>
-        <script src="./assets/bundle-berri-20261017-ai.js"></script>
+        <script src="./assets/bundle-vaulted-20261019.js"></script>
         <script src="./assets/berri-live-presence.js" integrity="sha384-16btKOM6p/30MTlyeDL4fbsP4+jP/VJyRMm0CbhRAummWMPdS+v5sAhBs2Jj6mrn" crossorigin="anonymous"></script>
         
       </body>

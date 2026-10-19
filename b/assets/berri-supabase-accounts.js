@@ -401,24 +401,19 @@
     const rawUrl = typeof input === "string" ? input : input?.url || String(input);
     const url = new URL(rawUrl, location.href);
     if (!url.pathname.startsWith(API_PREFIX)) return nativeFetch(input, init);
-    const authPaths = new Set(["/api/auth/register", "/api/auth/login", "/api/auth/logout", "/api/auth/me", "/api/auth/email"]);
-    if (authPaths.has(url.pathname)) {
+    if (url.pathname.startsWith("/api/auth/")) {
       const authResponse = await handleAuth(url.pathname, init);
-      if (authResponse) return authResponse;
+      return authResponse || response({ error: "Unsupported Supabase authentication route." }, 404);
     }
     if (url.pathname === "/api/mod/access") {
       const accessResponse = await handleAdminAccess(url.pathname, init);
       if (accessResponse) return accessResponse;
     }
     const path = url.pathname;
-    const isProfilePath = path.startsWith("/api/users/profile/")
-      || path === "/api/members" || path === "/api/members/brief" || path === "/api/users/list"
-      || path === "/api/users/settings" || path === "/api/users/card-gradient" || path === "/api/users/username-style"
-      || path === "/api/users/upload-pfp" || path === "/api/users/upload-banner"
-      || /^\/api\/users\/[^/]+\/roles$/.test(path);
+    const isProfilePath = path.startsWith("/api/users/") || path.startsWith("/api/members");
     if (isProfilePath) {
       const profileResponse = await handleProfile(path, url, init);
-      if (profileResponse) return profileResponse;
+      return profileResponse || response({ error: "Unsupported Supabase profile route." }, 404);
     }
     return nativeFetch(input, init);
   };
