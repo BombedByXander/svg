@@ -44,7 +44,7 @@ jobs:
           else
             files=$(git diff --name-only "$BEFORE_SHA" "$AFTER_SHA")
           fi
-          files=$(printf '%s\n' index.svg b/index.svg b/index.html b/favicon.svg b/assets/blueberry.svg b/assets/berri-home.css b/assets/bundle-berri-20261017.js "$files" | sort -u)
+          files=$(printf '%s\n' "$files" | sort -u)
           while IFS= read -r file; do
             [[ -n "$file" ]] || continue
             encoded=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe="/"))' "$file")
