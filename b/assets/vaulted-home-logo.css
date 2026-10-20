@@ -34,3 +34,5 @@
 [data-theme=amber-night]{--bg-base:#100c05;--bg-1-base:#181207;--bg-2-base:#211909;--bg-3-base:#2d220d;--bg-4-base:#3c2d10;--accent:#fbbf24;--accent-2:#c58c11;--accent-glow:#fbbf24bd;--text:#f4ead1;--text-muted:#b19d70;--bright-text:#fffaf0;--border:#f9df9a38;--border-2:#f9df9a24;--border-3:#f9df9a17;--border-4:#f9df9a0d}
 
 .home-page{overflow:hidden!important;overscroll-behavior:none}
+
+[data-theme=incognito]{--bg-base:#08090b;--bg-1-base:#101114;--bg-2-base:#17191d;--bg-3-base:#202329;--bg-4-base:#2b2f35;--accent:#c4c8d0;--accent-2:#858b95;--accent-glow:#c4c8d0bd;--text:#e3e5e9;--text-muted:#969ba4;--bright-text:#fafbfc;--border:#d8dde638;--border-2:#d8dde624;--border-3:#d8dde617;--border-4:#d8dde60d}
