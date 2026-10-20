@@ -26,3 +26,9 @@
 
 /* Keep game-source and random-game controls off the dedicated Apps page. */
 .apps-page > :first-child > div:nth-child(2) > :nth-child(n+2){display:none!important}
+
+[data-theme=rosewood]{--bg-base:#10070b;--bg-1-base:#170a10;--bg-2-base:#210e17;--bg-3-base:#2c1420;--bg-4-base:#381a29;--accent:#e8798f;--accent-2:#bd526c;--accent-glow:#e8798fbd;--text:#f0dce2;--text-muted:#ad8793;--bright-text:#fff7f9;--border:#f6bfd038;--border-2:#f6bfd024;--border-3:#f6bfd017;--border-4:#f6bfd00d}
+[data-theme=oceanic]{--bg-base:#041014;--bg-1-base:#07181e;--bg-2-base:#0a2029;--bg-3-base:#0e2a36;--bg-4-base:#153847;--accent:#38bdf8;--accent-2:#1687ba;--accent-glow:#38bdf8bd;--text:#d9edf4;--text-muted:#84a9b8;--bright-text:#f4fcff;--border:#a5e7ff38;--border-2:#a5e7ff24;--border-3:#a5e7ff17;--border-4:#a5e7ff0d}
+[data-theme=amethyst-night]{--bg-base:#0c0715;--bg-1-base:#120c1d;--bg-2-base:#191127;--bg-3-base:#211633;--bg-4-base:#2d1d45;--accent:#a78bfa;--accent-2:#7654cf;--accent-glow:#a78bfabd;--text:#e7def8;--text-muted:#a195bd;--bright-text:#fbf8ff;--border:#d2c0ff38;--border-2:#d2c0ff24;--border-3:#d2c0ff17;--border-4:#d2c0ff0d}
+[data-theme=cobalt]{--bg-base:#060b18;--bg-1-base:#0a1122;--bg-2-base:#101a30;--bg-3-base:#172440;--bg-4-base:#203255;--accent:#60a5fa;--accent-2:#3778c5;--accent-glow:#60a5fabd;--text:#dce8fa;--text-muted:#8ea6c7;--bright-text:#f7faff;--border:#b5d1ff38;--border-2:#b5d1ff24;--border-3:#b5d1ff17;--border-4:#b5d1ff0d}
+[data-theme=amber-night]{--bg-base:#100c05;--bg-1-base:#181207;--bg-2-base:#211909;--bg-3-base:#2d220d;--bg-4-base:#3c2d10;--accent:#fbbf24;--accent-2:#c58c11;--accent-glow:#fbbf24bd;--text:#f4ead1;--text-muted:#b19d70;--bright-text:#fffaf0;--border:#f9df9a38;--border-2:#f9df9a24;--border-3:#f9df9a17;--border-4:#f9df9a0d}
