@@ -22,3 +22,7 @@
 .home-page .group:has(> .home-clock){display:contents!important}
 .home-page .group:has(> .home-clock)>button{display:none!important}
 .home-page .home-logo-mark{filter:drop-shadow(0 1px 4px #fff3)!important}
+
+
+/* Keep game-source and random-game controls off the dedicated Apps page. */
+.apps-page > :first-child > div:nth-child(2) > :nth-child(n+2){display:none!important}
