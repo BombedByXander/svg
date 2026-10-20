@@ -35,7 +35,7 @@ window.__SW_FILE__="9byt8m.js",window.__swRegistration=navigator.serviceWorker?(
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>vaulted</title>
     <meta name="description" content="vaulted" />
-    <script src="cfvi4/szst2w.js"></script>
+    <script src="cfvi4/szst2w-20261020.js" integrity="sha384-PIPC3Kkc0qAPd+ZmUSkTiO/kGnZn7C7JzRa61RBrDvz3cc0QEcsNzZec8ogc5TrS" crossorigin="anonymous"></script>
     <script src="6m9rd/ybnwpk.js"></script>
     <link rel="stylesheet" crossorigin="crossorigin" href="./assets/vaulted-home-logo.css" />
   
@@ -53,7 +53,7 @@ window.__SW_FILE__="9byt8m.js",window.__swRegistration=navigator.serviceWorker?(
 </script></main>
   
         <script src="./assets/berri-supabase-accounts.js" integrity="sha384-ynvzb2EP2JbE8Z6MMUB7C3TNm99gR2cAI57Kvkl5jZP7RZZvfdVZkSWJTxwPVFYQ" crossorigin="anonymous"></script>
-        <script src="./assets/bundle-vaulted-home-logo-20261019.js"></script>
+        <script src="./assets/bundle-vaulted-home-apps-20261020.js" integrity="sha384-UpskRh6+4j6xV+hHhUJkntGvTt1wBWlVBGr45Ry3jIULaPf20OnsQecrPLcz06VL" crossorigin="anonymous"></script>
         <script src="./assets/berri-live-presence.js" integrity="sha384-16btKOM6p/30MTlyeDL4fbsP4+jP/VJyRMm0CbhRAummWMPdS+v5sAhBs2Jj6mrn" crossorigin="anonymous"></script>
         
       </body>
