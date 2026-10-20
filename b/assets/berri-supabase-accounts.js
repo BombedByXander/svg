@@ -157,7 +157,8 @@
       return;
     }
     const urls = [...new Set(local.map((item) => typeof item === "string" ? item : item?.launch).filter((value) => typeof value === "string"))].slice(0, 6);
-    if (urls.length) await db.from("favorite_games").upsert(urls.map((game_url, sort_order) => ({ user_id: user.id, game_url, sort_order })), { onConflict: "user_id,game_url" });
+    if (urls.length) { const { error: saveError } = await db.from("favorite_games").upsert(urls.map((game_url, sort_order) => ({ user_id: user.id, game_url, sort_order })), { onConflict: "user_id,game_url" }); if (saveError) return; }
+    window.dispatchEvent(new Event("berri:favorites"));
   }
 
   let favoriteSyncTimer;
