@@ -33,4 +33,7 @@ window.__VAULTED_APPS__ = [
   { id: "fmhy", name: "FMHY.net", launch: "https://fmhy.net/", img: "./assets/app-icons/fmhy.png" },
   { id: "webtoon", name: "WEBTOON", launch: "https://www.webtoons.com/", img: "./assets/app-icons/webtoon.svg" },
   { id: "gofile", name: "GoFile", launch: "https://gofile.io/", img: "./assets/app-icons/gofile.png" }
-];
+ ].map(app => ({
+  ...app,
+  img: `https://www.google.com/s2/favicons?domain=${new URL(app.launch).hostname}&sz=128`
+}));
