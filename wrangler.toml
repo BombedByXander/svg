@@ -1,7 +1,10 @@
 name = "vaulted"
 compatibility_date = "2026-10-19"
 workers_dev = true
+main = "./worker.js"
 
 [assets]
 directory = "./b"
+binding = "ASSETS"
 not_found_handling = "single-page-application"
+run_worker_first = ["/wisp/*"]

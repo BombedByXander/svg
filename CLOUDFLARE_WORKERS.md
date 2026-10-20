@@ -23,6 +23,12 @@ npx wrangler deploy
 
 Wrangler reads `wrangler.toml` and uploads `b/` as static assets. No site build step is needed.
 
+## Wisp routing
+
+The Worker handles `/wisp/*` before static assets and forwards WebSocket upgrades to MercuryWorkshop's hosted Wisp endpoint. Vaulted's proxy client connects to its Cloudflare hostname, so browsers do not connect directly to the upstream Wisp host. The same handler is available as a Pages Function in `functions/wisp/[[path]].js` for a Pages deployment serving `b/`.
+
+The upstream is a shared demo endpoint and may be throttled. See [`WISP_ROUTING.md`](WISP_ROUTING.md) for the route, origin allowlist, and client URL behavior.
+
 ## After the first deploy
 
-The app still uses external services for accounts, presence, and some proxy/API features. If any of those reject requests from the new origin, add the exact `workers.dev` origin to the relevant service's allowed origins. For Supabase Auth, add it to the project's **Authentication → URL Configuration → Redirect URLs** as well. The Worker hosts the frontend; it does not replace those services or provide a new proxy backend.
+The app still uses external services for accounts, presence, and some proxy/API features. If any of those reject requests from the new origin, add the exact `workers.dev` origin to the relevant service's allowed origins. For Supabase Auth, add it to the project's **Authentication → URL Configuration → Redirect URLs** as well. The Worker hosts the frontend and relays Wisp WebSocket connections; it does not replace Supabase or operate the Wisp server itself.
