@@ -9,3 +9,8 @@
 .home-favorites-empty{width:auto!important;max-width:calc(100vw - 36px);white-space:nowrap!important}.home-favorites-empty:hover{color:var(--bright-text)!important}@media (min-aspect-ratio:19/10){.home-hero{transform:translateY(clamp(76px,11.5vh,104px))}}
 
 .home-title{display:flex!important;align-items:center;justify-content:center;gap:.18em}.home-logo-mark{display:block;width:.72em;height:.72em;object-fit:contain;flex:none;filter:drop-shadow(0 0 12px color-mix(in srgb,var(--accent) 25%,transparent))}.home-greeting{margin-top:10px!important;font-size:.9rem!important;font-weight:600!important;background-image:linear-gradient(to bottom,var(--accent-2),color-mix(in srgb,white,var(--accent)))!important;color:transparent!important;background-clip:text!important;-webkit-background-clip:text!important;text-shadow:none!important;opacity:.94}.home-clock{top:auto!important;left:48px!important;bottom:54px!important;align-items:flex-start!important;text-align:left!important}.home-page .home-online-glass{height:auto!important;justify-content:flex-start!important;padding:0!important;text-align:left!important}.home-page .home-online-glass span{text-align:left!important}
+
+/* Keep the home view fixed to the viewport and center the hero without a wide-screen offset. */
+.home-page{overflow:hidden!important}
+.home-hero{transform:none!important}
+.home-page .home-favorites>.home-favorites-empty{width:auto!important;max-width:calc(100vw - 36px)!important;white-space:normal!important;text-align:center!important;flex:0 1 auto!important}
