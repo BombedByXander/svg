@@ -10,7 +10,7 @@ window.__VAULTED_APPS__ = [
   { id: "gmail", name: "Gmail", launch: "https://mail.google.com/", img: "./assets/app-icons/gmail.svg" },
   { id: "soundcloud", name: "SoundCloud", launch: "https://soundcloud.com/", img: "./assets/app-icons/soundcloud.svg" },
   { id: "pinterest", name: "Pinterest", launch: "https://www.pinterest.com/", img: "./assets/app-icons/pinterest.svg" },
-  { id: "geforcenow", name: "GeForce NOW", launch: "https://play.geforcenow.com/", img: "./assets/app-icons/geforcenow.svg" },
+  { id: "geforcenow", name: "GeForce NOW", launch: "https://play.geforcenow.com/", img: "./assets/app-icons/geforcenow.png" },
   { id: "telegram", name: "Telegram", launch: "https://web.telegram.org/", img: "./assets/app-icons/telegram.svg" },
   { id: "xbox-cloud", name: "Xbox Cloud Gaming", launch: "https://www.xbox.com/play", img: "./assets/app-icons/xbox-cloud.png" },
   { id: "poki", name: "Poki", launch: "https://poki.com/", img: "./assets/app-icons/poki.png" },
