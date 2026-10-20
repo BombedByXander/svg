@@ -14,3 +14,11 @@
 .home-page{overflow:hidden!important}
 .home-hero{transform:none!important}
 .home-page .home-favorites>.home-favorites-empty{width:auto!important;max-width:calc(100vw - 36px)!important;white-space:normal!important;text-align:center!important;flex:0 1 auto!important}
+
+/* Keep the home hero centered in the fixed viewport without restoring page scrolling. */
+.home-page{height:100dvh!important;overflow:hidden!important}
+.home-hero{height:100%;min-height:100%;padding:0 18px!important;justify-content:center!important;transform:none!important}
+/* The clock is pinned to the viewport; do not leave its dashboard resize controls behind. */
+.home-page .group:has(> .home-clock){display:contents!important}
+.home-page .group:has(> .home-clock)>button{display:none!important}
+.home-page .home-logo-mark{filter:drop-shadow(0 1px 4px #fff3)!important}
