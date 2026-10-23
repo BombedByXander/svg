@@ -1,6 +1,6 @@
 # Vaulted Wisp routing
 
-Vaulted's proxy now connects to its own `/wisp/` route. Cloudflare forwards the WebSocket upgrade to MercuryWorkshop's public Wisp endpoint, while the rest of the site remains static. This follows Xander's Arcade's same-origin Wisp routing pattern without running a Wisp daemon inside the static site.
+Vaulted's proxy now connects to its own `/wisp/` route. Cloudflare forwards the WebSocket upgrade to MercuryWorkshop's public Wisp endpoint, while the rest of the site remains static. The relay validates the browser Origin against known Vaulted entry points, then omits it on the upstream handshake because Mercury's shared endpoint rejects unrelated browser origins. This follows Xander's Arcade's same-origin Wisp routing pattern without running a Wisp daemon inside the static site.
 
 The Cloudflare Workers entry point is `worker.js`; `wrangler.toml` runs it first only for `/wisp/*`. For a Cloudflare Pages deployment, `functions/wisp/[[path]].js` handles the same route. The client uses the current host's `/wisp/` URL, except when loaded from jsDelivr, where it uses `vaultedd.pages.dev/wisp/`.
 

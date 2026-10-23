@@ -21,7 +21,9 @@ export async function onRequest({ request }) {
     });
   }
 
-  const headers = new Headers({ Upgrade: "websocket", Origin: origin });
+  // Validate the browser Origin above, then omit it on the upstream handshake:
+  // Mercury's shared Wisp endpoint rejects unrelated browser origins.
+  const headers = new Headers({ Upgrade: "websocket" });
   const protocol = request.headers.get("Sec-WebSocket-Protocol");
   if (protocol) headers.set("Sec-WebSocket-Protocol", protocol);
 

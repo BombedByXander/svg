@@ -28,7 +28,8 @@ export default {
 
       const headers = new Headers({ Upgrade: "websocket" });
       const protocol = request.headers.get("Sec-WebSocket-Protocol");
-      if (origin) headers.set("Origin", origin);
+      // The shared Mercury endpoint rejects browser Origin headers from
+      // unrelated sites. The request was already checked against APP_ORIGINS.
       if (protocol) headers.set("Sec-WebSocket-Protocol", protocol);
 
       // Cloudflare establishes the upstream WebSocket and passes the upgraded
