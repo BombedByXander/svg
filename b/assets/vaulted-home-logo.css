@@ -48,3 +48,11 @@
 .home-page::before{animation:home-spotlight-a var(--home-spot-a-duration,44s) ease-in-out var(--home-spot-a-delay,-17s) infinite!important;animation-play-state:running!important}
 .home-page::after{animation:home-spotlight-b var(--home-spot-b-duration,53s) ease-in-out var(--home-spot-b-delay,-29s) infinite!important;animation-play-state:running!important}
 .home-credit{font-family:inherit!important;font-weight:600!important;background-image:linear-gradient(to bottom,var(--accent-2),color-mix(in srgb,white,var(--accent)))!important;color:transparent!important;-webkit-text-fill-color:transparent!important;background-clip:text!important;-webkit-background-clip:text!important;text-shadow:0 0 18px color-mix(in srgb,var(--accent) 22%,transparent)!important;opacity:.95!important}
+
+
+/* RGB Gamer: graphite surfaces with restrained animated RGB edge lighting. */
+[data-theme=rgb-gamer]{--bg-base:#070910;--bg-1-base:#0c1019;--bg-2-base:#121a27;--bg-3-base:#1b2638;--bg-4-base:#263249;--accent:#55dcff;--accent-2:#9b6cff;--accent-glow:#55dcffbd;--text:#edf4ff;--text-muted:#9aa8c1;--bright-text:#fbfdff;--border:#8ca7d033;--border-2:#8ca7d026;--border-3:#8ca7d01a;--border-4:#8ca7d010;--rgb-gamer-spectrum:linear-gradient(105deg,#ff536b 0%,#ffad4d 17%,#e6df58 32%,#55df8a 48%,#45d7f5 63%,#6c91ff 78%,#bd69ff 91%,#ff536b 100%);background-color:#070910}
+[data-theme=rgb-gamer] :is(button[aria-pressed=true],[role=tab][aria-selected=true],[data-state=active],[aria-current=page]){border:1px solid transparent!important;background-image:linear-gradient(145deg,#141c2a,#0d121d),var(--rgb-gamer-spectrum)!important;background-origin:border-box!important;background-clip:padding-box,border-box!important;background-size:100% 100%,260% 100%!important;box-shadow:0 0 18px #42c9ff1f,0 0 24px #ad5bff14,inset 0 1px #ffffff0f!important;animation:rgb-gamer-edge-flow 10s linear infinite}
+[data-theme=rgb-gamer] :is(button,a,[role=button]):focus-visible{outline:2px solid #55dcff!important;outline-offset:3px;box-shadow:0 0 0 6px #55dcff1f,0 0 22px #9b6cff29!important}
+@keyframes rgb-gamer-edge-flow{from{background-position:0 0,100% 0}to{background-position:0 0,0 0}}
+@media(prefers-reduced-motion:reduce){[data-theme=rgb-gamer] :is(button[aria-pressed=true],[role=tab][aria-selected=true],[data-state=active],[aria-current=page]){animation:none!important}}
