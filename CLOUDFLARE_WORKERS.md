@@ -25,9 +25,9 @@ Wrangler reads `wrangler.toml` and uploads `b/` as static assets. No site build 
 
 ## Wisp routing
 
-The Worker handles `/wisp/*` before static assets and forwards WebSocket upgrades to MercuryWorkshop's hosted Wisp endpoint. It validates the browser Origin against Vaulted's known entry points, then omits that header on the upstream handshake because Mercury's shared endpoint rejects unrelated browser origins. Vaulted's proxy client connects to its Cloudflare hostname, so browsers do not connect directly to the upstream Wisp host. The same handler is available as a Pages Function in `functions/wisp/[[path]].js` for a Pages deployment serving `b/`.
+The Worker handles `/wisp/*` before static assets and forwards WebSocket upgrades to Xander's Arcade's working Wisp endpoint at `lunaar.org/wisp/`. It validates the browser Origin against Vaulted's known entry points, then forwards the allowed Origin upstream. Vaulted's proxy client connects to its Cloudflare hostname, so browsers do not connect directly to the upstream Wisp host. The same handler is available as a Pages Function in `functions/wisp/[[path]].js` for a Pages deployment serving `b/`.
 
-The upstream is a shared demo endpoint and may be throttled. See [`WISP_ROUTING.md`](WISP_ROUTING.md) for the route, origin allowlist, and client URL behavior.
+See [`WISP_ROUTING.md`](WISP_ROUTING.md) for the route, origin allowlist, and client URL behavior.
 
 ## After the first deploy
 

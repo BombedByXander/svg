@@ -1,4 +1,4 @@
-const WISP_UPSTREAM = "https://wisp.mercurywork.shop/";
+const WISP_UPSTREAM = "https://lunaar.org/wisp/";
 const APP_ORIGINS = new Set([
   "https://vaultedd.pages.dev",
   "https://vaulted.xjc-notgalaxy.workers.dev",
@@ -21,9 +21,9 @@ export async function onRequest({ request }) {
     });
   }
 
-  // Validate the browser Origin above, then omit it on the upstream handshake:
-  // Mercury's shared Wisp endpoint rejects unrelated browser origins.
-  const headers = new Headers({ Upgrade: "websocket" });
+  // This is the same Wisp endpoint used by Xander's Arcade. It accepts
+  // Vaulted's allowed origins, so preserve the validated browser Origin.
+  const headers = new Headers({ Upgrade: "websocket", Origin: origin });
   const protocol = request.headers.get("Sec-WebSocket-Protocol");
   if (protocol) headers.set("Sec-WebSocket-Protocol", protocol);
 
