@@ -56,3 +56,52 @@
 [data-theme=rgb-gamer] :is(button,a,[role=button]):focus-visible{outline:2px solid #55dcff!important;outline-offset:3px;box-shadow:0 0 0 6px #55dcff1f,0 0 22px #9b6cff29!important}
 @keyframes rgb-gamer-edge-flow{from{background-position:0 0,100% 0}to{background-position:0 0,0 0}}
 @media(prefers-reduced-motion:reduce){[data-theme=rgb-gamer] :is(button[aria-pressed=true],[role=tab][aria-selected=true],[data-state=active],[aria-current=page]){animation:none!important}}
+
+
+/* Heaven — pearl, blue hour, and warm celestial light. */
+[data-theme=heaven]{
+ color-scheme:light;
+ --bg-base:#f4f5fa;--bg-1-base:#faf9fd;--bg-2-base:#ffffff;--bg-3-base:#e9edf7;--bg-4-base:#dce3f1;
+ --accent:#9eb9e9;--accent-2:#526fa8;--accent-glow:#b1bceb66;
+ --text:#303d56;--text-muted:#606d84;--bright-text:#17253e;
+ --border:#7184a84d;--border-2:#7184a838;--border-3:#7184a826;--border-4:#7184a820;
+ background-color:var(--bg-base);
+}
+[data-theme=heaven] ::selection{background:#c6d6f4;color:#17253e}
+[data-theme=heaven] .home-page{background-color:#f5f6fb!important}
+[data-theme=heaven] .home-hero{background:radial-gradient(ellipse at 50% 42%,#ffffffa6 0%,#ffffff00 58%)}
+[data-theme=heaven] .home-page::before{
+ background:radial-gradient(ellipse at center,#a9c8f2a6 0%,#c7b8ed80 36%,#d4ddf200 72%);
+ opacity:.65;filter:blur(70px);width:clamp(320px,48vw,760px);height:clamp(320px,48vw,760px);
+}
+[data-theme=heaven] .home-page::after{
+ background:radial-gradient(ellipse at center,#f2dcaab3 0%,#ecd9ef80 38%,#f5e5cf00 72%);
+ opacity:.6;filter:blur(80px);width:clamp(300px,44vw,700px);height:clamp(300px,44vw,700px);
+}
+[data-theme=heaven] :is(.home-title,.home-greeting,.home-credit){
+ background-image:linear-gradient(115deg,#3f5f96 12%,#716393 48%,#8b693c 76%,#3f5f96 100%)!important;
+ background-size:200% 100%!important;background-clip:text!important;-webkit-background-clip:text!important;
+ color:transparent!important;-webkit-text-fill-color:transparent!important;
+ text-shadow:none!important;filter:none!important;
+}
+[data-theme=heaven] .home-title{animation:heaven-light 24s ease-in-out infinite}
+[data-theme=heaven] .home-page .home-logo-mark{filter:brightness(0) saturate(100%) invert(35%) sepia(18%) saturate(1161%) hue-rotate(179deg) brightness(96%) contrast(88%)!important}
+[data-theme=heaven] .home-search{
+ background:linear-gradient(130deg,#ffffffed,#ffffffa8)!important;
+ border:1px solid #ffffff!important;border-bottom-color:#a4b5d14d!important;
+ box-shadow:0 14px 44px #647caa12,0 3px 8px #647caa0b,inset 0 1px #fff!important;
+ backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+ transition:box-shadow .25s ease,border-color .25s ease;
+}
+[data-theme=heaven] .home-search:focus-within{border-color:#7898c9!important;box-shadow:0 0 0 4px #9eb9e926,0 18px 48px #647caa1a!important}
+[data-theme=heaven] .home-favorites>button>div{border:1px solid #ffffffb3;box-shadow:0 6px 20px #647caa14}
+[data-theme=heaven] :is(button,a,[role=button],input,textarea,select):focus-visible{outline:2px solid #526fa8!important;outline-offset:3px}
+[data-theme=heaven] :is(button[aria-pressed=true],[role=tab][aria-selected=true],[aria-current=page]){
+ background:linear-gradient(135deg,#e1eafa,#ebe5f4)!important;color:#263d63!important;
+ border-color:#a6b8d6!important;box-shadow:inset 0 1px #ffffffc9,0 3px 12px #647caa0d;
+}
+[data-theme=heaven] .home-clock-time{color:#303d56!important;text-shadow:0 2px 12px #ffffffb3!important}
+@keyframes heaven-light{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@media(prefers-reduced-motion:reduce){
+ [data-theme=heaven] .home-title,[data-theme=heaven] .home-page::before,[data-theme=heaven] .home-page::after{animation:none!important;will-change:auto}
+}
