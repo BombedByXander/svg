@@ -106,32 +106,35 @@
  [data-theme=heaven] .home-title,[data-theme=heaven] .home-page::before,[data-theme=heaven] .home-page::after{animation:none!important;will-change:auto}
 }
 
+.heaven-atmosphere{display:none}
+[data-theme=heaven] .heaven-atmosphere{display:block;position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+[data-theme=heaven] .home-hero>:not(.heaven-atmosphere){z-index:1}
 /* Heaven: sunlight fans from above through the midnight atmosphere. */
-[data-theme=heaven] .home-hero::before,
-[data-theme=heaven] .home-hero::after{
- content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+[data-theme=heaven] .heaven-atmosphere::before,
+[data-theme=heaven] .heaven-atmosphere::after{
+ content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
 }
-[data-theme=heaven] .home-hero::before{
- background-image:conic-gradient(from 0deg at 50% -12%,
- transparent 0deg 131deg,#fff2cf08 134deg,#ffe9b82e 138deg,#fff4db06 142deg,
- transparent 146deg 152deg,#fff5dd38 155deg,#ffe7b817 159deg,transparent 163deg,
- #fff4d509 168deg,#fff5dd45 171deg,#fff1cc12 175deg,transparent 179deg,
- #fff6df2e 183deg,#ffe7b80d 187deg,transparent 191deg 197deg,
- #fff6df33 201deg,#ebd8af0a 206deg,transparent 211deg,
- #fff0ce21 218deg,transparent 225deg 360deg);
+[data-theme=heaven] .heaven-atmosphere::before{
+ background-image:conic-gradient(from 0deg at 50% -4%,
+ transparent 0deg 131deg,#fff2cf20 134deg,#ffe9b873 138deg,#fff4db18 142deg,
+ transparent 146deg 152deg,#fff5dd80 155deg,#ffe7b838 159deg,transparent 163deg,
+ #fff4d520 168deg,#fff5dd99 171deg,#fff1cc33 175deg,transparent 179deg,
+ #fff6df73 183deg,#ffe7b828 187deg,transparent 191deg 197deg,
+ #fff6df80 201deg,#ebd8af20 206deg,transparent 211deg,
+ #fff0ce66 218deg,transparent 225deg 360deg);
  background-size:110% 100%;background-position:50% 0;
- mask-image:linear-gradient(to bottom,#000 0%,#000 28%,#0009 60%,transparent 96%);
- -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 28%,#0009 60%,transparent 96%);
+ mask-image:linear-gradient(to bottom,#000 0%,#000 38%,#000b 70%,transparent 100%);
+ -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 38%,#000b 70%,transparent 100%);
  opacity:.82;animation:heaven-sunbeams 26s ease-in-out infinite;
 }
-[data-theme=heaven] .home-hero::after{
- background:radial-gradient(ellipse 15% 9% at 50% 0%,#fff6dc66,transparent 100%),
- radial-gradient(ellipse 42% 28% at 50% -3%,#e2cfa52b,transparent 76%),
+[data-theme=heaven] .heaven-atmosphere::after{
+ background:radial-gradient(ellipse 15% 9% at 50% 0%,#fff6dc99,transparent 100%),
+ radial-gradient(ellipse 42% 28% at 50% -3%,#e2cfa547,transparent 76%),
  radial-gradient(ellipse 65% 38% at 50% 8%,#abbce80c,transparent 85%);
  opacity:.8;animation:heaven-halo 18s ease-in-out infinite;
 }
 @keyframes heaven-sunbeams{0%,100%{background-position:38% 0;opacity:.72}50%{background-position:62% 0;opacity:.95}}
 @keyframes heaven-halo{0%,100%{opacity:.65}50%{opacity:.95}}
 @media(prefers-reduced-motion:reduce){
- [data-theme=heaven] .home-hero::before,[data-theme=heaven] .home-hero::after{animation:none!important}
+ [data-theme=heaven] .heaven-atmosphere::before,[data-theme=heaven] .heaven-atmosphere::after{animation:none!important}
 }
