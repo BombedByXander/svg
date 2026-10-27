@@ -19,7 +19,7 @@ export default {
 
       // Accept known Vaulted entry points. Browser scripts cannot forge Origin.
       const origin = request.headers.get("Origin");
-      if (!APP_ORIGINS.has(origin)) {
+      if (origin !== new URL(request.url).origin && !APP_ORIGINS.has(origin)) {
         return new Response("Forbidden", {
           status: 403,
           headers: { "Cache-Control": "no-store" },
@@ -36,7 +36,14 @@ export default {
       // Cloudflare establishes the upstream WebSocket and passes the upgraded
       // response back to the browser. The Wisp data stays end-to-end framed.
       try {
-        return await fetch(WISP_UPSTREAM, { method: "GET", headers });
+        const response = await fetch(WISP_UPSTREAM, { method: "GET", headers });
+        if (response.status !== 101 || !response.webSocket) {
+          return new Response("Wisp upstream refused the WebSocket upgrade", {
+            status: 502,
+            headers: { "Cache-Control": "no-store" },
+          });
+        }
+        return response;
       } catch {
         return new Response("Wisp upstream is unavailable", {
           status: 502,
