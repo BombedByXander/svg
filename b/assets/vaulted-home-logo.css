@@ -151,3 +151,14 @@
 .vaulted-card-action[aria-busy=true] svg{animation:vaulted-download-pulse .8s ease-in-out infinite alternate}
 @keyframes vaulted-download-pulse{to{opacity:.35;transform:translateY(2px)}}
 @media(prefers-reduced-motion:reduce){.vaulted-card-action[aria-busy=true] svg{animation:none}}
+
+/* Sky: soft blue accents against deep blue-gray surfaces. */
+[data-theme=sky]{
+ color-scheme:dark;
+ --bg-base:#0b111b;--bg-1-base:#111b29;--bg-2-base:#192638;--bg-3-base:#23354a;--bg-4-base:#30445d;
+ --accent:#9CC0EA;--accent-2:#c5dcf5;--accent-glow:#9cc0ea40;
+ --text:#cadcf0;--text-muted:#8ea6c0;--bright-text:#eef6ff;
+ --border:#9cc0ea38;--border-2:#9cc0ea29;--border-3:#9cc0ea1c;--border-4:#9cc0ea14;
+ background-color:var(--bg-base);
+}
+[data-theme=sky] ::selection{background:#9CC0EA;color:#0b111b}
