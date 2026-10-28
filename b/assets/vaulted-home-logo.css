@@ -162,3 +162,11 @@
  background-color:var(--bg-base);
 }
 [data-theme=sky] ::selection{background:#9CC0EA;color:#0b111b}
+
+.vaulted-cloak-preview{margin-top:20px;padding-top:18px;border-top:1px solid var(--border)}
+.vaulted-cloak-preview-tab{display:flex;align-items:center;gap:10px;max-width:360px;padding:12px 16px;border-radius:12px 12px 0 0;background:var(--bg-3);color:var(--bright-text);font-size:13px}
+.vaulted-cloak-preview-tab img{flex:none;width:18px;height:18px;object-fit:contain}
+.vaulted-cloak-preview-tab span:nth-child(2){flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vaulted-cloak-confirm-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:16px;flex-wrap:wrap}
+.vaulted-cloak-confirm-row p{margin:0}
+.vaulted-cloak-confirm-row button:disabled{opacity:.5;cursor:default}
