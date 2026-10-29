@@ -320,3 +320,4 @@
 @media(prefers-reduced-motion:reduce){.vaulted-topnav{scale:1!important;transition:none!important}.vaulted-topnav[data-hover=true]{padding:8.5px 12.5px!important}.vaulted-topnav .vaulted-nav-item>button{transform:none!important;transition:none!important}}
 
 @media(max-width:700px){.vaulted-topnav[data-hover=true]{padding:7.5px 8.5px!important}}
+@media(max-width:700px){.vaulted-topnav,.vaulted-topnav[data-hover=true]{padding:7.5px 8.5px!important}}
