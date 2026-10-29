@@ -194,3 +194,22 @@
 
 /* Resolve percentage height against the Home viewport without asymmetric padding. */
 .home-page .home-hero{min-height:100dvh!important;flex-shrink:0}
+
+/* Floating icon navigation, shared across all pages and themes. */
+.vaulted-topnav-shell{flex-direction:column!important}
+.vaulted-topnav-shell>.flex.flex-col.flex-1{min-height:0}
+.vaulted-topnav{display:flex;align-items:center;align-self:center;flex:none;gap:10px;width:max-content;max-width:calc(100% - 32px);margin:12px auto;padding:6px 10px;border:1px solid var(--border-3);border-radius:24px;background:color-mix(in srgb,var(--bg-1-base) 86%,transparent);box-shadow:0 8px 28px #00000018,inset 0 1px 0 color-mix(in srgb,var(--bright-text) 4%,transparent);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);overflow-x:auto;scrollbar-width:none;position:relative;z-index:40}
+.vaulted-topnav::-webkit-scrollbar{display:none}
+.vaulted-topnav>div:first-child,.vaulted-topnav>div:last-child{display:flex!important;flex-direction:row!important;flex:none!important;align-items:center;gap:4px}
+.vaulted-topnav>div:nth-child(2){display:block!important;width:1px;height:26px;border:0;background:var(--border-3);margin:0 3px;flex:none}
+.vaulted-topnav .vaulted-nav-item{width:auto!important;padding:0!important;flex:none}
+.vaulted-topnav .vaulted-nav-item>button{display:flex;align-items:center;justify-content:center;width:40px!important;height:40px!important;padding:0!important;border-radius:14px!important;gap:0;transition:background .18s,color .18s,transform .18s}
+.vaulted-topnav .vaulted-nav-item>button>span{display:none}
+.vaulted-topnav .vaulted-nav-item>button>svg{width:20px;height:20px;stroke-width:1.8}
+.vaulted-topnav .vaulted-nav-item>button:hover{background:var(--bg-3);color:var(--bright-text);transform:translateY(-1px)}
+.vaulted-topnav .vaulted-nav-item>button[aria-current=page]{background:color-mix(in srgb,var(--accent) 18%,var(--bg-1-base));color:var(--accent)}
+.vaulted-topnav .vaulted-nav-item>button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.vaulted-nav-brand{width:26px;height:26px;object-fit:contain}
+.vaulted-topnav .vaulted-nav-item>button>img:not(.vaulted-nav-brand){width:25px;height:25px;border-radius:50%}
+@media(max-width:700px){.vaulted-topnav{max-width:calc(100% - 16px);margin:8px auto;padding:5px 6px;gap:6px;border-radius:20px}.vaulted-topnav .vaulted-nav-item>button{width:36px!important;height:36px!important}.vaulted-topnav>div:first-child,.vaulted-topnav>div:last-child{gap:2px}}
+@media(prefers-reduced-motion:reduce){.vaulted-topnav .vaulted-nav-item>button{transition:none;transform:none!important}}
