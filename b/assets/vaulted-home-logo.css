@@ -229,3 +229,7 @@
 @media(max-width:700px){.vaulted-topnav-shell[data-home=true]>.vaulted-topnav{top:8px}.home-page .home-hero{padding:88px 20px!important}}
 @media(max-height:550px){.home-page .home-hero{justify-content:flex-start!important;padding-top:88px!important}}
 @media(prefers-reduced-motion:reduce){.vaulted-topnav .vaulted-nav-item>button{transition:none!important;transform:none!important}}
+
+/* Separate the brand/home button from the page links. */
+.vaulted-topnav>div:first-child>.vaulted-nav-item:first-child{margin-right:10px;padding-right:12px!important}
+.vaulted-topnav>div:first-child>.vaulted-nav-item:first-child::after{content:"";position:absolute;right:0;top:8px;bottom:8px;width:1px;background:var(--border-3);pointer-events:none}
