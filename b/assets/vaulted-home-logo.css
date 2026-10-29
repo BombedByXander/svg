@@ -240,11 +240,11 @@
 .vaulted-topnav::before{content:"";position:absolute;left:0;top:0;width:var(--nav-hover-w,40px);height:var(--nav-hover-h,40px);transform:translate(var(--nav-hover-x,0px),var(--nav-hover-y,0px));border-radius:14px;background:color-mix(in srgb,var(--accent) 13%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 8%,transparent);pointer-events:none;z-index:0;opacity:0;transition:transform .25s cubic-bezier(.22,1,.36,1),width .25s ease,height .25s ease,opacity .18s ease}
 .vaulted-topnav[data-highlight=true]::before{opacity:1}
 .vaulted-topnav>div{position:relative;z-index:1}
-.vaulted-topnav .vaulted-nav-item>button:hover{background:transparent;transform:none;color:var(--bright-text)}
+.vaulted-topnav .vaulted-nav-item>button{transform:translate3d(var(--nav-warp-x,0px),var(--nav-warp-y,0px),0) scale(var(--nav-warp-scale,1)) skew(var(--nav-warp-skew-y,0deg),var(--nav-warp-skew-x,0deg));transform-origin:center;will-change:transform;transition:transform .16s cubic-bezier(.2,.8,.2,1),background .18s,color .18s}.vaulted-topnav .vaulted-nav-item>button:hover{background:transparent;color:var(--bright-text)}
 .vaulted-topnav .vaulted-nav-item>button[aria-current=page]:hover{background:color-mix(in srgb,var(--accent) 18%,var(--bg-1-base));color:var(--accent)}
 .vaulted-topnav .vaulted-nav-item>button>svg,.vaulted-topnav .vaulted-nav-item>button>img{transition:transform .25s cubic-bezier(.22,1,.36,1)}
 .vaulted-topnav .vaulted-nav-item>button:hover>svg,.vaulted-topnav .vaulted-nav-item>button:hover>img{transform:scale(1.1)}
-@media(prefers-reduced-motion:reduce){.vaulted-topnav{translate:none!important;scale:1!important;transition:none!important}.vaulted-topnav::before,.vaulted-topnav .vaulted-nav-item>button>svg,.vaulted-topnav .vaulted-nav-item>button>img{transition:none!important;transform:none}.vaulted-topnav::before{transform:translate(var(--nav-hover-x,0px),var(--nav-hover-y,0px))}}
+@media(prefers-reduced-motion:reduce){.vaulted-topnav{translate:none!important;scale:1!important;transition:none!important}.vaulted-topnav .vaulted-nav-item>button{transform:none!important;transition:none!important;will-change:auto}.vaulted-topnav::before,.vaulted-topnav .vaulted-nav-item>button>svg,.vaulted-topnav .vaulted-nav-item>button>img{transition:none!important;transform:none}.vaulted-topnav::before{transform:translate(var(--nav-hover-x,0px),var(--nav-hover-y,0px))}}
 
 /* Keep the favorite shortcut tile footprint, but show only artwork and title. */
 .home-page .home-favorites{width:min(100%,720px);gap:12px!important;align-items:stretch}
