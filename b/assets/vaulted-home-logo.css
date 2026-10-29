@@ -321,3 +321,13 @@
 
 @media(max-width:700px){.vaulted-topnav[data-hover=true]{padding:7.5px 8.5px!important}}
 @media(max-width:700px){.vaulted-topnav,.vaulted-topnav[data-hover=true]{padding:7.5px 8.5px!important}}
+
+/* Give the floating dock more horizontal breathing room without changing its height. */
+.vaulted-topnav{column-gap:18px!important;padding-left:20px!important;padding-right:20px!important}
+.vaulted-topnav>div:first-child,.vaulted-topnav>div:last-child{gap:6px!important}
+.vaulted-topnav[data-hover=true]{padding-left:20px!important;padding-right:20px!important}
+@media(max-width:700px){
+  .vaulted-topnav{column-gap:7px!important;padding-left:12px!important;padding-right:12px!important}
+  .vaulted-topnav>div:first-child,.vaulted-topnav>div:last-child{gap:3px!important}
+  .vaulted-topnav[data-hover=true]{padding-left:12px!important;padding-right:12px!important}
+}
