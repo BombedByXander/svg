@@ -335,7 +335,8 @@
 
 /* Collapse the navigation dock while browsing a content tab; the exposed edge remains a hover target. */
 .vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav{position:fixed!important;top:0;left:50%;margin:0!important;transform:translateX(-50%) translateY(calc(-100% + 15px));z-index:80;transition:transform .38s cubic-bezier(.22,1,.36,1),translate .32s cubic-bezier(.22,1,.36,1),padding .25s cubic-bezier(.22,1,.36,1),box-shadow .3s ease}
-.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:hover,.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:focus-within{transform:translateX(-50%) translateY(0)}
-.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:not(:hover):not(:focus-within)::before{left:50%;top:auto;bottom:4px;width:24px;height:3px;border-radius:99px;transform:translateX(-50%);background:var(--accent);opacity:.9;box-shadow:0 0 12px color-mix(in srgb,var(--accent) 55%,transparent)}
-@media(hover:none){.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav{transform:translateX(-50%) translateY(0)}}
-@media(prefers-reduced-motion:reduce){.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav{transition:none!important;transform:translateX(-50%) translateY(0)}}
+.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:hover,.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:has(:focus-visible),.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav[data-tap-open=true]{transform:translateX(-50%) translateY(0)}
+.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:not(:hover):not(:has(:focus-visible)):not([data-tap-open=true])::before{left:50%;top:auto;bottom:4px;width:24px;height:3px;border-radius:99px;transform:translateX(-50%);background:var(--accent);opacity:.9;box-shadow:0 0 12px color-mix(in srgb,var(--accent) 55%,transparent)}
+.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:not(:hover):not(:has(:focus-visible)):not([data-tap-open=true])>div{pointer-events:none}
+.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:hover>div,.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:has(:focus-visible)>div,.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav[data-tap-open=true]>div{pointer-events:auto}
+@media(prefers-reduced-motion:reduce){.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav{transition:none!important}}
