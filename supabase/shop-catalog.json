@@ -1,0 +1,749 @@
+[
+  {
+    "id": "avatar_decoration-airforce",
+    "kind": "avatar_decoration",
+    "name": "Air Force",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "airforce.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-angelwings",
+    "kind": "avatar_decoration",
+    "name": "Angel Wings",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "angelwings.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-aurora",
+    "kind": "avatar_decoration",
+    "name": "Aurora",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "aurora.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-catearsblack",
+    "kind": "avatar_decoration",
+    "name": "Black Cat Ears",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "catearsblack.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-chomp",
+    "kind": "avatar_decoration",
+    "name": "Chomp",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "chomp.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-cloudnine",
+    "kind": "avatar_decoration",
+    "name": "Cloud Nine",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "cloudnine.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-cometsdusk",
+    "kind": "avatar_decoration",
+    "name": "Comet at Dusk",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "cometsdusk.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-deepseadreams",
+    "kind": "avatar_decoration",
+    "name": "Deep Sea Dreams",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "deepseadreams.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-dragon",
+    "kind": "avatar_decoration",
+    "name": "Dragon",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "dragon.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-fallfoliage",
+    "kind": "avatar_decoration",
+    "name": "Fall Foliage",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "fallfoliage.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-flames",
+    "kind": "avatar_decoration",
+    "name": "Flames",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "flames.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-foxtail",
+    "kind": "avatar_decoration",
+    "name": "Fox Tail",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "foxtail.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-hallelujamountains",
+    "kind": "avatar_decoration",
+    "name": "Hallelujah Mountains",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "hallelujamountains.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-japanesemaple",
+    "kind": "avatar_decoration",
+    "name": "Japanese Maple",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "japanesemaple.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-leafloaf",
+    "kind": "avatar_decoration",
+    "name": "Leaf Loaf",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "leafloaf.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-loading",
+    "kind": "avatar_decoration",
+    "name": "Loading",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "loading.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-lonewolf",
+    "kind": "avatar_decoration",
+    "name": "Lone Wolf",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "lonewolf.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-moon",
+    "kind": "avatar_decoration",
+    "name": "Moon",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "moon.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-orbital",
+    "kind": "avatar_decoration",
+    "name": "Orbital",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "orbital.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-petals",
+    "kind": "avatar_decoration",
+    "name": "Petals",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "petals.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-purplering",
+    "kind": "avatar_decoration",
+    "name": "Purple Ring",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "purplering.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-purplesparkles",
+    "kind": "avatar_decoration",
+    "name": "Purple Sparkles",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "purplesparkles.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-ritualcircle",
+    "kind": "avatar_decoration",
+    "name": "Ritual Circle",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "ritualcircle.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-sakuraink",
+    "kind": "avatar_decoration",
+    "name": "Sakura Ink",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "sakuraink.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-skillissue",
+    "kind": "avatar_decoration",
+    "name": "Skill Issue",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "skillissue.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-spacetravel",
+    "kind": "avatar_decoration",
+    "name": "Space Travel",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "spacetravel.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-spirits",
+    "kind": "avatar_decoration",
+    "name": "Spirits",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "spirits.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-surprised",
+    "kind": "avatar_decoration",
+    "name": "Surprised",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "surprised.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-sweatdrops",
+    "kind": "avatar_decoration",
+    "name": "Sweat Drops",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "sweatdrops.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-sweetdreams",
+    "kind": "avatar_decoration",
+    "name": "Sweet Dreams",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "sweetdreams.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-swirl",
+    "kind": "avatar_decoration",
+    "name": "Swirl",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "swirl.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-whiteroses",
+    "kind": "avatar_decoration",
+    "name": "White Roses",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "whiteroses.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-witchinghour",
+    "kind": "avatar_decoration",
+    "name": "Witching Hour",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "witchinghour.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-witchinghour2",
+    "kind": "avatar_decoration",
+    "name": "Witching Hour II",
+    "description": "Animated avatar border",
+    "price": 150,
+    "payload": {
+      "asset": "witchinghour2.png"
+    }
+  },
+  {
+    "id": "profile_effect-alwayswatching",
+    "kind": "profile_effect",
+    "name": "Always Watching",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "alwayswatching.png"
+    }
+  },
+  {
+    "id": "profile_effect-bonsaieternity",
+    "kind": "profile_effect",
+    "name": "Bonsai Eternity",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "bonsaieternity.png"
+    }
+  },
+  {
+    "id": "profile_effect-candlelight",
+    "kind": "profile_effect",
+    "name": "Candlelight",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "candlelight.png"
+    }
+  },
+  {
+    "id": "profile_effect-celestial",
+    "kind": "profile_effect",
+    "name": "Celestial",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "celestial.png"
+    }
+  },
+  {
+    "id": "profile_effect-comet",
+    "kind": "profile_effect",
+    "name": "Comet",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "comet.png"
+    }
+  },
+  {
+    "id": "profile_effect-doves",
+    "kind": "profile_effect",
+    "name": "Doves",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "doves.png"
+    }
+  },
+  {
+    "id": "profile_effect-duck",
+    "kind": "profile_effect",
+    "name": "Duck",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "duck.png"
+    }
+  },
+  {
+    "id": "profile_effect-fallfoliage",
+    "kind": "profile_effect",
+    "name": "Fall Foliage",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "fallfoliage.png"
+    }
+  },
+  {
+    "id": "profile_effect-fog",
+    "kind": "profile_effect",
+    "name": "Fog",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "fog.png"
+    }
+  },
+  {
+    "id": "profile_effect-glitch",
+    "kind": "profile_effect",
+    "name": "Glitch",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "glitch.png"
+    }
+  },
+  {
+    "id": "profile_effect-greengoo",
+    "kind": "profile_effect",
+    "name": "Green Goo",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "greengoo.png"
+    }
+  },
+  {
+    "id": "profile_effect-hallelujamountains",
+    "kind": "profile_effect",
+    "name": "Hallelujah Mountains",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "hallelujamountains.png"
+    }
+  },
+  {
+    "id": "profile_effect-hellokitty",
+    "kind": "profile_effect",
+    "name": "Hello Kitty",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "hellokitty.png"
+    }
+  },
+  {
+    "id": "profile_effect-leaves",
+    "kind": "profile_effect",
+    "name": "Leaves",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "leaves.png"
+    }
+  },
+  {
+    "id": "profile_effect-lonewolf",
+    "kind": "profile_effect",
+    "name": "Lone Wolf",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "lonewolf.png"
+    }
+  },
+  {
+    "id": "profile_effect-mists",
+    "kind": "profile_effect",
+    "name": "Mists",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "mists.png"
+    }
+  },
+  {
+    "id": "profile_effect-pinkflowers",
+    "kind": "profile_effect",
+    "name": "Pink Flowers",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "pinkflowers.png"
+    }
+  },
+  {
+    "id": "profile_effect-purplemists",
+    "kind": "profile_effect",
+    "name": "Purple Mists",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "purplemists.png"
+    }
+  },
+  {
+    "id": "profile_effect-samurai",
+    "kind": "profile_effect",
+    "name": "Samurai",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "samurai.png"
+    }
+  },
+  {
+    "id": "profile_effect-starstruck",
+    "kind": "profile_effect",
+    "name": "Starstruck",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "starstruck.png"
+    }
+  },
+  {
+    "id": "profile_effect-unlimitedvoid",
+    "kind": "profile_effect",
+    "name": "Unlimited Void",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "unlimitedvoid.png"
+    }
+  },
+  {
+    "id": "profile_effect-whiteroses",
+    "kind": "profile_effect",
+    "name": "White Roses",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "whiteroses.png"
+    }
+  },
+  {
+    "id": "profile_effect-witchinghour",
+    "kind": "profile_effect",
+    "name": "Witching Hour",
+    "description": "Animated profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "witchinghour.png"
+    }
+  },
+  {
+    "id": "username-sky",
+    "kind": "username_color",
+    "name": "Sky",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "color": "#9CC0EA"
+    }
+  },
+  {
+    "id": "username-rosewood",
+    "kind": "username_color",
+    "name": "Rosewood",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "color": "#e8798f"
+    }
+  },
+  {
+    "id": "username-mint",
+    "kind": "username_color",
+    "name": "Mint",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "color": "#86efac"
+    }
+  },
+  {
+    "id": "username-gold",
+    "kind": "username_color",
+    "name": "Gold",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "color": "#fbbf24"
+    }
+  },
+  {
+    "id": "username-lilac",
+    "kind": "username_color",
+    "name": "Lilac",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "color": "#c4b5fd"
+    }
+  },
+  {
+    "id": "username-ocean",
+    "kind": "username_color",
+    "name": "Ocean",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "gradient": [
+        "#38bdf8",
+        "#a5f3fc"
+      ]
+    }
+  },
+  {
+    "id": "username-sunset",
+    "kind": "username_color",
+    "name": "Sunset",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "gradient": [
+        "#fb7185",
+        "#fbbf24"
+      ]
+    }
+  },
+  {
+    "id": "username-aurora",
+    "kind": "username_color",
+    "name": "Aurora",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "gradient": [
+        "#a78bfa",
+        "#5eead4"
+      ]
+    }
+  },
+  {
+    "id": "username-neon-blue",
+    "kind": "username_color",
+    "name": "Neon Blue",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "color": "#67e8f9",
+      "glow": "#0891b2"
+    }
+  },
+  {
+    "id": "username-neon-pink",
+    "kind": "username_color",
+    "name": "Neon Pink",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "color": "#f9a8d4",
+      "glow": "#db2777"
+    }
+  },
+  {
+    "id": "username-monospace",
+    "kind": "username_color",
+    "name": "Monospace",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "font": "Roboto Mono",
+      "color": "#d4d4d8"
+    }
+  },
+  {
+    "id": "username-arcade",
+    "kind": "username_color",
+    "name": "Arcade",
+    "description": "Username style",
+    "price": 75,
+    "payload": {
+      "font": "Press Start 2P",
+      "color": "#86efac"
+    }
+  },
+  {
+    "id": "tag-gamer",
+    "kind": "name_tag",
+    "name": "Gamer",
+    "description": "Cosmetic name tag",
+    "price": 50,
+    "payload": {
+      "text": "Gamer",
+      "color": "#4f46e5"
+    }
+  },
+  {
+    "id": "tag-night-owl",
+    "kind": "name_tag",
+    "name": "Night Owl",
+    "description": "Cosmetic name tag",
+    "price": 50,
+    "payload": {
+      "text": "Night Owl",
+      "color": "#7c3aed"
+    }
+  },
+  {
+    "id": "tag-collector",
+    "kind": "name_tag",
+    "name": "Collector",
+    "description": "Cosmetic name tag",
+    "price": 50,
+    "payload": {
+      "text": "Collector",
+      "color": "#0891b2"
+    }
+  },
+  {
+    "id": "tag-daydreamer",
+    "kind": "name_tag",
+    "name": "Daydreamer",
+    "description": "Cosmetic name tag",
+    "price": 50,
+    "payload": {
+      "text": "Daydreamer",
+      "color": "#be185d"
+    }
+  }
+]

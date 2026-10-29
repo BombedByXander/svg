@@ -33,7 +33,10 @@
               if (session?.access_token) localStorage.setItem(LEGACY_TOKEN_KEY, session.access_token);
               else localStorage.removeItem(LEGACY_TOKEN_KEY);
             } catch {}
-            if (session?.user) setTimeout(() => syncFavorites(client, session.user), 0);
+            if (session?.user) setTimeout(() => {
+              syncFavorites(client, session.user);
+              window.vaultedEarn?.('daily');
+            }, 0);
           });
           resolve(client);
         };
@@ -259,6 +262,89 @@
     return response({ riskTier: typeof data === "string" ? data : "none" });
   }
 
+  // All shop requests terminate here, never at the original site's API.
+  function shopFailure(error) {
+    const missing = ['42P01', '42883', 'PGRST202', 'PGRST205'].includes(error?.code);
+    return response({ error: missing
+      ? 'The shop needs its database setup. Run supabase/vaulted-shop.sql in your Supabase SQL Editor.'
+      : error?.message || 'The shop could not complete that request.' }, missing ? 503 : 400);
+  }
+
+  async function shopRpc(db, name, args = {}) {
+    const { data, error } = await db.rpc(name, args);
+    if (error) throw error;
+    return data;
+  }
+
+  async function handleShop(path, init) {
+    const db = await loadClient();
+    const method = (init?.method || 'GET').toUpperCase();
+    const body = method === 'POST' ? await requestBody(init) : {};
+    if (path === '/api/users/equipped' && method === 'POST') {
+      const names = Array.isArray(body.usernames) ? body.usernames.filter(n => typeof n === 'string').slice(0, 100) : [];
+      return response(await shopRpc(db, 'vaulted_public_cosmetics', { p_usernames: names }));
+    }
+    if (path === '/api/shop' && method === 'GET') {
+      const { data, error } = await db.from('shop_catalog').select('*').order('sort_order');
+      if (error) throw error;
+      return response((data || []).map(item => ({
+        id: item.id, kind: item.kind, name: item.name, sub: item.description,
+        payload: item.payload, priceCoins: item.price, effectivePriceCoins: item.price,
+        giftPriceCoins: Math.round(item.price * 1.1), onSale: item.active, collection: null,
+      })));
+    }
+    const { data: authData, error: authError } = await db.auth.getUser();
+    if (authError || !authData?.user) return response({ error: 'Sign in to use the shop.' }, 401);
+    const user = authData.user;
+    if (path === '/api/me/wallet' && method === 'GET') return response(await shopRpc(db, 'vaulted_wallet'));
+    if (path === '/api/me/inventory' && method === 'GET') {
+      const [inventory, equipped] = await Promise.all([
+        db.from('shop_inventory').select('item_id').eq('user_id', user.id),
+        db.from('shop_equipped').select('item_id,slot').eq('user_id', user.id),
+      ]);
+      if (inventory.error || equipped.error) throw inventory.error || equipped.error;
+      const slots = {};
+      for (const row of equipped.data || []) (slots[row.slot] ||= []).push(row.item_id);
+      return response({ owned: (inventory.data || []).map(row => row.item_id), equipped: slots, maxNameTags: 2 });
+    }
+    let result;
+    if (path === '/api/shop/buy' && method === 'POST') result = await shopRpc(db, 'vaulted_buy', { p_item: body.itemId });
+    else if (path === '/api/shop/equip' && method === 'POST') result = await shopRpc(db, 'vaulted_equip', {
+      p_item: body.itemId ?? null, p_slot: body.slot ?? null, p_unequip: body.unequip === true,
+    });
+    else if (path === '/api/shop/reward' && method === 'POST') result = await shopRpc(db, 'vaulted_reward', {
+      p_action: body.action, p_target: String(body.target || '').slice(0, 4096),
+    });
+    else if (['/api/shop/gift', '/api/wallet/gift'].includes(path) && method === 'POST') result = await shopRpc(db, 'vaulted_gift', {
+      p_username: body.toUsername, p_request: body.requestId || crypto.randomUUID(),
+      p_item: path === '/api/shop/gift' ? body.itemId : null,
+      p_amount: path === '/api/wallet/gift' ? body.amount : null,
+    });
+    else return response({ error: 'This shop operation is not available.' }, 404);
+    window.dispatchEvent(new CustomEvent('vaulted:wallet', { detail: result }));
+    if (typeof BroadcastChannel !== 'undefined') {
+      const channel = new BroadcastChannel('vaulted-shop');
+      channel.postMessage({ updated: true });
+      channel.close();
+    }
+    return response(result);
+  }
+
+  window.vaultedEarn = async (action, target = '') => {
+    try {
+      const db = await loadClient();
+      const { data } = await db.auth.getSession();
+      if (!data.session || document.visibilityState === 'hidden') return;
+      const result = await shopRpc(db, 'vaulted_reward', { p_action: action, p_target: String(target).slice(0, 4096) });
+      if (result.awarded > 0) window.dispatchEvent(new CustomEvent('vaulted:wallet', { detail: result }));
+    } catch (error) { console.debug('Vaulted credit reward unavailable:', error?.message); }
+  };
+  window.addEventListener('cherri:session', () => window.vaultedEarn('daily'));
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') window.vaultedEarn('daily');
+  });
+  setInterval(() => window.vaultedEarn('daily'), 15 * 60 * 1000);
+
   async function handleProfile(path, url, init) {
     const db = await loadClient();
     const method = (init?.method || (init?.body ? "POST" : "GET")).toUpperCase();
@@ -402,6 +488,10 @@
     const rawUrl = typeof input === "string" ? input : input?.url || String(input);
     const url = new URL(rawUrl, location.href);
     if (!url.pathname.startsWith(API_PREFIX)) return nativeFetch(input, init);
+    if (url.pathname.startsWith('/api/shop') || ['/api/me/wallet', '/api/me/inventory', '/api/wallet/gift', '/api/users/equipped'].includes(url.pathname)) {
+      try { return await handleShop(url.pathname, init); }
+      catch (error) { return shopFailure(error); }
+    }
     if (url.pathname.startsWith("/api/auth/")) {
       const authResponse = await handleAuth(url.pathname, init);
       return authResponse || response({ error: "Unsupported Supabase authentication route." }, 404);
