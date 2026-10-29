@@ -263,3 +263,7 @@
 .vaulted-topnav[data-hover=true]{scale:1; padding:8.5px 12.5px;box-shadow:0 12px 36px #00000024,inset 0 1px 0 color-mix(in srgb,var(--bright-text) 8%,transparent)}
 @media(max-width:700px){.vaulted-topnav[data-hover=true]{padding:7.5px 8.5px}}
 @media(prefers-reduced-motion:reduce){.vaulted-topnav{transition:none!important}.vaulted-topnav[data-hover=true]{padding:6px 10px}}
+
+/* Slightly enlarge the bar itself so the navigation reads more clearly. */
+.vaulted-topnav{padding:8.5px 12.5px}
+@media(max-width:700px){.vaulted-topnav{padding:7.5px 8.5px}}
