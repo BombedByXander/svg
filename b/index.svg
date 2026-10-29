@@ -52,9 +52,9 @@ window.__SW_FILE__="9byt8m.js",window.__swRegistration=navigator.serviceWorker?(
 /*]]>*/
 </script></main>
 
-        <script src="./assets/berri-supabase-accounts.js" integrity="sha384-BmMsJ/acYkcMumlAvHTjpeLpHkuvv6jZSF3HjrbeLRc0yPojyXPUlZMxGVzVrpoq" crossorigin="anonymous"></script>
+        <script src="./assets/berri-supabase-accounts.js" integrity="sha384-z59PbN92xlgZEyMbLh9QUwNAaS0HjAbO6mVeCOBHKtAsUS8P/NIY8553DoTnBmAE" crossorigin="anonymous"></script>
 
-        <script src="./assets/electric-search-border.js?v=electric-search-20261029" integrity="sha384-3rH9GVv32CbgGCxVjfv/RCfoLrF0BuEYOGBe0S58KaO3KBdEc9VFw7z25gScHPAt" crossorigin="anonymous"></script>
+        <script src="./assets/electric-search-border.js?v=electric-search-20261029" integrity="sha384-UKmpUSiargBuv9qIa1UHAOV7wiOR/6o2Pt8cQn5UPI9V9bFU5eZB8jdJGQ0BAbod" crossorigin="anonymous"></script>
         <script src="./assets/bundle-vaulted-home-apps-20261020.js?v=electric-search-20261029" integrity="sha384-OC6ezvzXm31sbXOtx7jWGo1nnjKziZrtLjll/S8v6vdx3vkdmcknG1uV7ODxHQpk" crossorigin="anonymous"></script>
         <script src="./assets/berri-live-presence.js" integrity="sha384-16btKOM6p/30MTlyeDL4fbsP4+jP/VJyRMm0CbhRAummWMPdS+v5sAhBs2Jj6mrn" crossorigin="anonymous"></script>
 
