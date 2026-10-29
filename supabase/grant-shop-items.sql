@@ -6,12 +6,13 @@ begin;
 
 do $$
 declare
-  target_username text := 'xander';
+  target_username text := 'Xander';
   item_ids text[] := array[
-    'tag-gamer',
-    'profile_effect-celestial',
-    'avatar_decoration-angelwings',
-    'username-sky'
+    'profile_effect-alwayswatching',
+    'profile_effect-bonsaieternity',
+    'profile_effect-pinkflowers',
+    'avatar_decoration-sweatdrops',
+    'avatar_decoration-fallfoliage'
   ];
   credit_amount bigint := 0;
   target_id uuid;

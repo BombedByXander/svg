@@ -246,13 +246,17 @@
 .vaulted-topnav .vaulted-nav-item>button:hover>svg,.vaulted-topnav .vaulted-nav-item>button:hover>img{transform:scale(1.1)}
 @media(prefers-reduced-motion:reduce){.vaulted-topnav{translate:none!important;scale:1!important;transition:none!important}.vaulted-topnav::before,.vaulted-topnav .vaulted-nav-item>button>svg,.vaulted-topnav .vaulted-nav-item>button>img{transition:none!important;transform:none}.vaulted-topnav::before{transform:translate(var(--nav-hover-x,0px),var(--nav-hover-y,0px))}}
 
-/* Give the favorites the same square thumbnail treatment as game cards. */
+/* Keep the favorite shortcut tile footprint, but show only artwork and title. */
 .home-page .home-favorites{width:min(100%,720px);gap:12px!important;align-items:stretch}
-.home-page .home-favorites>button:not(.home-favorites-empty){width:108px!important;min-height:124px;padding:10px 8px;border:1px solid var(--border-3);border-radius:14px;background:color-mix(in srgb,var(--bg-1-base) 72%,transparent);gap:9px!important;transition:background .18s,border-color .18s,transform .18s,box-shadow .18s}
-.home-page .home-favorites>button:not(.home-favorites-empty):hover{background:var(--bg-2);border-color:var(--border-2);box-shadow:0 8px 20px #00000020;transform:translateY(-2px)}
-.home-page .home-favorites>button:not(.home-favorites-empty)>div{width:88px!important;height:88px!important;flex:none;border-radius:10px!important;border:1px solid var(--border-4)!important;box-shadow:none!important}
+.home-page .home-favorites>button:not(.home-favorites-empty){width:108px!important;min-height:124px;padding:10px 8px;border:0!important;border-radius:14px;background:transparent!important;gap:9px!important;transition:transform .18s}
+.home-page .home-favorites>button:not(.home-favorites-empty):hover{background:transparent!important;box-shadow:none!important;transform:translateY(-2px)}
+.home-page .home-favorites>button:not(.home-favorites-empty)>div{width:88px!important;height:88px!important;flex:none;border-radius:10px!important;border:0!important;box-shadow:none!important;transition:transform .18s}
+.home-page .home-favorites>button:not(.home-favorites-empty):hover>div{transform:scale(1.04)}
 .home-page .home-favorites>button>span{font-size:12px;line-height:16px}
 @media(max-width:600px){.home-page .home-favorites{max-width:100%;gap:8px!important}.home-page .home-favorites>button:not(.home-favorites-empty){width:100px!important;min-height:114px;padding:8px 6px}.home-page .home-favorites>button:not(.home-favorites-empty)>div{width:82px!important;height:82px!important}}
+
+/* Keep the floating navigation from adding decorative blank margins on pages. */
+.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav{margin:0 auto!important}
 
 /* The hovered bar grows by five pixels in each dimension. */
 .vaulted-topnav{transition:translate .32s cubic-bezier(.22,1,.36,1),padding .25s cubic-bezier(.22,1,.36,1),box-shadow .3s ease}
