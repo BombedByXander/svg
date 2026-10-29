@@ -274,3 +274,49 @@
 .home-page .home-search>.electric-search-canvas{position:absolute;left:-18px;top:-18px;display:block;max-width:none;pointer-events:none;z-index:3}
 .home-page .home-search>*:not(.electric-search-canvas){position:relative;z-index:2}
 @media(prefers-reduced-motion:reduce){.home-page .home-search>.electric-search-canvas{animation:none!important}}
+
+/* GlassSurface-inspired frosted finish for the navigation dock and home search. */
+.vaulted-topnav{
+  scale:1!important;
+  padding:8.5px 12.5px!important;
+  background:
+    linear-gradient(140deg,color-mix(in srgb,var(--bright-text) 7%,transparent),transparent 46%,color-mix(in srgb,var(--bright-text) 3%,transparent)),
+    color-mix(in srgb,var(--bg-1-base) 68%,transparent)!important;
+  border-color:color-mix(in srgb,var(--bright-text) 16%,var(--border-3));
+  backdrop-filter:blur(28px) saturate(1.45) brightness(1.04);
+  -webkit-backdrop-filter:blur(28px) saturate(1.45) brightness(1.04);
+  box-shadow:inset 0 1px 0 color-mix(in srgb,var(--bright-text) 24%,transparent),inset 0 -1px 0 color-mix(in srgb,var(--bright-text) 6%,transparent),0 12px 34px #00000025;
+  transition:translate .32s cubic-bezier(.22,1,.36,1),box-shadow .3s ease!important
+}
+.vaulted-topnav[data-hover=true]{scale:1!important;padding:8.5px 12.5px!important}
+.vaulted-topnav::after{
+  background:
+    radial-gradient(150px circle at var(--nav-pointer-x,50%) var(--nav-pointer-y,50%),color-mix(in srgb,var(--accent) 20%,transparent),transparent 78%),
+    linear-gradient(135deg,color-mix(in srgb,var(--bright-text) 12%,transparent),transparent 44%,color-mix(in srgb,var(--bright-text) 5%,transparent));
+  opacity:.62
+}
+.vaulted-topnav[data-hover=true]::after{opacity:1}
+.vaulted-topnav .vaulted-nav-item>button{
+  transform:translate3d(var(--nav-warp-x,0px),var(--nav-warp-y,0px),0) skew(var(--nav-warp-skew-y,0deg),var(--nav-warp-skew-x,0deg))!important;
+  transition:transform .16s cubic-bezier(.2,.8,.2,1),background .18s,color .18s
+}
+.vaulted-topnav .vaulted-nav-item>button:hover>svg,.vaulted-topnav .vaulted-nav-item>button:hover>img{transform:none!important}
+.home-page .home-search.electric-search-border{
+  background:color-mix(in srgb,var(--bg-2) 58%,transparent)!important;
+  border:1px solid color-mix(in srgb,var(--bright-text) 14%,var(--border-3))!important;
+  backdrop-filter:blur(20px) saturate(1.42) brightness(1.035);
+  -webkit-backdrop-filter:blur(20px) saturate(1.42) brightness(1.035);
+  box-shadow:inset 0 1px 0 color-mix(in srgb,var(--bright-text) 17%,transparent),inset 0 -1px 0 color-mix(in srgb,var(--bright-text) 5%,transparent),0 8px 28px #00000024!important
+}
+.home-page .home-search.electric-search-border::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--bright-text) 12%,transparent),transparent 42%,transparent 65%,color-mix(in srgb,var(--bright-text) 5%,transparent))
+}
+.home-page .home-search.electric-search-border:focus-within{
+  border-color:color-mix(in srgb,var(--accent) 58%,var(--border-3))!important;
+  box-shadow:inset 0 1px 0 color-mix(in srgb,var(--bright-text) 17%,transparent),0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent),0 8px 28px #00000024!important
+}
+@media(max-width:700px){.vaulted-topnav[data-hover=true]{padding:7.5px 8.5px!important}}
+@media(prefers-reduced-motion:reduce){.vaulted-topnav{scale:1!important;transition:none!important}.vaulted-topnav[data-hover=true]{padding:8.5px 12.5px!important}.vaulted-topnav .vaulted-nav-item>button{transform:none!important;transition:none!important}}
+
+@media(max-width:700px){.vaulted-topnav[data-hover=true]{padding:7.5px 8.5px!important}}
