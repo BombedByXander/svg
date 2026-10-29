@@ -213,3 +213,19 @@
 .vaulted-topnav .vaulted-nav-item>button>img:not(.vaulted-nav-brand){width:25px;height:25px;border-radius:50%}
 @media(max-width:700px){.vaulted-topnav{max-width:calc(100% - 16px);margin:8px auto;padding:5px 6px;gap:6px;border-radius:20px}.vaulted-topnav .vaulted-nav-item>button{width:36px!important;height:36px!important}.vaulted-topnav>div:first-child,.vaulted-topnav>div:last-child{gap:2px}}
 @media(prefers-reduced-motion:reduce){.vaulted-topnav .vaulted-nav-item>button{transition:none;transform:none!important}}
+
+/* Home fills the shell; navigation floats over its existing background. */
+.vaulted-topnav-shell{position:relative;min-height:0}
+.vaulted-topnav-shell[data-home=true]>.vaulted-topnav{position:absolute;top:12px;left:50%;transform:translateX(-50%);margin:0;z-index:40}
+.vaulted-topnav-shell[data-home=true] .vaulted-page-inset{padding:0!important}
+.vaulted-topnav-shell[data-home=true] .vaulted-page-surface{border-radius:0!important}
+.vaulted-topnav-shell[data-home=true] .vaulted-page-frame{display:none}
+.home-page{height:auto!important;min-height:0!important;inset:0!important}
+.home-page .home-hero{height:auto!important;min-height:100%!important;padding:96px 24px!important;box-sizing:border-box}
+.home-page .home-hero>*{flex-shrink:0}
+.vaulted-topnav .vaulted-nav-item>button{transition:background .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease}
+.vaulted-topnav .vaulted-nav-item>button:active{transform:scale(.93)}
+.vaulted-topnav .vaulted-nav-item>button[aria-current=page]{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 15%,transparent)}
+@media(max-width:700px){.vaulted-topnav-shell[data-home=true]>.vaulted-topnav{top:8px}.home-page .home-hero{padding:88px 20px!important}}
+@media(max-height:550px){.home-page .home-hero{justify-content:flex-start!important;padding-top:88px!important}}
+@media(prefers-reduced-motion:reduce){.vaulted-topnav .vaulted-nav-item>button{transition:none!important;transform:none!important}}
