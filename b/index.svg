@@ -37,8 +37,8 @@ window.__SW_FILE__="9byt8m.js",window.__swRegistration=navigator.serviceWorker?(
     <meta name="description" content="vaulted" />
     <script src="cfvi4/szst2w-20261020.js" integrity="sha384-PIPC3Kkc0qAPd+ZmUSkTiO/kGnZn7C7JzRa61RBrDvz3cc0QEcsNzZec8ogc5TrS" crossorigin="anonymous"></script>
     <script src="6m9rd/ybnwpk.js"></script>
-    <link rel="stylesheet" crossorigin="crossorigin" href="./assets/vaulted-home-logo.css?v=nav-warp-v2-20261029" />
-  
+    <link rel="stylesheet" crossorigin="crossorigin" href="./assets/vaulted-home-logo.css?v=electric-search-20261029" />
+
       </head>
       <body>
 
@@ -51,11 +51,13 @@ window.__SW_FILE__="9byt8m.js",window.__swRegistration=navigator.serviceWorker?(
 (function(){try{var a=document.currentScript.previousElementSibling,l=a.lastElementChild;a.previousElementSibling||(a.style.top="calc(50% - 14px)");var n=0,t=0,v=!1,c=!1,d={},S=function(){var r=0,e=0,s={};return document.querySelectorAll('script[src],link[rel="modulepreload"],link[rel="stylesheet"]').forEach(function(g){var u=g.src||g.href;!u||s[u]||(s[u]=1,e++,d[u]&&r++)}),e&&(r<e||n<=e)?r+"/"+e:n+" done"},i=function(){var r=t>1048576?(t/1048576).toFixed(1)+" MB":t>1024?Math.round(t/1024)+" KB":"";l.textContent=v?"A file didn't load. Check your connection, then reload.":n?(c?"Still loading files \xB7 ":"Loading files \xB7 ")+S()+(r?" \xB7 "+r:""):c?"Still connecting\u2026":"Connecting\u2026"},f=function(){return l.getClientRects().length?!0:(E(),!1)},o=window.PerformanceObserver&&new PerformanceObserver(function(r){f()&&(r.getEntries().forEach(function(e){n++,d[e.name]=1,t+=e.transferSize||e.encodedBodySize||0}),i())}),m=function(r){var e=r.target;!e||e.tagName!=="SCRIPT"&&e.tagName!=="LINK"||!f()||(v=!0,i())},p=setTimeout(function(){f()&&(c=!0,i())},8e3),E=function(){o&&o.disconnect(),clearTimeout(p),removeEventListener("error",m,!0)};o&&o.observe({type:"resource",buffered:!0}),addEventListener("error",m,!0),i()}catch{}})();
 /*]]>*/
 </script></main>
-  
-        <script src="./assets/berri-supabase-accounts.js" integrity="sha384-biXfYN7fWf5BAjcR6mQ+ZkcO7KUiI5gCJoclmy4vxJK/EHyOexfZ++41PImhWiqK" crossorigin="anonymous"></script>
-        <script src="./assets/bundle-vaulted-home-apps-20261020.js?v=nav-warp-v2-20261029" integrity="sha384-OC6ezvzXm31sbXOtx7jWGo1nnjKziZrtLjll/S8v6vdx3vkdmcknG1uV7ODxHQpk" crossorigin="anonymous"></script>
+
+        <script src="./assets/berri-supabase-accounts.js" integrity="sha384-BmMsJ/acYkcMumlAvHTjpeLpHkuvv6jZSF3HjrbeLRc0yPojyXPUlZMxGVzVrpoq" crossorigin="anonymous"></script>
+
+        <script src="./assets/electric-search-border.js?v=electric-search-20261029" integrity="sha384-3rH9GVv32CbgGCxVjfv/RCfoLrF0BuEYOGBe0S58KaO3KBdEc9VFw7z25gScHPAt" crossorigin="anonymous"></script>
+        <script src="./assets/bundle-vaulted-home-apps-20261020.js?v=electric-search-20261029" integrity="sha384-OC6ezvzXm31sbXOtx7jWGo1nnjKziZrtLjll/S8v6vdx3vkdmcknG1uV7ODxHQpk" crossorigin="anonymous"></script>
         <script src="./assets/berri-live-presence.js" integrity="sha384-16btKOM6p/30MTlyeDL4fbsP4+jP/VJyRMm0CbhRAummWMPdS+v5sAhBs2Jj6mrn" crossorigin="anonymous"></script>
-        
+
       </body>
     </html>
   </foreignObject>
