@@ -359,3 +359,6 @@
 .flux-lines-canvas{position:absolute;inset:0;display:block;width:100%;height:100%}
 .flux-lines-home-bg{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;overflow:hidden!important;pointer-events:none!important;z-index:0!important}
 .home-page .home-hero{position:relative!important;z-index:1!important}
+
+.home-title-text{position:relative!important;display:inline-block!important}
+.home-title-text::after{content:"®";position:absolute;right:-.5em;bottom:.08em;font-size:.22em;font-weight:700;line-height:1;background-image:inherit;background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;opacity:.9;pointer-events:none}
