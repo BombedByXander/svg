@@ -340,3 +340,12 @@
 .vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:not(:hover):not(:has(:focus-visible)):not([data-tap-open=true])>div{pointer-events:none}
 .vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:hover>div,.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav:has(:focus-visible)>div,.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav[data-tap-open=true]>div{pointer-events:auto}
 @media(prefers-reduced-motion:reduce){.vaulted-topnav-shell:not([data-home=true])>.vaulted-topnav{transition:none!important}}
+.profile-card:fullscreen {
+  width: min(900px, 96vw) !important;
+  height: min(92vh, 900px) !important;
+  max-width: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: var(--bg-1);
+}
+.profile-card:fullscreen > div:last-child { flex: 1; overflow: auto; }
