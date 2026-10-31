@@ -375,3 +375,12 @@
 
 .home-title-text{padding-right:.2em!important}
 .home-title-text::after{right:0!important;bottom:.12em!important;font-size:.18em!important}
+
+/* Keep the registered mark fully visible and legible at the end of the wordmark. */
+.home-title,.home-title-text{overflow:visible!important}
+.home-title-text{position:relative!important;display:inline-block!important;padding-right:.42em!important}
+.home-title-text::after{content:"®"!important;position:absolute!important;right:0!important;bottom:.14em!important;display:block!important;font-size:.19em!important;font-weight:700!important;line-height:1!important;white-space:nowrap!important;overflow:visible!important;pointer-events:none!important;background:none!important;background-image:none!important;background-clip:border-box!important;-webkit-background-clip:border-box!important;color:var(--accent-2)!important;-webkit-text-fill-color:var(--accent-2)!important;opacity:1!important;z-index:5!important}
+/* The public profile fullscreen action is intentionally labeled so it is easy to find. */
+.profile-card{position:relative!important}
+.profile-card-fullscreen-btn{display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;min-width:112px!important;width:auto!important;padding:0 12px!important;gap:8px!important;z-index:100!important}
+.profile-card-fullscreen-btn::after{content:"Fullscreen";font-size:11px;font-weight:600;line-height:1;white-space:nowrap}
