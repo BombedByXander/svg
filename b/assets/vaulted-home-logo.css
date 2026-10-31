@@ -372,3 +372,6 @@
 .home-title-text{position:relative!important;display:inline-block!important;overflow:visible!important;padding-right:.3em!important}
 .home-title-text::after{content:"®"!important;display:block!important;position:absolute!important;right:0!important;bottom:.24em!important;font-size:.22em!important;font-weight:700!important;line-height:1!important;margin:0!important;transform:none!important;opacity:1!important;white-space:nowrap!important;pointer-events:none!important;z-index:2!important;background-image:inherit!important;background-clip:text!important;-webkit-background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important}
 .home-title-trademark{display:none!important}
+
+.home-title-text{padding-right:.2em!important}
+.home-title-text::after{right:0!important;bottom:.12em!important;font-size:.18em!important}
