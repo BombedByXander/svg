@@ -388,3 +388,11 @@
 /* Tighten the ® spacing while keeping the glyph inside the wordmark layout. */
 .home-title-text{padding-right:.22em!important}
 .home-title-text::after{font-size:.17em!important;right:0!important;bottom:.14em!important}
+
+/* Keep the owner profile preview fullscreen control distinct from public profiles. */
+.profile-preview-shell{position:relative!important;width:100%!important}
+.profile-preview-fullscreen{position:absolute!important;top:12px!important;right:12px!important;z-index:100!important;display:flex!important;align-items:center!important;justify-content:center!important;height:36px!important;padding:0 12px!important;border:1px solid #ffffff66!important;border-radius:12px!important;background:#000b!important;color:#fff!important;font-size:11px!important;font-weight:600!important;line-height:1!important;box-shadow:0 4px 14px #0005!important;backdrop-filter:blur(8px)!important;cursor:pointer!important;transition:background .16s ease,transform .16s ease!important}
+.profile-preview-fullscreen:hover{background:#000e!important;transform:translateY(-1px)!important}
+.profile-preview-fullscreen:focus-visible{outline:2px solid #fff!important;outline-offset:2px!important}
+.home-title-text{padding-right:.16em!important}
+.home-title-text::after{font-size:.17em!important;right:0!important;bottom:.14em!important}
