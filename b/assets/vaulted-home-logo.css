@@ -360,5 +360,5 @@
 .flux-lines-home-bg{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;overflow:hidden!important;pointer-events:none!important;z-index:0!important}
 .home-page .home-hero{position:relative!important;z-index:1!important}
 
-.home-title-text{position:relative!important;display:inline-block!important}
-.home-title-text::after{content:"®";position:absolute;right:.02em;bottom:.08em;font-size:.22em;font-weight:700;line-height:1;background-image:inherit;background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;opacity:.9;pointer-events:none}
+.home-title-text{position:relative!important;display:inline-block!important;overflow:visible!important}
+.home-title-text::after{content:"®";position:absolute;right:.015em;bottom:.28em;font-size:.22em;font-weight:700;line-height:1;background-image:inherit;background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;opacity:.95;pointer-events:none;z-index:2}
