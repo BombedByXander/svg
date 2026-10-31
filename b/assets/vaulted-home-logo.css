@@ -364,3 +364,6 @@
 .home-title-text::after{content:"®";position:absolute;right:-.27em;bottom:.28em;font-size:.22em;font-weight:700;line-height:1;background-image:inherit;background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;opacity:.95;pointer-events:none;z-index:2}
 
 .home-title{overflow:visible!important}
+
+.home-title-text::after{content:none!important;display:none!important}
+.home-title-trademark{display:inline-block!important;position:relative!important;vertical-align:baseline!important;font-size:.19em!important;line-height:1!important;font-weight:700!important;margin-left:.06em!important;transform:translateY(.12em)!important;white-space:nowrap!important;background-image:linear-gradient(to bottom,var(--accent-2),color-mix(in srgb,white,var(--accent)))!important;background-clip:text!important;-webkit-background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important;overflow:visible!important}
