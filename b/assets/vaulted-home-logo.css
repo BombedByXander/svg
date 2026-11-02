@@ -461,3 +461,9 @@
 .home-page .home-online-glass::after{border-color:color-mix(in srgb,var(--bright-text) 17%,var(--accent) 15%)!important;background:linear-gradient(135deg,color-mix(in srgb,var(--bright-text) 12%,transparent),color-mix(in srgb,var(--accent) 16%,transparent))!important;color:var(--bright-text)!important;box-shadow:inset 0 1px 0 color-mix(in srgb,var(--bright-text) 17%,transparent)}
 @media(max-width:640px){.home-page div:has(> .home-online-glass){left:12px!important;width:184px!important}}
 
+/* React Bits GlassSurface SVG renderer for the live-presence chip. */
+.home-page .home-online-glass.glass-surface{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;padding:0!important}
+.home-page .home-online-glass .glass-surface__filter{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;pointer-events:none!important;opacity:0!important;z-index:-1!important}
+.home-page .home-online-glass .glass-surface__content{position:relative!important;z-index:1!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;width:max-content!important;height:100%!important;padding:0 12px!important;border-radius:inherit!important;white-space:nowrap!important}
+.home-page .home-online-glass.glass-surface--svg{-webkit-backdrop-filter:blur(18px) saturate(1.6)!important;backdrop-filter:blur(18px) saturate(1.6)!important;-webkit-backdrop-filter:var(--filter-id) saturate(var(--glass-saturation,1))!important;backdrop-filter:var(--filter-id) saturate(var(--glass-saturation,1))!important}
+
