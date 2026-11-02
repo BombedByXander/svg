@@ -475,5 +475,6 @@
 .home-page .home-clock::before{margin-bottom:5px!important}
 .home-page .home-clock-time{font-size:30px!important}
 .home-page .home-clock .home-clock-meta:nth-of-type(3){margin-top:8px!important;padding-top:7px!important}
+.home-page .home-online-glass::before{margin-left:5px!important}
 @media(max-width:640px){.home-page .home-clock.glass-surface{width:184px!important;min-height:96px!important;padding:11px 12px 10px!important}.home-page .home-clock .home-clock-time{font-size:25px!important}}
 
