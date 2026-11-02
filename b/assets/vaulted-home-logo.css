@@ -453,3 +453,11 @@
 .home-page .home-online-glass::after{content:"LIVE";display:inline-flex;align-items:center;justify-content:center;padding:3px 5px;border:1px solid color-mix(in srgb,var(--accent) 22%,transparent);border-radius:5px;background:color-mix(in srgb,var(--accent) 9%,transparent);color:var(--accent-2);font-size:8px;font-weight:800;letter-spacing:.11em;line-height:1}
 @media(prefers-reduced-motion:reduce){.home-page .home-online-glass{transition:none!important}.home-page .home-online-glass:hover{transform:none!important}}
 
+/* Center live presence exactly under the clock and give it a refractive liquid-glass finish. */
+.home-page div:has(> .home-online-glass){left:20px!important;bottom:12px!important;width:216px!important;justify-content:center!important}
+.home-page .home-online-glass{overflow:hidden!important;border:1px solid color-mix(in srgb,var(--bright-text) 28%,var(--accent) 18%)!important;background:radial-gradient(ellipse at 18% 0%,color-mix(in srgb,var(--bright-text) 18%,transparent),transparent 42%),linear-gradient(145deg,color-mix(in srgb,var(--accent) 12%,transparent),color-mix(in srgb,var(--bg-2-base) 58%,transparent))!important;box-shadow:inset 0 1px 0 color-mix(in srgb,var(--bright-text) 38%,transparent),inset 0 -1px 0 color-mix(in srgb,var(--bright-text) 7%,transparent),0 10px 28px #0004,0 0 22px color-mix(in srgb,var(--accent) 13%,transparent)!important;-webkit-backdrop-filter:blur(22px) saturate(1.9) contrast(1.08)!important;backdrop-filter:blur(22px) saturate(1.9) contrast(1.08)!important}
+.home-page .home-online-glass svg{filter:drop-shadow(0 0 5px color-mix(in srgb,var(--accent) 35%,transparent))}
+.home-page .home-online-glass::before{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent),0 0 14px color-mix(in srgb,var(--accent) 72%,transparent)!important}
+.home-page .home-online-glass::after{border-color:color-mix(in srgb,var(--bright-text) 17%,var(--accent) 15%)!important;background:linear-gradient(135deg,color-mix(in srgb,var(--bright-text) 12%,transparent),color-mix(in srgb,var(--accent) 16%,transparent))!important;color:var(--bright-text)!important;box-shadow:inset 0 1px 0 color-mix(in srgb,var(--bright-text) 17%,transparent)}
+@media(max-width:640px){.home-page div:has(> .home-online-glass){left:12px!important;width:184px!important}}
+
