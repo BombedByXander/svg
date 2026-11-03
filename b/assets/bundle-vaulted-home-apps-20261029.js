@@ -3087,7 +3087,7 @@ void main() {
     useEffect(() => {
       wakeRef.current?.();
     });
-    return /* @__PURE__ */ gA.jsx("div", { ref: containerRef, className: `pixel-snow-container${className ? ` ${className}` : ""}`, ...rest }, /* @__PURE__ */ gA.jsx("canvas", { ref: canvasRef, className: "pixel-snow-canvas", "aria-hidden": "true" }));
+    return /* @__PURE__ */ yA.createElement("div", { ref: containerRef, className: `pixel-snow-container${className ? ` ${className}` : ""}`, ...rest }, /* @__PURE__ */ yA.createElement("canvas", { ref: canvasRef, className: "pixel-snow-canvas", "aria-hidden": "true" }));
   }
   globalThis.__vaultedReactBitsPixelSnow = PixelSnow;
 })();
