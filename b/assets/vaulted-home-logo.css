@@ -19,7 +19,7 @@
 .home-page{height:100dvh!important;min-height:0!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain!important}
 .home-hero{height:auto!important;min-height:100%!important;padding:0 18px!important;justify-content:center!important;transform:none!important;position:relative!important;z-index:1}
 /* The clock is pinned to the viewport; do not leave its dashboard resize controls behind. */
-.home-page .group:has(> .home-clock){display:contents!important}
+.home-page .group:has(> .home-clock){display:contents!important;transform:none!important;filter:none!important;perspective:none!important;contain:none!important}
 .home-page .group:has(> .home-clock)>button{display:none!important}
 .home-page .home-logo-mark{filter:drop-shadow(0 1px 4px #fff3)!important}
 
@@ -567,5 +567,5 @@
 @media(max-width:640px){.home-page .home-search::before{inset:-6px -7px;background-size:100% 230%}}
 .home-page .home-clock{bottom:14px!important}
 @media(max-width:640px){.home-page .home-clock{bottom:12px!important}}
-.home-page .home-clock{bottom:14px!important;transform:translateY(64px)!important}
-@media(max-width:640px){.home-page .home-clock{bottom:12px!important;transform:translateY(64px)!important}}
+.home-page .home-clock{bottom:14px!important;transform:none!important}
+@media(max-width:640px){.home-page .home-clock{bottom:12px!important;transform:none!important}}
