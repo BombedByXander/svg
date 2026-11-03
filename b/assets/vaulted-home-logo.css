@@ -550,3 +550,11 @@
 .home-page .home-online-glass:hover{transform:none!important;box-shadow:0 6px 18px #0003,inset 0 1px 0 color-mix(in srgb,var(--bright-text) 6%,transparent)!important}
 .home-page div:has(> .home-online-glass){left:20px!important;bottom:12px!important;width:216px!important;justify-content:flex-start!important}
 @media(max-width:640px){.home-page .home-clock.glass-surface{width:190px!important;padding:11px 12px 10px!important}.home-page .home-clock-time{font-size:25px!important}.home-page div:has(> .home-online-glass){left:12px!important;width:190px!important}.home-page .home-online-glass{height:32px!important}}
+
+/* One calm home status card for local time, battery, and online presence. */
+.home-page .home-clock::before{content:none!important;display:none!important}
+.home-page .home-clock.glass-surface{width:216px!important;padding:12px 14px 12px!important;border-radius:15px!important;background:color-mix(in srgb,var(--bg-1) 90%,transparent)!important;box-shadow:0 8px 22px #0003,inset 0 1px 0 color-mix(in srgb,var(--bright-text) 7%,transparent)!important}
+.home-page .home-clock .home-clock-meta:nth-of-type(3){margin-top:4px!important;padding-top:0!important;border-top:0!important}
+.home-page .home-clock .home-status-online{box-sizing:border-box;display:flex;align-items:center;gap:8px;width:100%;margin-top:9px;padding-top:8px;border-top:1px solid color-mix(in srgb,var(--bright-text) 10%,transparent);color:var(--text-muted);font-size:11px;font-weight:600;line-height:1.25}
+.home-page .home-clock .home-status-online svg{flex:none;color:var(--accent-2);opacity:.82}
+@media(max-width:640px){.home-page .home-clock.glass-surface{width:190px!important;padding:11px 12px!important}}
