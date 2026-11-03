@@ -565,3 +565,5 @@
 .home-page .home-search>*{position:relative;z-index:4}
 .home-page .home-search:focus-within::before{opacity:1}
 @media(max-width:640px){.home-page .home-search::before{inset:-6px -7px;background-size:100% 230%}}
+.home-page .home-clock{bottom:14px!important}
+@media(max-width:640px){.home-page .home-clock{bottom:12px!important}}
