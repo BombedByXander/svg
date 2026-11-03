@@ -514,3 +514,6 @@
 .vault-games-library.games-page .vault-game-card>img{transition:transform .18s ease!important}
 .vault-games-library.games-page .vault-game-card:hover>img{transform:scale(1.025)}
 @media(prefers-reduced-motion:reduce){.vault-games-library.games-page .vault-game-card,.vault-games-library.games-page .vault-game-card>img{transition:none!important}.vault-games-library.games-page .vault-game-card:hover{transform:none!important}}
+
+/* Keep the games toolbar open on the page; the search field is its only surface. */
+.vault-games-library.games-page .vault-games-toolbar{padding:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important}
