@@ -558,3 +558,10 @@
 .home-page .home-clock .home-status-online{box-sizing:border-box;display:flex;align-items:center;gap:8px;width:100%;margin-top:9px;padding-top:8px;border-top:1px solid color-mix(in srgb,var(--bright-text) 10%,transparent);color:var(--text-muted);font-size:11px;font-weight:600;line-height:1.25}
 .home-page .home-clock .home-status-online svg{flex:none;color:var(--accent-2);opacity:.82}
 @media(max-width:640px){.home-page .home-clock.glass-surface{width:190px!important;padding:11px 12px!important}}
+
+/* Holiday string-light frame for the home search field. */
+.home-page .home-search{position:relative!important;isolation:isolate;overflow:visible!important}
+.home-page .home-search::before{content:"";position:absolute;z-index:3;pointer-events:none;inset:-7px -10px;border-radius:inherit;background:url("./search-holiday-lights.png") center/100% 250% no-repeat;opacity:.92}
+.home-page .home-search>*{position:relative;z-index:4}
+.home-page .home-search:focus-within::before{opacity:1}
+@media(max-width:640px){.home-page .home-search::before{inset:-6px -7px;background-size:100% 230%}}
