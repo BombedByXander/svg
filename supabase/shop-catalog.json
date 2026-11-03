@@ -745,5 +745,189 @@
       "text": "Daydreamer",
       "color": "#be185d"
     }
+  },
+  {
+    "id": "avatar_decoration-borealis",
+    "kind": "avatar_decoration",
+    "name": "Borealis",
+    "description": "Winter collection avatar decoration",
+    "price": 150,
+    "payload": {
+      "asset": "borealis.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-freshpine",
+    "kind": "avatar_decoration",
+    "name": "Fresh Pine",
+    "description": "Winter collection avatar decoration",
+    "price": 150,
+    "payload": {
+      "asset": "freshpine.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-snowglobe",
+    "kind": "avatar_decoration",
+    "name": "Snow Globe",
+    "description": "Winter collection avatar decoration",
+    "price": 150,
+    "payload": {
+      "asset": "snowglobe.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-starry",
+    "kind": "avatar_decoration",
+    "name": "Starry",
+    "description": "Winter collection avatar decoration",
+    "price": 150,
+    "payload": {
+      "asset": "starry.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-starwaves",
+    "kind": "avatar_decoration",
+    "name": "Star Waves",
+    "description": "Winter collection avatar decoration",
+    "price": 150,
+    "payload": {
+      "asset": "starwaves.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-stringlights",
+    "kind": "avatar_decoration",
+    "name": "String Lights",
+    "description": "Winter collection avatar decoration",
+    "price": 150,
+    "payload": {
+      "asset": "stringlights.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-winterbuddy",
+    "kind": "avatar_decoration",
+    "name": "Winter Buddy",
+    "description": "Winter collection avatar decoration",
+    "price": 150,
+    "payload": {
+      "asset": "winterbuddy.png"
+    }
+  },
+  {
+    "id": "avatar_decoration-winterfox",
+    "kind": "avatar_decoration",
+    "name": "Winter Fox",
+    "description": "Winter collection avatar decoration",
+    "price": 150,
+    "payload": {
+      "asset": "winterfox.png"
+    }
+  },
+  {
+    "id": "profile_effect-aurora",
+    "kind": "profile_effect",
+    "name": "Aurora",
+    "description": "Winter collection profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "aurora.png"
+    }
+  },
+  {
+    "id": "profile_effect-bluemoon",
+    "kind": "profile_effect",
+    "name": "Blue Moon",
+    "description": "Winter collection profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "bluemoon.png"
+    }
+  },
+  {
+    "id": "profile_effect-slidingpenguins",
+    "kind": "profile_effect",
+    "name": "Sliding Penguins",
+    "description": "Winter collection profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "slidingpenguins.png"
+    }
+  },
+  {
+    "id": "profile_effect-snowangel",
+    "kind": "profile_effect",
+    "name": "Snow Angel",
+    "description": "Winter collection profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "snowangel.png"
+    }
+  },
+  {
+    "id": "profile_effect-snowman",
+    "kind": "profile_effect",
+    "name": "Snowman",
+    "description": "Winter collection profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "snowman.png"
+    }
+  },
+  {
+    "id": "profile_effect-starwaves",
+    "kind": "profile_effect",
+    "name": "Star Waves",
+    "description": "Winter collection profile effect",
+    "price": 250,
+    "payload": {
+      "asset": "starwaves.png"
+    }
+  },
+  {
+    "id": "tag-jolly",
+    "kind": "name_tag",
+    "name": "JOLLY",
+    "description": "Winter collection name tag",
+    "price": 50,
+    "payload": {
+      "text": "JOLLY",
+      "color": "#22c55e"
+    }
+  },
+  {
+    "id": "tag-naughty",
+    "kind": "name_tag",
+    "name": "NAUGHTY",
+    "description": "Winter collection name tag",
+    "price": 50,
+    "payload": {
+      "text": "NAUGHTY",
+      "color": "#ef4444"
+    }
+  },
+  {
+    "id": "tag-nice",
+    "kind": "name_tag",
+    "name": "NICE",
+    "description": "Winter collection name tag",
+    "price": 50,
+    "payload": {
+      "text": "NICE",
+      "color": "#7dd3fc"
+    }
+  },
+  {
+    "id": "tag-grinch",
+    "kind": "name_tag",
+    "name": "GRINCH",
+    "description": "Winter collection name tag",
+    "price": 50,
+    "payload": {
+      "text": "GRINCH",
+      "color": "#84cc16"
+    }
   }
 ]

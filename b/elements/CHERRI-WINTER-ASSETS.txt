@@ -1,0 +1,1 @@
+Winter collection cosmetic assets in pfpdeco/, pfpdeco-still/, profiledeco/, and profiledeco-still/ are from cherriunblocked/svg (https://github.com/cherriunblocked/svg), under that repository’s GNU AGPL v3 license.
