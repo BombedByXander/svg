@@ -484,10 +484,24 @@
     return null;
   }
 
+  async function handleLeaderboard(url) {
+    const db = await loadClient();
+    const requestedPage = Math.max(1, Number.parseInt(url.searchParams.get("page") || "1", 10) || 1);
+    const pageSize = 50;
+    const { data, error } = await db.rpc("vaulted_leaderboard", { p_limit: pageSize + 1, p_offset: (requestedPage - 1) * pageSize });
+    if (error) return response({ error: error.message }, 500);
+    const rows = Array.isArray(data) ? data : [];
+    return response({ entries: rows.slice(0, pageSize), page: requestedPage, hasMore: rows.length > pageSize, pageSize });
+  }
+
   window.fetch = async (input, init) => {
     const rawUrl = typeof input === "string" ? input : input?.url || String(input);
     const url = new URL(rawUrl, location.href);
     if (!url.pathname.startsWith(API_PREFIX)) return nativeFetch(input, init);
+    if (url.pathname === "/api/leaderboard" && (!init?.method || init.method.toUpperCase() === "GET")) {
+      try { return await handleLeaderboard(url); }
+      catch (error) { return response({ error: error?.message || "Could not load leaderboard." }, 500); }
+    }
     if (url.pathname.startsWith('/api/shop') || ['/api/me/wallet', '/api/me/inventory', '/api/wallet/gift', '/api/users/equipped'].includes(url.pathname)) {
       try { return await handleShop(url.pathname, init); }
       catch (error) { return shopFailure(error); }
