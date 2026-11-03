@@ -567,5 +567,5 @@
 @media(max-width:640px){.home-page .home-search::before{inset:-6px -7px;background-size:100% 230%}}
 .home-page .home-clock{bottom:14px!important}
 @media(max-width:640px){.home-page .home-clock{bottom:12px!important}}
-.home-page .home-clock{bottom:-50px!important}
-@media(max-width:640px){.home-page .home-clock{bottom:-40px!important}}
+.home-page .home-clock{bottom:14px!important;transform:translateY(64px)!important}
+@media(max-width:640px){.home-page .home-clock{bottom:12px!important;transform:translateY(64px)!important}}
