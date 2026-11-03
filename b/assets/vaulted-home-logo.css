@@ -517,3 +517,8 @@
 
 /* Keep the games toolbar open on the page; the search field is its only surface. */
 .vault-games-library.games-page .vault-games-toolbar{padding:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important}
+
+
+/* React Bits PixelSnow canvas placement */
+.vaulted-pixel-snow{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;overflow:hidden;pointer-events:none;z-index:1!important}
+.vaulted-pixel-snow .pixel-snow-canvas{position:absolute;inset:0;display:block;width:100%;height:100%;pointer-events:none}
