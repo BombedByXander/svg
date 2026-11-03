@@ -506,3 +506,11 @@
 .vault-games-library.games-page .vault-games-grid~div:empty{display:none}
 @media(max-width:700px){.vault-games-library.games-page .vault-games-toolbar{grid-template-columns:minmax(0,1fr);gap:14px!important;padding:18px!important}.vault-games-library.games-page .vault-games-title:after{margin-top:6px}.vault-games-library.games-page .vault-games-grid{grid-template-columns:repeat(auto-fill,minmax(min(42vw,148px),1fr))!important;gap:12px!important}.vault-games-library.games-page .vault-games-tabs{width:100%;overflow-x:auto}.vault-games-library.games-page .vault-games-toolbar>div:nth-child(2){flex-wrap:wrap}.vault-games-library.games-page .vault-games-search-shell{flex-basis:100%;max-width:100%!important}.vault-games-library.games-page .vault-games-toolbar>div:nth-child(2)>div:not(.vault-games-search-shell){margin-left:0!important}}
 @media(prefers-reduced-motion:reduce){.vault-games-library.games-page .vault-game-card,.vault-games-library.games-page .vault-game-card>img{transition:none!important}}
+
+/* Keep large game grids responsive by avoiding per-card scroll observers and expensive shadows. */
+.vault-games-library.games-page .vault-game-motion-wrapper{min-width:0;aspect-ratio:1;content-visibility:auto;contain-intrinsic-size:auto 164px;contain:layout style paint}
+.vault-games-library.games-page .vault-game-card{width:100%;height:100%;box-shadow:0 2px 8px #0002!important;transition:transform .16s ease,border-color .16s ease!important}
+.vault-games-library.games-page .vault-game-card:hover,.vault-games-library.games-page .vault-game-card:focus-visible{transform:translateY(-2px)!important;box-shadow:0 5px 12px #0003,0 0 0 1px color-mix(in srgb,var(--accent) 30%,transparent)!important}
+.vault-games-library.games-page .vault-game-card>img{transition:transform .18s ease!important}
+.vault-games-library.games-page .vault-game-card:hover>img{transform:scale(1.025)}
+@media(prefers-reduced-motion:reduce){.vault-games-library.games-page .vault-game-card,.vault-games-library.games-page .vault-game-card>img{transition:none!important}.vault-games-library.games-page .vault-game-card:hover{transform:none!important}}
