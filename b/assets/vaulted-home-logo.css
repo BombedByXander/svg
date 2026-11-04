@@ -574,3 +574,9 @@
 .profile-card>.relative.z-10>div:first-child{position:relative!important;z-index:30!important;isolation:isolate!important}
 .profile-card>.relative.z-10>div:first-child>img{position:absolute!important;inset:0!important;z-index:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;opacity:1!important;visibility:visible!important;filter:none!important}
 .profile-card>.relative.z-10>div:first-child>div{position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important;opacity:.55!important}
+
+
+/* Stable banner frame shared by public and account profile cards. */
+.profile-card-banner{position:relative!important;display:block!important;height:9rem!important;min-height:9rem!important;flex:0 0 9rem!important;overflow:hidden!important;background-position:center!important;background-size:cover!important;background-repeat:no-repeat!important}
+.profile-card-banner>img{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;visibility:visible!important}
+.profile-card-banner>div{position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important}
