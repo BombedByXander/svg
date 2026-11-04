@@ -581,4 +581,5 @@
 .profile-card-banner>img{position:absolute!important;inset:0!important;z-index:0!important;display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;visibility:visible!important}
 .profile-card-banner>div{position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important}
 
-.profile-card-banner::after{content:"";position:absolute;inset:35% 0 0;z-index:2;pointer-events:none;background:linear-gradient(180deg,transparent 0%,var(--profile-card-banner-blend,var(--bg-1)) 100%)}
+/* Fade the banner and its tint away to reveal the card's real surface/effect below. */
+.profile-card-banner>img,.profile-card-banner>div{-webkit-mask-image:linear-gradient(to bottom,#000 48%,rgba(0,0,0,.72) 70%,transparent 100%);mask-image:linear-gradient(to bottom,#000 48%,rgba(0,0,0,.72) 70%,transparent 100%)}
