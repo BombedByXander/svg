@@ -569,3 +569,8 @@
 @media(max-width:640px){.home-page .home-clock{bottom:12px!important}}
 .home-page .home-clock{bottom:14px!important;transform:none!important}
 @media(max-width:640px){.home-page .home-clock{bottom:12px!important;transform:none!important}}
+
+/* Keep the saved banner above profile effects in normal, public, preview, and fullscreen cards. */
+.profile-card>.relative.z-10>div:first-child{position:relative!important;z-index:30!important;isolation:isolate!important}
+.profile-card>.relative.z-10>div:first-child>img{position:absolute!important;inset:0!important;z-index:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;opacity:1!important;visibility:visible!important;filter:none!important}
+.profile-card>.relative.z-10>div:first-child>div{position:absolute!important;inset:0!important;z-index:1!important;pointer-events:none!important;opacity:.55!important}
