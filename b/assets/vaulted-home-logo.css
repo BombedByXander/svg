@@ -163,6 +163,13 @@
 }
 [data-theme=sky] ::selection{background:#9CC0EA;color:#0b111b}
 
+/* Five new dark palettes: deep surfaces, restrained borders, and distinct accents. */
+[data-theme=aurora]{color-scheme:dark;--bg-base:#061311;--bg-1-base:#0a1b18;--bg-2-base:#0f2722;--bg-3-base:#15352e;--bg-4-base:#1d463b;--accent:#72e0be;--accent-2:#3bb99a;--accent-glow:#72e0be70;--text:#d7eee7;--text-muted:#8eafa4;--bright-text:#f5fffb;--border:#8debd138;--border-2:#8debd124;--border-3:#8debd117;--border-4:#8debd00d;background-color:#061311}
+[data-theme=obsidian-gold]{color-scheme:dark;--bg-base:#100e0a;--bg-1-base:#19160f;--bg-2-base:#242014;--bg-3-base:#302a1a;--bg-4-base:#403722;--accent:#e5c47b;--accent-2:#bb9650;--accent-glow:#e5c47b70;--text:#eee7d8;--text-muted:#b2a587;--bright-text:#fffaf0;--border:#e5c47b38;--border-2:#e5c47b24;--border-3:#e5c47b17;--border-4:#e5c47b0d;background-color:#100e0a}
+[data-theme=midnight-plum]{color-scheme:dark;--bg-base:#0c0a13;--bg-1-base:#15111f;--bg-2-base:#201a2e;--bg-3-base:#2b2340;--bg-4-base:#3a2e53;--accent:#c0a4f4;--accent-2:#9874d4;--accent-glow:#c0a4f470;--text:#e8e0f4;--text-muted:#aa9cbd;--bright-text:#fbf8ff;--border:#c0a4f438;--border-2:#c0a4f424;--border-3:#c0a4f417;--border-4:#c0a4f40d;background-color:#0c0a13}
+[data-theme=carbon]{color-scheme:dark;--bg-base:#0b0e12;--bg-1-base:#13181e;--bg-2-base:#1b222b;--bg-3-base:#252f3a;--bg-4-base:#323e4c;--accent:#a8bfd3;--accent-2:#7897b0;--accent-glow:#a8bfd370;--text:#dce5ec;--text-muted:#96a5b2;--bright-text:#f7fbff;--border:#a8bfd338;--border-2:#a8bfd324;--border-3:#a8bfd317;--border-4:#a8bfd30d;background-color:#0b0e12}
+[data-theme=crimson-noir]{color-scheme:dark;--bg-base:#14090d;--bg-1-base:#1e0d13;--bg-2-base:#2b111a;--bg-3-base:#391923;--bg-4-base:#4a202d;--accent:#f18491;--accent-2:#cf5b6b;--accent-glow:#f1849170;--text:#f1dfe2;--text-muted:#b3939a;--bright-text:#fff8f9;--border:#f1849138;--border-2:#f1849124;--border-3:#f1849117;--border-4:#f184910d;background-color:#14090d}
+
 .vaulted-cloak-preview{margin-top:20px;padding-top:18px;border-top:1px solid var(--border)}
 .vaulted-cloak-preview-tab{display:flex;align-items:center;gap:10px;max-width:360px;padding:12px 16px;border-radius:12px 12px 0 0;background:var(--bg-3);color:var(--bright-text);font-size:13px}
 .vaulted-cloak-preview-tab img{flex:none;width:18px;height:18px;object-fit:contain}
