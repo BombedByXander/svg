@@ -112,7 +112,10 @@ as $$
 declare owner_id uuid:=auth.uid(); target_id uuid; target_name text; amount numeric; new_balance numeric;
 begin
   if not public.vaulted_admin_is_owner() then raise exception 'Owner access required.'; end if;
-  if p_amount is null or p_amount !~ '^-?[0-9]{1,1000}$' then raise exception 'Enter a whole-number adjustment with at most 1,000 digits.'; end if;
+  if p_amount is null or length(p_amount)>1001 or p_amount !~ '^-?[0-9]+$'
+     or length(replace(p_amount,'-',''))>1000 then
+    raise exception 'Enter a whole-number adjustment with at most 1,000 digits.';
+  end if;
   amount:=p_amount::numeric;
   if amount=0 then raise exception 'Adjustment cannot be zero.'; end if;
   select id,username into target_id,target_name from public.profiles where lower(username)=lower(btrim(p_username));
