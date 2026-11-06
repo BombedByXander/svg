@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vaulted Owner Panel</title>
+  <style>
+    :root{color-scheme:dark;font:14px/1.5 Inter,ui-sans-serif,system-ui,sans-serif;color:var(--bright-text,#f5f6fb);background:var(--bg-base,#090a0e)}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 0 0,color-mix(in srgb,var(--accent,#8b9cff) 10%,transparent),transparent 44%),var(--bg-base,#090a0e);color:var(--text,#d9dce5)}
+    button,input,textarea,select{font:inherit;color:inherit}button{cursor:pointer}button:disabled{cursor:wait;opacity:.55}
+    .shell{width:min(1120px,100%);margin:0 auto;padding:32px 24px 54px}.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:24px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:.16em;color:var(--accent,#9ab0ff)}h1{margin:5px 0 4px;font-size:clamp(25px,4vw,35px);letter-spacing:-.045em;color:var(--bright-text,#fff)}.sub{margin:0;color:var(--text-muted,#9299aa);font-size:13px}.owner{display:inline-flex;gap:8px;align-items:center;padding:8px 11px;border:1px solid var(--border-4,#ffffff19);border-radius:99px;background:var(--bg-1,#111318);font-size:11px;color:var(--text-muted,#9ca3b3)}.dot{width:7px;height:7px;border-radius:50%;background:#42d392;box-shadow:0 0 0 4px #42d39220}
+    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:24px 0}.stat,.panel{border:1px solid var(--border-4,#ffffff17);border-radius:17px;background:color-mix(in srgb,var(--bg-1,#111318) 94%,transparent);box-shadow:0 10px 30px #0002}.stat{padding:15px 17px}.stat-label{font-size:10px;color:var(--text-muted,#9299aa);text-transform:uppercase;letter-spacing:.1em;font-weight:700}.stat-value{margin-top:4px;font-size:22px;font-weight:750;letter-spacing:-.035em;color:var(--bright-text,#fff);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .tabs{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}.tab,.btn{border:1px solid var(--border-4,#ffffff1b);border-radius:11px;background:var(--bg-1,#111318);padding:9px 13px;font-size:12px;font-weight:650;transition:background .16s,border-color .16s,color .16s}.tab:hover,.btn:hover{border-color:var(--border,#ffffff30);background:var(--bg-2,#191c24)}.tab[aria-selected=true],.btn-primary{border-color:transparent;background:var(--accent,#9ab0ff);color:var(--bg-base,#080a0f)}.panel{padding:20px;margin-bottom:14px}.panel h2{margin:0 0 4px;font-size:16px;letter-spacing:-.02em;color:var(--bright-text,#fff)}.help{margin:0 0 17px;color:var(--text-muted,#9299aa);font-size:12px}.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.field{width:100%;min-height:40px;padding:9px 11px;border:1px solid var(--border-4,#ffffff20);border-radius:10px;background:var(--bg-base,#0a0b10);outline:none}.field:focus{border-color:var(--accent,#9ab0ff);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent,#9ab0ff) 15%,transparent)}.field::placeholder{color:var(--text-muted,#7f8798)}textarea.field{min-height:120px;resize:vertical}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.wide{grid-column:1/-1}.result,.error{margin-top:12px;padding:10px 12px;border-radius:10px;font-size:12px;overflow-wrap:anywhere}.result{background:#16a34a18;color:#86efac;border:1px solid #22c55e30}.error{background:#fb718518;color:#fda4af;border:1px solid #fb718530}.table-wrap{overflow:auto;border:1px solid var(--border-4,#ffffff18);border-radius:12px}table{width:100%;border-collapse:collapse;min-width:630px}th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--border-4,#ffffff13);font-size:12px}th{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted,#9299aa);background:var(--bg-2,#171a22)}td{color:var(--text,#d9dce5)}tr:last-child td{border-bottom:0}.user-name{font-weight:700;color:var(--bright-text,#fff)}.muted{color:var(--text-muted,#9299aa)}.pill{display:inline-flex;padding:3px 8px;border-radius:99px;font-size:10px;font-weight:700;background:var(--bg-3,#242833);color:var(--text-muted,#a0a6b5)}.pill.published{background:#10b9811a;color:#6ee7b7}.announcement{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:13px;border:1px solid var(--border-4,#ffffff18);border-radius:12px;background:var(--bg-base,#0b0c11)}.announcement+.announcement{margin-top:8px}.announcement-title{font-size:13px;font-weight:700;color:var(--bright-text,#fff)}.empty{padding:28px;text-align:center;color:var(--text-muted,#9299aa);font-size:12px}.notice{margin:26px 0 0;padding-top:15px;border-top:1px solid var(--border-4,#ffffff15);color:var(--text-muted,#8d94a4);font-size:11px}
+    @media(max-width:760px){.shell{padding:22px 15px 38px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid{grid-template-columns:1fr}.wide{grid-column:auto}.top{align-items:flex-start}.owner{font-size:10px}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="top"><div><div class="eyebrow">VAULTED · OWNER CONSOLE</div><h1>Admin panel</h1><p class="sub">Account tools and site-wide announcements.</p></div><div class="owner"><i class="dot"></i><span>Owner access · xander</span></div></header>
+  <section id="gate" class="panel"><div class="empty">Checking owner access…</div></section>
+  <div id="admin" hidden>
+    <section id="stats" class="stats"></section>
+    <nav class="tabs" aria-label="Admin sections">
+      <button class="tab" data-tab="users" aria-selected="true">Credits & users</button>
+      <button class="tab" data-tab="announcements" aria-selected="false">Announcements</button>
+      <button class="tab" data-tab="activity" aria-selected="false">Recent credits</button>
+    </nav>
+    <section id="users-panel" class="panel">
+      <h2>Manage credits</h2><p class="help">Search an account, then add or remove any whole-number amount. Large values are kept exact.</p>
+      <div class="row" style="margin-bottom:14px"><input id="search" class="field" style="max-width:470px" placeholder="Search username or display name" autocomplete="off"><button id="search-button" class="btn">Search</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Account</th><th>Credits</th><th>Cosmetics</th><th>Member since</th><th>Action</th></tr></thead><tbody id="users"></tbody></table><div id="users-empty" class="empty" hidden>No matching accounts.</div></div>
+      <div id="credit-box" class="panel" style="margin-top:14px;margin-bottom:0" hidden>
+        <h2 id="credit-heading">Adjust credits</h2><p id="selected-user" class="help"></p>
+        <div class="form-grid">
+          <label><span class="help">Direction</span><select id="direction" class="field"><option value="add">Add credits</option><option value="remove">Remove credits</option></select></label>
+          <label><span class="help">Whole-number amount</span><input id="amount" class="field" inputmode="numeric" placeholder="e.g. 999999999999999999"></label>
+          <label class="wide"><span class="help">Audit note (optional)</span><input id="note" class="field" maxlength="200" placeholder="Reason for this adjustment"></label>
+        </div>
+        <div class="row" style="margin-top:12px"><button id="apply-credit" class="btn btn-primary">Apply adjustment</button><button id="cancel-credit" class="btn">Cancel</button></div><div id="credit-status"></div>
+      </div>
+    </section>
+    <section id="announcements-panel" class="panel" hidden>
+      <h2>Global announcements</h2><p class="help">Published notices appear in a themed popup for visitors. Dismissal is saved on each visitor’s device.</p>
+      <div class="form-grid">
+        <label><span class="help">Title</span><input id="announcement-title" class="field" maxlength="100" placeholder="A short, clear headline"></label>
+        <label><span class="help">Style</span><select id="announcement-kind" class="field"><option value="info">Information</option><option value="success">Update</option><option value="warning">Warning</option><option value="critical">Important</option></select></label>
+        <label class="wide"><span class="help">Message</span><textarea id="announcement-message" class="field" maxlength="2000" placeholder="Write the notice shown to visitors"></textarea></label>
+        <label><span class="help">Optional expiry</span><input id="announcement-expiry" type="datetime-local" class="field"></label>
+        <label style="display:flex;align-items:center;gap:9px;padding-top:22px;font-size:12px"><input id="announcement-dismissible" type="checkbox" checked> Visitors can dismiss this popup</label>
+      </div>
+      <div class="row" style="margin-top:13px"><button id="publish" class="btn btn-primary">Publish announcement</button></div><div id="announcement-status"></div>
+      <div style="height:1px;background:var(--border-4,#ffffff18);margin:20px 0"></div><h2 style="margin-bottom:12px">Published and scheduled</h2><div id="announcements"></div>
+    </section>
+    <section id="activity-panel" class="panel" hidden><h2>Recent credit activity</h2><p class="help">Latest grants and removals, including the owner’s audit note.</p><div id="activity"></div></section>
+    <p class="notice">Sensitive actions are checked in Supabase for the signed-in <b>xander</b> account. Credit edits are recorded in the wallet ledger.</p>
+  </div>
+</main>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const root = document.documentElement;
+  function syncTheme(){try{const p=parent.document.documentElement;root.dataset.theme=p.dataset.theme||"incognito";const c=parent.getComputedStyle(p);for(const k of ["--bg-base","--bg-1-base","--bg-2-base","--bg-3-base","--bg-4-base","--bg","--bg-1","--bg-2","--bg-3","--bg-4","--accent","--accent-2","--text","--text-muted","--bright-text","--border-4"])root.style.setProperty(k,c.getPropertyValue(k))}catch{}}
+  syncTheme();try{new MutationObserver(syncTheme).observe(parent.document.documentElement,{attributes:true,attributeFilter:["data-theme","style"]})}catch{}
+  let token="";try{token=parent.localStorage.getItem("session_token")||""}catch{}
+  const headers={"Content-Type":"application/json",...(token?{Authorization:`Bearer ${token}`}:{})};
+  async function api(path,options={}){const r=await parent.fetch(path,{...options,headers:{...headers,...options.headers}});const data=await r.json().catch(()=>({}));if(!r.ok)throw Error(data.error||`Request failed (${r.status})`);return data}
+  function status(id,message,error=false){const el=$(id);el.className=error?"error":"result";el.textContent=message}
+  function clearStatus(id){const el=$(id);el.className="";el.textContent=""}
+  let selected=null,searchTimer;
+  function statCard(label,value){const d=document.createElement("div");d.className="stat";const a=document.createElement("div");a.className="stat-label";a.textContent=label;const b=document.createElement("div");b.className="stat-value";b.textContent=value;d.append(a,b);return d}
+  function setTab(tab){document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===tab)));$("users-panel").hidden=tab!=="users";$("announcements-panel").hidden=tab!=="announcements";$("activity-panel").hidden=tab!=="activity";if(tab==="announcements")loadAnnouncements();if(tab==="activity")loadActivity()}
+  document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
+  async function loadOverview(){const o=await api("/api/admin/overview");$("stats").replaceChildren(statCard("Members",Number(o.users||0).toLocaleString()),statCard("Wallets",Number(o.wallets||0).toLocaleString()),statCard("Cosmetics owned",Number(o.cosmeticsOwned||0).toLocaleString()),statCard("Active notices",Number(o.activeAnnouncements||0).toLocaleString()))}
+  function safeText(tag,className,text){const e=document.createElement(tag);if(className)e.className=className;e.textContent=text??"";return e}
+  async function loadUsers(query=$("search").value){const tbody=$("users");tbody.replaceChildren();$("users-empty").hidden=true;const rows=await api(`/api/admin/users?q=${encodeURIComponent(query)}`);if(!rows.length){$("users-empty").hidden=false;return}for(const u of rows){const tr=document.createElement("tr");const account=document.createElement("td");account.append(safeText("div","user-name",u.display_name||u.username),safeText("div","muted",`@${u.username}`));const amount=safeText("td","",String(u.credits));const owned=safeText("td","",Number(u.cosmetics_owned||0).toLocaleString());const since=safeText("td","muted",u.created_at?new Date(u.created_at).toLocaleDateString():"—");const act=document.createElement("td");const btn=safeText("button","btn","Adjust");btn.type="button";btn.addEventListener("click",()=>openCredit(u));act.append(btn);tr.append(account,amount,owned,since,act);tbody.append(tr)}}
+  function openCredit(u){selected=u;$("credit-box").hidden=false;$("selected-user").textContent=`@${u.username} · current balance ${u.credits} credits`;$("amount").value="";$("note").value="";clearStatus("credit-status");$("amount").focus()}
+  $("search-button").addEventListener("click",()=>loadUsers().catch(e=>status("credit-status",e.message,true)));
+  $("search").addEventListener("input",()=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>loadUsers().catch(()=>{}),250)});
+  $("search").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();loadUsers().catch(x=>status("credit-status",x.message,true))}});
+  $("cancel-credit").addEventListener("click",()=>{$("credit-box").hidden=true;selected=null});
+  $("apply-credit").addEventListener("click",async()=>{if(!selected)return;let amount=$("amount").value.trim();if(!/^\d{1,1000}$/.test(amount)||/^0+$/.test(amount)){status("credit-status","Enter a positive whole number with at most 1,000 digits.",true);return}if($("direction").value==="remove")amount="-"+amount;$("apply-credit").disabled=true;clearStatus("credit-status");try{const result=await api("/api/admin/credits",{method:"POST",body:JSON.stringify({username:selected.username,amount,note:$("note").value.trim()})});status("credit-status",`${result.applied} credits applied. @${result.username} now has ${result.credits} credits.`);await Promise.all([loadUsers(),loadOverview()]);selected={...selected,credits:result.credits};$("selected-user").textContent=`@${selected.username} · current balance ${selected.credits} credits`}catch(e){status("credit-status",e.message,true)}finally{$("apply-credit").disabled=false}});
+  async function loadAnnouncements(){const items=await api("/api/admin/announcements");const box=$("announcements");box.replaceChildren();if(!items.length){box.append(safeText("div","empty","No announcements yet."));return}for(const a of items){const row=document.createElement("div");row.className="announcement";const info=document.createElement("div");info.append(safeText("div","announcement-title",a.title),safeText("div","muted",`${a.kind} · ${new Date(a.created_at).toLocaleString()}`),safeText("div","muted",a.message));const badges=document.createElement("div");badges.append(safeText("span",`pill ${a.published?"published":""}`,a.published?"Published":"Draft"));if(a.ends_at)badges.append(safeText("div","muted",`Ends ${new Date(a.ends_at).toLocaleString()}`));const stop=safeText("button","btn","Unpublish");stop.type="button";stop.disabled=!a.published;stop.addEventListener("click",async()=>{stop.disabled=true;try{await api(`/api/admin/announcements/${a.id}`,{method:"DELETE"});await loadAnnouncements();await loadOverview()}catch(e){status("announcement-status",e.message,true);stop.disabled=false}});badges.append(stop);row.append(info,badges);box.append(row)}}
+  $("publish").addEventListener("click",async()=>{const title=$("announcement-title").value.trim(),message=$("announcement-message").value.trim();if(!title||!message){status("announcement-status","Add a title and message before publishing.",true);return}const end=$("announcement-expiry").value?new Date($("announcement-expiry").value).toISOString():null;$("publish").disabled=true;clearStatus("announcement-status");try{await api("/api/admin/announcements",{method:"POST",body:JSON.stringify({title,message,kind:$("announcement-kind").value,dismissible:$("announcement-dismissible").checked,endsAt:end})});$("announcement-title").value="";$("announcement-message").value="";$("announcement-expiry").value="";status("announcement-status","Published. It will appear for visitors as they open or revisit Vaulted.");await Promise.all([loadAnnouncements(),loadOverview()])}catch(e){status("announcement-status",e.message,true)}finally{$("publish").disabled=false}});
+  async function loadActivity(){const rows=await api("/api/admin/activity");const box=$("activity");box.replaceChildren();if(!rows.length){box.append(safeText("div","empty","No wallet adjustments yet."));return}const wrap=document.createElement("div");wrap.className="table-wrap";const table=document.createElement("table"),head=document.createElement("thead"),hr=document.createElement("tr");for(const t of ["Account","Change","Reason","When"]){hr.append(safeText("th","",t))}head.append(hr);const body=document.createElement("tbody");for(const r of rows){const tr=document.createElement("tr");tr.append(safeText("td","user-name",`@${r.username}`),safeText("td","",String(r.amount)),safeText("td","muted",r.reason),safeText("td","muted",new Date(r.created_at).toLocaleString()));body.append(tr)}table.append(head,body);wrap.append(table);box.append(wrap)}
+  async function boot(){try{const access=await api("/api/admin/access");if(access.owner!==true)throw Error("This panel is only available to the xander owner account.");$("gate").hidden=true;$("admin").hidden=false;await Promise.all([loadOverview(),loadUsers()])}catch(e){$("gate").replaceChildren(safeText("h2","","Owner access required"),safeText("p","help",e.message||"Sign in as xander to continue."));$("gate").append(safeText("p","muted","The server checks the account on every admin action."))}}
+  boot();
+})();
+</script>
+</body>
+</html>

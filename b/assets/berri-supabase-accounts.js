@@ -262,6 +262,116 @@
     return response({ riskTier: typeof data === "string" ? data : "none" });
   }
 
+  async function handleVaultedAdmin(path, url, init) {
+    const method = (init?.method || "GET").toUpperCase();
+    const db = await loadClient();
+    const token = new Headers(init?.headers).get("Authorization")?.replace(/^Bearer\s+/i, "");
+    const user = await getUser(db, token);
+    if (!user) return response({ error: "Sign in to open the owner panel." }, 401);
+    const body = method === "POST" ? await requestBody(init) : {};
+    let name;
+    let args = {};
+    if (path === "/api/admin/access" && method === "GET") name = "vaulted_admin_access";
+    else if (path === "/api/admin/overview" && method === "GET") name = "vaulted_admin_overview";
+    else if (path === "/api/admin/users" && method === "GET") {
+      name = "vaulted_admin_search_users";
+      args = { p_query: String(url.searchParams.get("q") || "").slice(0, 80) };
+    } else if (path === "/api/admin/credits" && method === "POST") {
+      const username = String(body.username || "").trim();
+      const amount = String(body.amount || "");
+      const note = String(body.note || "").slice(0, 200);
+      if (!/^[a-z0-9_.-]{3,24}$/i.test(username)) return response({ error: "Enter a valid username." }, 400);
+      if (!/^-?[0-9]{1,1000}$/.test(amount)) return response({ error: "Enter a whole number with up to 1,000 digits." }, 400);
+      name = "vaulted_admin_adjust_credits";
+      args = { p_username: username, p_amount: amount, p_note: note };
+    } else if (path === "/api/admin/announcements" && method === "GET") name = "vaulted_admin_list_announcements";
+    else if (path === "/api/admin/activity" && method === "GET") name = "vaulted_admin_activity";
+    else if (path === "/api/admin/announcements" && method === "POST") {
+      name = "vaulted_admin_create_announcement";
+      args = {
+        p_title: String(body.title || "").slice(0, 100),
+        p_message: String(body.message || "").slice(0, 2000),
+        p_kind: String(body.kind || "info"),
+        p_dismissible: body.dismissible !== false,
+        p_ends_at: body.endsAt ? String(body.endsAt) : null,
+      };
+    } else if (path.startsWith("/api/admin/announcements/") && method === "DELETE") {
+      const id = path.slice("/api/admin/announcements/".length);
+      if (!/^[0-9a-f-]{36}$/i.test(id)) return response({ error: "Invalid announcement." }, 400);
+      name = "vaulted_admin_remove_announcement";
+      args = { p_id: id };
+    } else return response({ error: "This owner-panel action is not available." }, 404);
+
+    const { data, error } = await db.rpc(name, args);
+    if (error) {
+      const message = String(error.message || "Owner action failed.");
+      const forbidden = /owner access required/i.test(message) || error.code === "42501";
+      return response({ error: forbidden ? "This panel is only available to the xander owner account." : message }, forbidden ? 403 : 400);
+    }
+    return response(data);
+  }
+
+  async function handleAnnouncements() {
+    const db = await loadClient();
+    const { data, error } = await db.rpc("vaulted_active_announcements");
+    if (error) throw error;
+    return response(Array.isArray(data) ? data : []);
+  }
+
+  function mountAnnouncementPopup(items) {
+    if (!Array.isArray(items) || !items.length || !document.body) return;
+    const visible = items.filter(item => {
+      try { return !item.dismissible || localStorage.getItem(`vaulted-announcement-dismissed:${item.id}`) !== "1"; }
+      catch { return true; }
+    });
+    if (!visible.length || document.getElementById("vaulted-announcement-overlay")) return;
+    const item = visible[0];
+    const accent = ({ info: "#60a5fa", success: "#34d399", warning: "#fbbf24", critical: "#fb7185" })[item.kind] || "#60a5fa";
+    const overlay = document.createElement("div");
+    overlay.id = "vaulted-announcement-overlay";
+    overlay.setAttribute("role", "presentation");
+    overlay.style.cssText = "position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:20px;background:#05070bcc;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)";
+    const card = document.createElement("section");
+    card.setAttribute("role", "dialog");
+    card.setAttribute("aria-modal", "true");
+    card.setAttribute("aria-labelledby", "vaulted-announcement-title");
+    card.style.cssText = `position:relative;width:min(100%,520px);padding:28px;border:1px solid color-mix(in srgb,${accent} 40%,var(--border-4,#ffffff1a));border-radius:22px;background:var(--bg-1,#111318);color:var(--bright-text,#f7f8fc);box-shadow:0 28px 90px #0009;font:500 14px/1.55 system-ui,sans-serif`;
+    const label = document.createElement("div");
+    label.textContent = "VAULTED ANNOUNCEMENT";
+    label.style.cssText = `margin-bottom:12px;color:${accent};font-size:10px;font-weight:800;letter-spacing:.15em`;
+    const title = document.createElement("h2");
+    title.id = "vaulted-announcement-title";
+    title.textContent = String(item.title || "Announcement");
+    title.style.cssText = "margin:0 32px 10px 0;font-size:23px;line-height:1.2;letter-spacing:-.03em";
+    const message = document.createElement("p");
+    message.textContent = String(item.message || "");
+    message.style.cssText = "margin:0;color:var(--text,#d7d9df);white-space:pre-wrap;overflow-wrap:anywhere";
+    card.append(label, title, message);
+    if (item.dismissible) {
+      const close = document.createElement("button");
+      close.type = "button";
+      close.textContent = "Got it";
+      close.style.cssText = `display:block;margin:22px 0 0 auto;padding:9px 16px;border:0;border-radius:11px;background:${accent};color:#071018;font:700 12px system-ui,sans-serif;cursor:pointer`;
+      close.addEventListener("click", () => {
+        try { localStorage.setItem(`vaulted-announcement-dismissed:${item.id}`, "1"); } catch {}
+        overlay.remove();
+      });
+      card.append(close);
+    }
+    overlay.append(card);
+    document.body.append(overlay);
+  }
+
+  async function refreshAnnouncements() {
+    try {
+      const result = await handleAnnouncements();
+      mountAnnouncementPopup(await result.json());
+    } catch (error) { console.debug("Vaulted announcements unavailable:", error?.message); }
+  }
+  setTimeout(refreshAnnouncements, 1200);
+  setInterval(() => { if (document.visibilityState === "visible") refreshAnnouncements(); }, 60_000);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") refreshAnnouncements(); });
+
   // All shop requests terminate here, never at the original site's API.
   function shopFailure(error) {
     const missing = ['42P01', '42883', 'PGRST202', 'PGRST205'].includes(error?.code);
@@ -498,6 +608,14 @@
     const rawUrl = typeof input === "string" ? input : input?.url || String(input);
     const url = new URL(rawUrl, location.href);
     if (!url.pathname.startsWith(API_PREFIX)) return nativeFetch(input, init);
+    if (url.pathname === "/api/announcements" && (!init?.method || init.method.toUpperCase() === "GET")) {
+      try { return await handleAnnouncements(); }
+      catch (error) { return response({ error: error?.message || "Announcements are unavailable." }, 500); }
+    }
+    if (url.pathname.startsWith("/api/admin/")) {
+      try { return await handleVaultedAdmin(url.pathname, url, init); }
+      catch (error) { return response({ error: error?.message || "Owner action failed." }, 500); }
+    }
     if (url.pathname === "/api/leaderboard" && (!init?.method || init.method.toUpperCase() === "GET")) {
       try { return await handleLeaderboard(url); }
       catch (error) { return response({ error: error?.message || "Could not load leaderboard." }, 500); }
