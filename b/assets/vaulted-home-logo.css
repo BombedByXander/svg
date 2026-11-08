@@ -689,3 +689,11 @@
 /* Keep the greeting floating in exact phase with the Vaulted wordmark. */
 .home-page .home-greeting{animation:berri-home-float 3.8s ease-in-out 0s infinite!important;will-change:transform}
 @media(prefers-reduced-motion:reduce){.home-page .home-greeting{animation:berri-home-float 6s ease-in-out 0s infinite!important}}
+
+/* Two-line online card with a compact 24-hour activity peak row. */
+.home-online-card{flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:9px!important;text-align:left!important}
+.home-online-main{display:flex;align-items:center;gap:10px;min-width:0;color:var(--bright-text);font-size:13px;font-weight:600}
+.home-online-main svg{flex:none;color:var(--accent)}
+.home-presence-peak{display:flex;align-items:center;gap:7px;min-width:0;color:var(--text-muted);font-size:11px;line-height:1.25}
+.home-presence-peak svg{flex:none;color:var(--accent)}
+@media(max-width:520px){.home-online-card{gap:7px!important}.home-presence-peak{font-size:10px}}

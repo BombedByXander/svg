@@ -2,6 +2,9 @@
   const supabaseUrl = "https://hulovfywovcxwprxdnoa.supabase.co";
   const publishableKey = "sb_publishable_bu5a4_y67XUXuQiiayz3pQ_CpaI_ni2";
   const eventName = "berri:presence-count";
+  const peakEventName = "berri:presence-peak";
+  let lastPeakCount = null;
+  let lastPeakReportAt = 0;
   const channelName = "berri-live-active-users-v1";
   let client = null;
   let channel = null;
@@ -14,6 +17,27 @@
     if (!Number.isFinite(count)) return;
     window.__berriPresenceCount = count;
     window.dispatchEvent(new CustomEvent(eventName, { detail: { count } }));
+  }
+
+  function publishPeak(value) {
+    const peak = value !== null && value !== undefined && Number.isFinite(Number(value)) ? Number(value) : null;
+    window.__berriPresencePeak = peak;
+    window.dispatchEvent(new CustomEvent(peakEventName, { detail: { peak } }));
+  }
+
+  async function reportPeak(count) {
+    const now = Date.now();
+    if (!client || !Number.isFinite(count) || (count === lastPeakCount && now - lastPeakReportAt < 5 * 60 * 1000)) return;
+    lastPeakCount = count;
+    lastPeakReportAt = now;
+    try {
+      const { data, error } = await client.rpc("record_vaulted_presence_peak", { p_active_count: count });
+      if (error) throw error;
+      publishPeak(data);
+    } catch (error) {
+      publishPeak(null);
+      console.warn("Berri 24-hour presence peak could not update:", error);
+    }
   }
 
   function publishUnavailable() {
@@ -49,7 +73,9 @@
 
   function countPresence() {
     if (!channel) return;
-    publishCount(Object.keys(channel.presenceState()).length);
+    const count = Object.keys(channel.presenceState()).length;
+    publishCount(count);
+    reportPeak(count);
   }
 
   async function syncPresence() {
@@ -95,6 +121,7 @@
       };
       ["pointerdown", "keydown", "touchstart", "scroll"].forEach((name) => window.addEventListener(name, noteActivity, { passive: true }));
       window.setInterval(syncPresence, 10000);
+      window.setInterval(countPresence, 60 * 1000);
       window.addEventListener("pagehide", () => {
         disposed = true;
         if (client && channel) client.removeChannel(channel);
