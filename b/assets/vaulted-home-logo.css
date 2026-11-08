@@ -672,3 +672,7 @@
 /* Match the wordmark halo and center it exactly beneath the greeting text. */
 .home-page .home-greeting{position:relative!important;isolation:isolate;width:fit-content!important;max-width:min(560px,calc(100vw - 24px))!important;margin-left:auto!important;margin-right:auto!important;filter:none!important;text-shadow:none!important}
 .home-page .home-greeting::before{content:"";position:absolute;z-index:-1;left:-14%;right:-14%;top:10%;bottom:4%;border-radius:50%;background:color-mix(in srgb,var(--bg-base,#080a10) 82%,transparent);filter:blur(17px);opacity:.78;pointer-events:none}
+
+/* Slightly larger home greeting: +3px at desktop and mobile sizes. */
+.home-page .home-greeting{font-size:17px!important}
+@media(max-width:600px){.home-page .home-greeting{font-size:16px!important}}
