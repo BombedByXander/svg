@@ -649,3 +649,14 @@
 /* Restrict animated game-card overlays to compositor-friendly properties. */
 .vault-game-card-overlay,.vault-game-card-title{transition-property:opacity,transform!important;will-change:opacity,transform}
 @media(prefers-reduced-motion:reduce){.vault-game-card-overlay,.vault-game-card-title{transition:none!important;will-change:auto}}
+
+/* Home status cards sit directly below the search; favorites stay in Games. */
+.home-widgets-row{display:flex!important;align-items:stretch!important;justify-content:center!important;gap:12px!important;width:100%!important;height:100%!important}
+.home-info-card{box-sizing:border-box;display:flex;min-width:0;flex-direction:column;justify-content:center;border:1px solid var(--border-4);border-radius:18px;background:color-mix(in srgb,var(--bg-2-base) 88%,transparent);box-shadow:0 8px 24px rgb(0 0 0/.2),inset 0 1px 0 color-mix(in srgb,var(--bright-text) 5%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:14px 18px;color:var(--text)}
+.home-time-card{flex:1 1 220px;max-width:260px;align-items:flex-start;text-align:left}
+.home-time-card .home-clock-time{margin:0;color:var(--bright-text);font-size:26px;line-height:1.1;font-weight:700;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.home-time-card .home-clock-meta{margin:4px 0 0;color:var(--text-muted);font-size:11px;line-height:1.35}
+.home-online-card{flex:1 1 180px;max-width:220px;min-height:100px;flex-direction:row;align-items:center;justify-content:center;gap:10px;text-align:center;color:var(--bright-text);font-size:13px;font-weight:600}
+.home-online-card svg{flex:none;color:var(--accent)}
+.home-widget-item{min-width:0}
+@media(max-width:520px){.home-widgets-row{gap:8px!important}.home-info-card{padding:12px 11px;border-radius:15px}.home-time-card .home-clock-time{font-size:22px}.home-time-card .home-clock-meta{font-size:10px}.home-online-card{font-size:11px;gap:7px}}
