@@ -658,9 +658,13 @@
 .home-widget-item{min-width:0}
 @media(max-width:520px){.home-widgets-row{gap:8px!important}.home-info-card{padding:12px 11px;border-radius:15px}.home-time-card .home-clock-time{font-size:22px}.home-time-card .home-clock-meta{font-size:10px}.home-online-card{font-size:11px;gap:7px}}
 
-/* Keep the gradient lettering clean; separate it from busy animated backdrops with a soft halo. */
-.home-page .home-title{position:relative!important;isolation:isolate}
-.home-page .home-title::before{content:"";position:absolute;z-index:-1;inset:12% 18%;border-radius:50%;background:color-mix(in srgb,var(--bg-base,#080a10) 82%,transparent);filter:blur(17px);opacity:.78;pointer-events:none}
+/* Crisp theme-aware outline and centered glyph shadows for busy animated backgrounds. */
+.home-page{--home-wordmark-stroke:#05070b}
+[data-theme=light] .home-page{--home-wordmark-stroke:#fff}
+.home-page .home-title-text,.home-page .home-greeting{color:transparent!important;-webkit-text-fill-color:transparent!important;-webkit-text-stroke:1px var(--home-wordmark-stroke)!important;filter:drop-shadow(0 2px 4px color-mix(in srgb,var(--bg-base,#080a10) 90%,black)) drop-shadow(0 0 5px color-mix(in srgb,var(--accent) 18%,transparent))!important;text-shadow:none!important}
+.home-page .home-title-text{background-clip:text!important;-webkit-background-clip:text!important}
+.home-page .home-greeting{position:relative!important;isolation:auto!important;width:fit-content!important;max-width:min(560px,calc(100vw - 24px))!important;margin-left:auto!important;margin-right:auto!important;background-clip:text!important;-webkit-background-clip:text!important}
+.home-page .home-title::before,.home-page .home-greeting::before{content:none!important;display:none!important}
 
 /* The paired home status cards are display-only, without move/resize controls. */
 .home-status-row-widget>button{display:none!important;pointer-events:none!important}
