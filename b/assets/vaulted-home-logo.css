@@ -676,3 +676,8 @@
 /* Slightly larger home greeting: +3px at desktop and mobile sizes. */
 .home-page .home-greeting{font-size:17px!important}
 @media(max-width:600px){.home-page .home-greeting{font-size:16px!important}}
+
+/* A sturdier screen-friendly face keeps the outlined branding crisp. */
+.home-page .home-title-text,.home-page .home-greeting{font-family:"Helvetica Neue",Arial,sans-serif!important}
+.home-page .home-title-text{font-weight:700!important}
+.home-page .home-greeting{font-weight:600!important}
