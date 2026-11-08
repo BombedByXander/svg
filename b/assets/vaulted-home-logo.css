@@ -643,3 +643,9 @@
 /* A soft backdrop shadow under the greeting; do not cast a glyph-shaped text shadow. */
 .home-page .home-greeting{position:relative!important;isolation:isolate;filter:none!important;text-shadow:none!important}
 .home-page .home-greeting::before{content:"";position:absolute;z-index:-1;left:12%;right:12%;top:38%;bottom:8%;border-radius:999px;background:color-mix(in srgb,var(--accent) 24%,transparent);filter:blur(12px);pointer-events:none}
+
+/* Keep long directories smooth by skipping offscreen card paint/layout work. */
+.members-directory-grid>.members-directory-card{content-visibility:auto;contain-intrinsic-size:auto 270px;contain:layout paint style}
+/* Restrict animated game-card overlays to compositor-friendly properties. */
+.vault-game-card-overlay,.vault-game-card-title{transition-property:opacity,transform!important;will-change:opacity,transform}
+@media(prefers-reduced-motion:reduce){.vault-game-card-overlay,.vault-game-card-title{transition:none!important;will-change:auto}}
