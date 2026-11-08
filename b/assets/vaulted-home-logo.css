@@ -681,3 +681,7 @@
 .home-page .home-title-text,.home-page .home-greeting{font-family:"Helvetica Neue",Arial,sans-serif!important}
 .home-page .home-title-text{font-weight:700!important}
 .home-page .home-greeting{font-weight:600!important}
+
+/* Keep the tiny registered mark clean; use the requested half-pixel greeting outline. */
+.home-page .home-title-text::after{-webkit-text-stroke:0!important;text-shadow:none!important;filter:none!important}
+.home-page .home-greeting{-webkit-text-stroke:.5px var(--home-wordmark-stroke)!important}
