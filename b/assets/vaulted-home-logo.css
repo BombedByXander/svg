@@ -625,3 +625,11 @@
 
 /* React Bits Gradient ASCII canvas sizing */
 .gradient-ascii-theme-background{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;overflow:hidden!important;pointer-events:none!important}.gradient-ascii-theme-background>.gradient-ascii-canvas{position:absolute!important;inset:0!important;display:block!important;width:100%!important;height:100%!important}
+
+/* Subtle, theme-aware depth for the home search and brand */
+.home-logo-mark{filter:drop-shadow(0 2px 5px color-mix(in srgb,var(--accent) 24%,transparent)) drop-shadow(0 1px 2px rgb(0 0 0/.3))}
+.home-title-text{filter:drop-shadow(0 2px 7px color-mix(in srgb,var(--accent) 20%,transparent)) drop-shadow(0 1px 2px rgb(0 0 0/.28))}
+.home-greeting{text-shadow:0 1px 2px rgb(0 0 0/.45),0 0 8px color-mix(in srgb,var(--accent) 12%,transparent)}
+.home-search{box-shadow:0 2px 8px rgb(0 0 0/.25),0 0 12px color-mix(in srgb,var(--accent) 8%,transparent)!important}
+.home-favorites-empty{box-shadow:0 2px 7px rgb(0 0 0/.2),0 0 8px color-mix(in srgb,var(--accent) 7%,transparent);text-shadow:0 1px 2px rgb(0 0 0/.35)}
+.home-favorites>button>div:first-child{box-shadow:0 2px 6px rgb(0 0 0/.28)}
