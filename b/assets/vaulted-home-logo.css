@@ -640,9 +640,6 @@
 [data-theme=heaven] .home-page .home-logo-mark{filter:brightness(0) invert(1) drop-shadow(0 3px 10px color-mix(in srgb,var(--accent) 38%,transparent)) drop-shadow(0 1px 3px rgb(0 0 0/.4))!important}
 .home-page .home-title-text{filter:drop-shadow(0 3px 10px color-mix(in srgb,var(--accent) 32%,transparent)) drop-shadow(0 1px 3px rgb(0 0 0/.36))!important}
 
-/* A soft backdrop shadow under the greeting; do not cast a glyph-shaped text shadow. */
-.home-page .home-greeting{position:relative!important;isolation:isolate;filter:none!important;text-shadow:none!important}
-.home-page .home-greeting::before{content:"";position:absolute;z-index:-1;left:12%;right:12%;top:38%;bottom:8%;border-radius:999px;background:color-mix(in srgb,var(--accent) 24%,transparent);filter:blur(12px);pointer-events:none}
 
 /* Keep long directories smooth by skipping offscreen card paint/layout work. */
 .members-directory-grid>.members-directory-card{content-visibility:auto;contain-intrinsic-size:auto 270px;contain:layout paint style}
@@ -667,3 +664,7 @@
 
 /* The paired home status cards are display-only, without move/resize controls. */
 .home-status-row-widget>button{display:none!important;pointer-events:none!important}
+
+/* Match the wordmark halo and center it exactly beneath the greeting text. */
+.home-page .home-greeting{position:relative!important;isolation:isolate;width:fit-content!important;max-width:min(560px,calc(100vw - 24px))!important;margin-left:auto!important;margin-right:auto!important;filter:none!important;text-shadow:none!important}
+.home-page .home-greeting::before{content:"";position:absolute;z-index:-1;left:-14%;right:-14%;top:10%;bottom:4%;border-radius:50%;background:color-mix(in srgb,var(--bg-base,#080a10) 82%,transparent);filter:blur(17px);opacity:.78;pointer-events:none}
