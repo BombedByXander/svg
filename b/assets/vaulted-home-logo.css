@@ -639,3 +639,6 @@
 .home-page .home-logo-mark{width:.7em!important;height:.7em!important;align-self:center!important;position:relative!important;top:-.025em!important;filter:drop-shadow(0 3px 9px color-mix(in srgb,var(--accent) 34%,transparent)) drop-shadow(0 1px 3px rgb(0 0 0/.38))!important}
 [data-theme=heaven] .home-page .home-logo-mark{filter:brightness(0) invert(1) drop-shadow(0 3px 10px color-mix(in srgb,var(--accent) 38%,transparent)) drop-shadow(0 1px 3px rgb(0 0 0/.4))!important}
 .home-page .home-title-text{filter:drop-shadow(0 3px 10px color-mix(in srgb,var(--accent) 32%,transparent)) drop-shadow(0 1px 3px rgb(0 0 0/.36))!important}
+
+/* The greeting uses transparent gradient text, so shadow the rendered glyphs. */
+.home-page .home-greeting{filter:drop-shadow(0 2px 3px rgb(0 0 0/.62)) drop-shadow(0 0 7px color-mix(in srgb,var(--accent) 28%,transparent))!important;text-shadow:0 1px 2px rgb(0 0 0/.55)!important}
