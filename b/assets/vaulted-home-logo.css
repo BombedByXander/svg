@@ -685,3 +685,7 @@
 /* Keep the tiny registered mark clean; use the requested half-pixel greeting outline. */
 .home-page .home-title-text::after{-webkit-text-stroke:0!important;text-shadow:none!important;filter:none!important}
 .home-page .home-greeting{-webkit-text-stroke:.5px var(--home-wordmark-stroke)!important}
+
+/* Keep the greeting floating in exact phase with the Vaulted wordmark. */
+.home-page .home-greeting{animation:berri-home-float 3.8s ease-in-out 0s infinite!important;will-change:transform}
+@media(prefers-reduced-motion:reduce){.home-page .home-greeting{animation:berri-home-float 6s ease-in-out 0s infinite!important}}
