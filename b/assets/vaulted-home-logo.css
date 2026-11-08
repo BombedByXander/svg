@@ -640,5 +640,6 @@
 [data-theme=heaven] .home-page .home-logo-mark{filter:brightness(0) invert(1) drop-shadow(0 3px 10px color-mix(in srgb,var(--accent) 38%,transparent)) drop-shadow(0 1px 3px rgb(0 0 0/.4))!important}
 .home-page .home-title-text{filter:drop-shadow(0 3px 10px color-mix(in srgb,var(--accent) 32%,transparent)) drop-shadow(0 1px 3px rgb(0 0 0/.36))!important}
 
-/* Subtle conventional shadow keeps the gradient greeting crisp. */
-.home-page .home-greeting{filter:none!important;text-shadow:0 1px 2px rgb(0 0 0/.48)!important}
+/* A soft backdrop shadow under the greeting; do not cast a glyph-shaped text shadow. */
+.home-page .home-greeting{position:relative!important;isolation:isolate;filter:none!important;text-shadow:none!important}
+.home-page .home-greeting::before{content:"";position:absolute;z-index:-1;left:12%;right:12%;top:38%;bottom:8%;border-radius:999px;background:color-mix(in srgb,var(--accent) 24%,transparent);filter:blur(12px);pointer-events:none}
