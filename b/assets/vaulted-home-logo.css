@@ -633,3 +633,9 @@
 .home-search{box-shadow:0 2px 8px rgb(0 0 0/.25),0 0 12px color-mix(in srgb,var(--accent) 8%,transparent)!important}
 .home-favorites-empty{box-shadow:0 2px 7px rgb(0 0 0/.2),0 0 8px color-mix(in srgb,var(--accent) 7%,transparent);text-shadow:0 1px 2px rgb(0 0 0/.35)}
 .home-favorites>button>div:first-child{box-shadow:0 2px 6px rgb(0 0 0/.28)}
+
+/* Fine alignment and slightly stronger logo/wordmark shadow */
+.home-page .home-title{align-items:center!important}
+.home-page .home-logo-mark{width:.7em!important;height:.7em!important;align-self:center!important;position:relative!important;top:-.025em!important;filter:drop-shadow(0 3px 9px color-mix(in srgb,var(--accent) 34%,transparent)) drop-shadow(0 1px 3px rgb(0 0 0/.38))!important}
+[data-theme=heaven] .home-page .home-logo-mark{filter:brightness(0) invert(1) drop-shadow(0 3px 10px color-mix(in srgb,var(--accent) 38%,transparent)) drop-shadow(0 1px 3px rgb(0 0 0/.4))!important}
+.home-page .home-title-text{filter:drop-shadow(0 3px 10px color-mix(in srgb,var(--accent) 32%,transparent)) drop-shadow(0 1px 3px rgb(0 0 0/.36))!important}
