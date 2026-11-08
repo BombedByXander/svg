@@ -664,3 +664,6 @@
 /* Keep the gradient lettering clean; separate it from busy animated backdrops with a soft halo. */
 .home-page .home-title{position:relative!important;isolation:isolate}
 .home-page .home-title::before{content:"";position:absolute;z-index:-1;inset:12% 18%;border-radius:50%;background:color-mix(in srgb,var(--bg-base,#080a10) 82%,transparent);filter:blur(17px);opacity:.78;pointer-events:none}
+
+/* The paired home status cards are display-only, without move/resize controls. */
+.home-status-row-widget>button{display:none!important;pointer-events:none!important}
