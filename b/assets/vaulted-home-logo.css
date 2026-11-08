@@ -661,7 +661,7 @@
 /* Crisp theme-aware outline and centered glyph shadows for busy animated backgrounds. */
 .home-page{--home-wordmark-stroke:#05070b}
 [data-theme=light] .home-page{--home-wordmark-stroke:#fff}
-.home-page .home-title-text,.home-page .home-greeting{color:transparent!important;-webkit-text-fill-color:transparent!important;-webkit-text-stroke:1px var(--home-wordmark-stroke)!important;filter:drop-shadow(0 2px 4px color-mix(in srgb,var(--bg-base,#080a10) 90%,black)) drop-shadow(0 0 5px color-mix(in srgb,var(--accent) 18%,transparent))!important;text-shadow:none!important}
+.home-page .home-title-text,.home-page .home-greeting{color:transparent!important;-webkit-text-fill-color:transparent!important;-webkit-text-stroke:1px var(--home-wordmark-stroke)!important;filter:none!important;text-shadow:none!important}
 .home-page .home-title-text{background-clip:text!important;-webkit-background-clip:text!important}
 .home-page .home-greeting{position:relative!important;isolation:auto!important;width:fit-content!important;max-width:min(560px,calc(100vw - 24px))!important;margin-left:auto!important;margin-right:auto!important;background-clip:text!important;-webkit-background-clip:text!important}
 .home-page .home-title::before,.home-page .home-greeting::before{content:none!important;display:none!important}
