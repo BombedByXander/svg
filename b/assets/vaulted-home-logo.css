@@ -661,9 +661,6 @@
 .home-widget-item{min-width:0}
 @media(max-width:520px){.home-widgets-row{gap:8px!important}.home-info-card{padding:12px 11px;border-radius:15px}.home-time-card .home-clock-time{font-size:22px}.home-time-card .home-clock-meta{font-size:10px}.home-online-card{font-size:11px;gap:7px}}
 
-/* Improve contrast over animated backgrounds without distorting glyphs. */
-.home-page .home-logo-mark{filter:drop-shadow(0 1px 2px color-mix(in srgb,var(--bg-base,#080a10) 92%,black)) drop-shadow(0 0 7px color-mix(in srgb,var(--accent) 32%,transparent))!important}
-.home-page .home-title-text{-webkit-text-stroke:.8px color-mix(in srgb,var(--bg-base,#080a10) 88%,black)!important;paint-order:stroke fill;text-shadow:0 2px 5px color-mix(in srgb,var(--bg-base,#080a10) 72%,transparent)!important}
-.home-page .home-greeting{-webkit-text-stroke:.45px color-mix(in srgb,var(--bg-base,#080a10) 88%,black)!important;paint-order:stroke fill;text-shadow:none!important}
-.home-page .home-search input{ text-shadow:0 1px 2px color-mix(in srgb,var(--bg-base,#080a10) 75%,transparent)}
-.home-page .home-search input::placeholder{-webkit-text-stroke:.15px color-mix(in srgb,var(--bg-base,#080a10) 70%,transparent)}
+/* Keep the gradient lettering clean; separate it from busy animated backdrops with a soft halo. */
+.home-page .home-title{position:relative!important;isolation:isolate}
+.home-page .home-title::before{content:"";position:absolute;z-index:-1;inset:12% 18%;border-radius:50%;background:color-mix(in srgb,var(--bg-base,#080a10) 82%,transparent);filter:blur(17px);opacity:.78;pointer-events:none}
