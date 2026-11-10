@@ -25,7 +25,7 @@
     <div class="controls"><label class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="search" type="search" placeholder="Search games…" autocomplete="off" aria-label="Search games"></label><select class="select" id="sort" aria-label="Sort games"><option value="az">A to Z</option><option value="za">Z to A</option></select></div>
     <div id="error" class="error" role="status" hidden></div>
     <div class="summary"><span><strong id="shown">0</strong> games</span><span>Downloads are HTML pages; game assets may still load from their original host.</span></div>
-    <div class="notice"><strong>Download note:</strong> Some game hosts block browser downloads. This page downloads games when the host allows it; for blocked hosts, open the game in Vaulted and use its built-in download action.</div>
+    <div class="notice"><strong>Download note:</strong> When hosted on Vaulted, this hub uses the same proxy-backed downloader as the game library. If you save this HTML and open it locally, browser cross-origin limits may prevent some downloads.</div>
     <section class="grid" id="grid" aria-label="Games"></section>
     <footer class="footer">Vaulted game downloads · <strong>HTML pages may require an internet connection</strong></footer>
   </main>
@@ -55,25 +55,76 @@
         grid.querySelectorAll("[data-download]").forEach((button) => button.addEventListener("click", () => downloadGame(list[Number(button.dataset.download)], button)));
       };
       const escapeHtml = (value) => String(value).replace(/[&<>"']/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]));
+      let runtimeFrame = null, runtimePromise = null;
+      function getVaultedDownloader() {
+        if (!/^https?:$/.test(location.protocol)) return Promise.resolve(null);
+        if (runtimePromise) return runtimePromise;
+        runtimePromise = new Promise((resolve) => {
+          const frame = runtimeFrame = document.createElement("iframe");
+          frame.title = "Vaulted download runtime";
+          frame.tabIndex = -1;
+          frame.setAttribute("aria-hidden", "true");
+          frame.style.cssText = "position:fixed;left:-10000px;top:0;width:2px;height:2px;border:0;opacity:0;pointer-events:none";
+          frame.src = new URL("./index.html", location.href).href;
+          document.body.append(frame);
+          const deadline = Date.now() + 30000;
+          const poll = () => {
+            try {
+              const downloader = frame.contentWindow && frame.contentWindow.__vaultedDownloadGame;
+              if (typeof downloader === "function") return resolve(downloader);
+            } catch {}
+            if (Date.now() >= deadline) return resolve(null);
+            setTimeout(poll, 200);
+          };
+          frame.addEventListener("load", poll);
+          poll();
+        });
+        return runtimePromise;
+      }
+      window.addEventListener("message", (event) => {
+        if (!runtimeFrame || event.source !== runtimeFrame.contentWindow || event.origin !== location.origin || event.data?.type !== "vaulted-game-download") return;
+        const button = document.querySelector(`[data-download-token="${CSS.escape(String(event.data.token || ""))}"]`);
+        if (event.data.status === "error") {
+          errorBox.textContent = `${event.data.name}: ${event.data.message || "download failed"}`;
+          errorBox.hidden = false;
+          if (button) { const label = button.querySelector("span"); if (label) label.textContent = "Try again"; button.disabled = false; }
+        } else if (button) {
+          const label = button.querySelector("span"); if (label) label.textContent = "Downloaded";
+          setTimeout(() => { if (label?.isConnected) label.textContent = "Download HTML"; }, 1800);
+        }
+      });
       async function downloadGame(game, button) {
         const url = safeUrl(game.url); if (!url || button.disabled) return;
-        errorBox.hidden = true; button.disabled = true; const label = button.querySelector("span"); label.textContent = "Fetching HTML…";
-        const controller = new AbortController(), timeout = setTimeout(() => controller.abort(), 18000);
+        errorBox.hidden = true; button.disabled = true;
+        const label = button.querySelector("span"); label.textContent = "Connecting to Vaulted…";
         try {
-          const response = await fetch(url, { signal: controller.signal, credentials: "omit", redirect: "follow" });
-          if (!response.ok) throw new Error(`The game host returned HTTP ${response.status}.`);
-          let html = await response.text();
-          if (!/<(?:!doctype\s+html|html|head|body|script|div|canvas)\b/i.test(html)) throw new Error("The game host did not return an HTML page.");
-          const doc = new DOMParser().parseFromString(html, "text/html");
-          if (!doc.querySelector("base[href]")) { const base = doc.createElement("base"); base.href = url; doc.head.prepend(base); }
-          html = "<!doctype html>\n" + doc.documentElement.outerHTML;
-          const blobUrl = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" }));
-          const a = document.createElement("a"); a.href = blobUrl; a.download = `${String(game.name || "game").replace(/[<>:\"/\\|?*\x00-\x1f]/g, "_").slice(0,100)}.html`; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
-          label.textContent = "Downloaded"; setTimeout(() => { if (label.isConnected) label.textContent = "Download HTML"; }, 1800);
+          const downloader = await getVaultedDownloader();
+          if (downloader) {
+            label.textContent = "Fetching HTML…";
+            const token = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+            button.dataset.downloadToken = token;
+            button.disabled = false;
+            await downloader({ id: game.id, name: game.name, launch: url, url, img: game.img || "", downloadToken: token }, button);
+            return;
+          }
+          const controller = new AbortController(), timeout = setTimeout(() => controller.abort(), 18000);
+          try {
+            label.textContent = "Fetching HTML…";
+            const response = await fetch(url, { signal: controller.signal, credentials: "omit", redirect: "follow" });
+            if (!response.ok) throw new Error(`The game host returned HTTP ${response.status}.`);
+            let html = await response.text();
+            if (!/<(?:!doctype\s+html|html|head|body|script|div|canvas)\b/i.test(html)) throw new Error("The game host did not return an HTML page.");
+            const doc = new DOMParser().parseFromString(html, "text/html");
+            if (!doc.querySelector("base[href]")) { const base = doc.createElement("base"); base.href = url; doc.head.prepend(base); }
+            html = "<!doctype html>\n" + doc.documentElement.outerHTML;
+            const blobUrl = URL.createObjectURL(new Blob([html], { type: "text/html;charset=utf-8" }));
+            const a = document.createElement("a"); a.href = blobUrl; a.download = `${String(game.name || "game").replace(/[<>:\"/\\|?*\x00-\x1f]/g, "_").slice(0,100)}.html`; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(blobUrl), 60000);
+            label.textContent = "Downloaded"; setTimeout(() => { if (label.isConnected) label.textContent = "Download HTML"; }, 1800);
+          } finally { clearTimeout(timeout); }
         } catch (e) {
-          errorBox.textContent = `${game.name}: ${e.name === "AbortError" ? "download timed out" : e instanceof TypeError ? "this host blocks direct downloads from a standalone page. Open it in Vaulted and use the built-in download action." : (e.message || "download failed")}`;
+          errorBox.textContent = `${game.name}: ${e.name === "AbortError" ? "download timed out" : e instanceof TypeError ? "Open this hub from Vaulted to use its proxy-backed downloader." : (e.message || "download failed")}`;
           errorBox.hidden = false; label.textContent = "Try again";
-        } finally { clearTimeout(timeout); button.disabled = false; }
+        } finally { button.disabled = false; }
       }
       search.addEventListener("input", render); sort.addEventListener("change", render); render();
       if (location.protocol === "file:") document.querySelector(".brand").href = "https://vaultedd.pages.dev/b/index.html";
