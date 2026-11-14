@@ -929,5 +929,574 @@
       "text": "GRINCH",
       "color": "#84cc16"
     }
+  },
+  {
+    "id": "deco_bloodmoon",
+    "kind": "avatar_decoration",
+    "name": "Blood Moon",
+    "description": "A molten crescent glowing red",
+    "price": 1600,
+    "payload": {
+      "style": "flame"
+    }
+  },
+  {
+    "id": "tag_merry",
+    "kind": "name_tag",
+    "name": "Merry",
+    "description": "Merry and bright",
+    "price": 400,
+    "payload": {
+      "text": "MERRY",
+      "color": "#4ade80"
+    }
+  },
+  {
+    "id": "tag_hohoho",
+    "kind": "name_tag",
+    "name": "Ho Ho Ho",
+    "description": "Laughing like a bowl full of jelly",
+    "price": 600,
+    "payload": {
+      "text": "HO HO HO",
+      "color": "#ef4444"
+    }
+  },
+  {
+    "id": "tag_frosty",
+    "kind": "name_tag",
+    "name": "Frosty",
+    "description": "Cool as ice",
+    "price": 500,
+    "payload": {
+      "text": "FROSTY",
+      "color": "#a5f3fc"
+    }
+  },
+  {
+    "id": "tag_cozy",
+    "kind": "name_tag",
+    "name": "Cozy",
+    "description": "Blanket, cocoa, no plans",
+    "price": 400,
+    "payload": {
+      "text": "COZY",
+      "color": "#fbbf24"
+    }
+  },
+  {
+    "id": "tag_snowedin",
+    "kind": "name_tag",
+    "name": "Snowed In",
+    "description": "Not going anywhere",
+    "price": 600,
+    "payload": {
+      "text": "SNOWED IN",
+      "color": "#e0f2fe"
+    }
+  },
+  {
+    "id": "tag_elf",
+    "kind": "name_tag",
+    "name": "Elf",
+    "description": "Santa's little helper",
+    "price": 500,
+    "payload": {
+      "text": "ELF",
+      "color": "#22c55e"
+    }
+  },
+  {
+    "id": "tag_mistletoe",
+    "kind": "name_tag",
+    "name": "Mistletoe",
+    "description": "Meet me underneath",
+    "price": 700,
+    "payload": {
+      "text": "MISTLETOE",
+      "color": "#34d399"
+    }
+  },
+  {
+    "id": "tag_cocoa",
+    "kind": "name_tag",
+    "name": "Cocoa",
+    "description": "Extra marshmallows",
+    "price": 400,
+    "payload": {
+      "text": "COCOA",
+      "color": "#d6a77a"
+    }
+  },
+  {
+    "id": "tag_akane_fan_9b5f73aa",
+    "kind": "name_tag",
+    "name": "Akane Fan",
+    "description": "Professional akane cult member TM no refunds join the cult",
+    "price": 150,
+    "payload": {
+      "text": "AKANE FAN",
+      "color": "#8fffd4"
+    }
+  },
+  {
+    "id": "tag_x8r_fan_246b3dcf",
+    "kind": "name_tag",
+    "name": "x8r fan",
+    "description": "Join team x8r today",
+    "price": 200,
+    "payload": {
+      "text": "X8R FAN",
+      "color": "#1c71d8"
+    }
+  },
+  {
+    "id": "tag_star",
+    "kind": "name_tag",
+    "name": "Star",
+    "description": "Shine bright",
+    "price": 500,
+    "payload": {
+      "text": "STAR",
+      "color": "#8be9fd"
+    }
+  },
+  {
+    "id": "tag_cool",
+    "kind": "name_tag",
+    "name": "Cool",
+    "description": "Effortlessly",
+    "price": 600,
+    "payload": {
+      "text": "COOL",
+      "color": "#7dd3fc"
+    }
+  },
+  {
+    "id": "tag_special",
+    "kind": "name_tag",
+    "name": "Special",
+    "description": "One of a kind",
+    "price": 900,
+    "payload": {
+      "text": "SPECIAL",
+      "color": "#bd93f9"
+    }
+  },
+  {
+    "id": "tag_tuff",
+    "kind": "name_tag",
+    "name": "Tuff",
+    "description": "Certified tuff",
+    "price": 800,
+    "payload": {
+      "text": "TUFF",
+      "color": "#ff5555"
+    }
+  },
+  {
+    "id": "tag_yummy",
+    "kind": "name_tag",
+    "name": "Yummy",
+    "description": "Delicious",
+    "price": 300,
+    "payload": {
+      "text": "YUMMY",
+      "color": "#ff8fab"
+    }
+  },
+  {
+    "id": "tag_femboy",
+    "kind": "name_tag",
+    "name": "Femboy",
+    "description": "Thigh highs equipped",
+    "price": 500,
+    "payload": {
+      "text": "FEMBOY",
+      "color": "#ff9ed8"
+    }
+  },
+  {
+    "id": "tag_tomboy_71537e82",
+    "kind": "name_tag",
+    "name": "Tomboy",
+    "description": "Flannel equipped",
+    "price": 500,
+    "payload": {
+      "text": "TOMBOY",
+      "color": "#218372"
+    }
+  },
+  {
+    "id": "tag_aura",
+    "kind": "name_tag",
+    "name": "Aura",
+    "description": "+1000 aura",
+    "price": 700,
+    "payload": {
+      "text": "AURA",
+      "color": "#9d7bff"
+    }
+  },
+  {
+    "id": "tag_larp",
+    "kind": "name_tag",
+    "name": "LARP",
+    "description": "None of it was real",
+    "price": 600,
+    "payload": {
+      "text": "LARP",
+      "color": "#7ee787"
+    }
+  },
+  {
+    "id": "tag_name",
+    "kind": "name_tag",
+    "name": "Name",
+    "description": "It just says NAME",
+    "price": 300,
+    "payload": {
+      "text": "NAME",
+      "color": "#d4d4d8"
+    }
+  },
+  {
+    "id": "tag_snek_dea2382f",
+    "kind": "name_tag",
+    "name": "Snek",
+    "description": "Boop noodle",
+    "price": 500,
+    "payload": {
+      "text": "SNEK",
+      "color": "#006b20"
+    }
+  },
+  {
+    "id": "tag_beans_190d7c0f",
+    "kind": "name_tag",
+    "name": "Beans",
+    "description": "Yum",
+    "price": 300,
+    "payload": {
+      "text": "BEANS",
+      "color": "#8f4c00"
+    }
+  },
+  {
+    "id": "tag_angel_d0f337bd",
+    "kind": "name_tag",
+    "name": "Angel",
+    "description": "I've done nothing wrong",
+    "price": 500,
+    "payload": {
+      "text": "ANGEL",
+      "color": "#ffffff"
+    }
+  },
+  {
+    "id": "tag_evil_766830d3",
+    "kind": "name_tag",
+    "name": "Evil",
+    "description": "muahahaha",
+    "price": 666,
+    "payload": {
+      "text": "EVIL",
+      "color": "#c20030"
+    }
+  },
+  {
+    "id": "tag_tsundere_262415cf",
+    "kind": "name_tag",
+    "name": "Tsundere",
+    "description": "It's not like I like you or anything...",
+    "price": 500,
+    "payload": {
+      "text": "TSUNDERE",
+      "color": "#ca536f"
+    }
+  },
+  {
+    "id": "tag_turtle_50f67d56",
+    "kind": "name_tag",
+    "name": "Turtle",
+    "description": "\"I like turtles.\"",
+    "price": 500,
+    "payload": {
+      "text": "TURTLE",
+      "color": "#5e976a"
+    }
+  },
+  {
+    "id": "tag_fih_7c05c8df",
+    "kind": "name_tag",
+    "name": "Fih",
+    "description": "Fihhhhhhhh",
+    "price": 500,
+    "payload": {
+      "text": "FIH",
+      "color": "#007e9e"
+    }
+  },
+  {
+    "id": "tag_gay",
+    "kind": "name_tag",
+    "name": "Gay",
+    "description": "Out and proud",
+    "price": 100,
+    "payload": {
+      "text": "GAY",
+      "color": "#c94fff"
+    }
+  },
+  {
+    "id": "tag_lesbian_21bfb3d9",
+    "kind": "name_tag",
+    "name": "Lesbian",
+    "description": "Out and proud",
+    "price": 100,
+    "payload": {
+      "text": "LESBIAN",
+      "color": "#d76c14"
+    }
+  },
+  {
+    "id": "tag_bisexual_83d526ee",
+    "kind": "name_tag",
+    "name": "Bisexual",
+    "description": "Out and proud",
+    "price": 100,
+    "payload": {
+      "text": "BISEXUAL",
+      "color": "#9404d7"
+    }
+  },
+  {
+    "id": "tag_pansexual_6d12f209",
+    "kind": "name_tag",
+    "name": "Pansexual",
+    "description": "Out and proud",
+    "price": 100,
+    "payload": {
+      "text": "PANSEXUAL",
+      "color": "#f5ef4d"
+    }
+  },
+  {
+    "id": "tag_trans_72dcc32d",
+    "kind": "name_tag",
+    "name": "Trans",
+    "description": "Out and proud",
+    "price": 100,
+    "payload": {
+      "text": "TRANS",
+      "color": "#3836a6"
+    }
+  },
+  {
+    "id": "tag_genderfluid_48f4ceac",
+    "kind": "name_tag",
+    "name": "Genderfluid",
+    "description": "Out and proud",
+    "price": 100,
+    "payload": {
+      "text": "GENDERFLUID",
+      "color": "#703e4a"
+    }
+  },
+  {
+    "id": "tag_aroace_59723f3b",
+    "kind": "name_tag",
+    "name": "Aroace",
+    "description": "Out and proud",
+    "price": 100,
+    "payload": {
+      "text": "AROACE",
+      "color": "#272022"
+    }
+  },
+  {
+    "id": "tag_aero_c3b479ee",
+    "kind": "name_tag",
+    "name": "Aero",
+    "description": "Out and proud",
+    "price": 500,
+    "payload": {
+      "text": "AERO",
+      "color": "#693542"
+    }
+  },
+  {
+    "id": "tag_ace_0bc0aa27",
+    "kind": "name_tag",
+    "name": "Ace",
+    "description": "Out and proud",
+    "price": 100,
+    "payload": {
+      "text": "ACE",
+      "color": "#707070"
+    }
+  },
+  {
+    "id": "tag_scammer_673fc81e",
+    "kind": "name_tag",
+    "name": "Scammer",
+    "description": "\"Hello, this is Microsoft Support Center\"",
+    "price": 5000,
+    "payload": {
+      "text": "SCAMMER",
+      "color": "#20fe45"
+    }
+  },
+  {
+    "id": "tag_rich_d79c0c32",
+    "kind": "name_tag",
+    "name": "Rich",
+    "description": "Flex your wealth on the peasents",
+    "price": 5000,
+    "payload": {
+      "text": "RICH",
+      "color": "#ffd700"
+    }
+  },
+  {
+    "id": "tag_unc_f47e9734",
+    "kind": "name_tag",
+    "name": "Unc",
+    "description": "Pushing 20 btw",
+    "price": 500,
+    "payload": {
+      "text": "UNC",
+      "color": "#192ed2"
+    }
+  },
+  {
+    "id": "tag_gambler_3a2d5190",
+    "kind": "name_tag",
+    "name": "Gambler",
+    "description": "1 more round...",
+    "price": 777,
+    "payload": {
+      "text": "GAMBLER",
+      "color": "#005c02"
+    }
+  },
+  {
+    "id": "tag_yin_ef847c65",
+    "kind": "name_tag",
+    "name": "Yin",
+    "description": "Darkness",
+    "price": 500,
+    "payload": {
+      "text": "YIN",
+      "color": "#0d0c0c"
+    }
+  },
+  {
+    "id": "tag_yang_38bb0740",
+    "kind": "name_tag",
+    "name": "Yang",
+    "description": "Light",
+    "price": 500,
+    "payload": {
+      "text": "YANG",
+      "color": "#ffffff"
+    }
+  },
+  {
+    "id": "tag_dumbass_fea4bac0",
+    "kind": "name_tag",
+    "name": "Dumbass",
+    "description": "Professional dumbass",
+    "price": 500,
+    "payload": {
+      "text": "DUMBASS",
+      "color": "#1066a8"
+    }
+  },
+  {
+    "id": "tag_smartass_8477ce6e",
+    "kind": "name_tag",
+    "name": "Smartass",
+    "description": "You think you're so clever...",
+    "price": 500,
+    "payload": {
+      "text": "SMARTASS",
+      "color": "#31d8a0"
+    }
+  },
+  {
+    "id": "tag_nugget_4eb85353",
+    "kind": "name_tag",
+    "name": "Nugget",
+    "description": "Just love munching on them",
+    "price": 550,
+    "payload": {
+      "text": "NUGGET",
+      "color": "#e5a50a"
+    }
+  },
+  {
+    "id": "tag_moon_18914267",
+    "kind": "name_tag",
+    "name": "Moon",
+    "description": "Shining brighter than a star.",
+    "price": 400,
+    "payload": {
+      "text": "MOON",
+      "color": "#ffffff"
+    }
+  },
+  {
+    "id": "tag_sweet_3b6e321c",
+    "kind": "name_tag",
+    "name": "Sweet",
+    "description": "Better than candy.",
+    "price": 500,
+    "payload": {
+      "text": "SWEET",
+      "color": "#ff14ba"
+    }
+  },
+  {
+    "id": "tag_pro_19e82b1d",
+    "kind": "name_tag",
+    "name": "Pro",
+    "description": "Better than you at everything.",
+    "price": 700,
+    "payload": {
+      "text": "PRO",
+      "color": "#57e389"
+    }
+  },
+  {
+    "id": "tag_donut_84a584bf",
+    "kind": "name_tag",
+    "name": "Donut",
+    "description": "Professional glaze",
+    "price": 300,
+    "payload": {
+      "text": "DONUT",
+      "color": "#dc8add"
+    }
+  },
+  {
+    "id": "plus_1d",
+    "kind": "plus_pass",
+    "name": "Cherri+ for 1 day",
+    "description": "24 hours of Plus",
+    "price": 3500,
+    "payload": {
+      "days": 1
+    }
+  },
+  {
+    "id": "plus_3d",
+    "kind": "plus_pass",
+    "name": "Cherri+ for 3 days",
+    "description": "72 hours of Plus",
+    "price": 8500,
+    "payload": {
+      "days": 3
+    }
   }
 ]

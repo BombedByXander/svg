@@ -96,7 +96,7 @@
     return null;
   }
 
-  function mapProfile(row, tags = [], recoveryEmail = null) {
+  function mapProfile(row, tags = [], recoveryEmail = null, plusUntil = null) {
     const gradient = row.card_gradient ?? null;
     return {
       ...row,
@@ -118,6 +118,7 @@
       })),
       createdAt: row.created_at,
       email: recoveryEmail,
+      plusUntil: plusUntil || null,
     };
   }
 
@@ -125,21 +126,25 @@
     const { data: row, error } = await db.from("profiles").select("*").eq("id", user.id).maybeSingle();
     if (error) throw error;
     if (!row) return null;
-    const [{ data: tags }, privateResult] = await Promise.all([
+    const [{ data: tags }, privateResult, plusResult] = await Promise.all([
       db.from("profile_tags").select("tag,icon,color").eq("user_id", user.id),
       includePrivate
         ? db.from("private_account_data").select("recovery_email").eq("user_id", user.id).maybeSingle()
         : Promise.resolve({ data: null }),
+      db.rpc("vaulted_public_plus", { p_usernames: [row.username] }),
     ]);
-    return mapProfile(row, tags || [], privateResult?.data?.recovery_email || null);
+    return mapProfile(row, tags || [], privateResult?.data?.recovery_email || null, plusResult?.data?.[row.username] || null);
   }
 
   async function mapMany(db, rows) {
     if (!rows?.length) return [];
-    const { data: tags } = await db.from("profile_tags").select("user_id,tag,icon,color").in("user_id", rows.map((row) => row.id));
+    const [{ data: tags }, plusResult] = await Promise.all([
+      db.from("profile_tags").select("user_id,tag,icon,color").in("user_id", rows.map((row) => row.id)),
+      db.rpc("vaulted_public_plus", { p_usernames: rows.map((row) => row.username) }),
+    ]);
     const byUser = new Map();
     for (const item of tags || []) byUser.set(item.user_id, [...(byUser.get(item.user_id) || []), item]);
-    return rows.map((row) => mapProfile(row, byUser.get(row.id) || []));
+    return rows.map((row) => mapProfile(row, byUser.get(row.id) || [], null, plusResult?.data?.[row.username] || null));
   }
 
   function localFavorites() {
@@ -467,12 +472,13 @@
       const { data: row, error } = await db.from("profiles").select("*").eq("username", username).maybeSingle();
       if (error) return response({ error: error.message }, 500);
       if (!row) return response({ error: "User not found" }, 404);
-      const [{ data: tags }, { data: favorites }, { data: stats }] = await Promise.all([
+      const [{ data: tags }, { data: favorites }, { data: stats }, plusResult] = await Promise.all([
         db.from("profile_tags").select("tag,icon,color").eq("user_id", row.id),
         db.from("favorite_games").select("game_url,sort_order").eq("user_id", row.id).order("sort_order"),
         db.from("game_stats").select("game_url,play_seconds").eq("user_id", row.id),
+        db.rpc("vaulted_public_plus", { p_usernames: [row.username] }),
       ]);
-      const user = mapProfile(row, tags || [], current?.id === row.id ? null : null);
+      const user = mapProfile(row, tags || [], current?.id === row.id ? null : null, plusResult?.data?.[row.username] || null);
       user.favoriteGames = (favorites || []).map((item) => item.game_url);
       user.gameStats = stats || [];
       user.gamesPlayed = (stats || []).length;
