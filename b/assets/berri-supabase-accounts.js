@@ -1,8 +1,8 @@
 (() => {
   "use strict";
 
-  const SUPABASE_URL = "https://hulovfywovcxwprxdnoa.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_bu5a4_y67XUXuQiiayz3pQ_CpaI_ni2";
+  const SUPABASE_URL = "https://suuzwcmcqvdltnqugozo.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_e4uHUEjDuCEpeXUu3MbmPw_DG4BS1HN";
   const PROJECT_REF = new URL(SUPABASE_URL).hostname.split(".")[0];
   const AUTH_STORAGE_KEY = `sb-${PROJECT_REF}-auth-token`;
   const LEGACY_TOKEN_KEY = "session_token";

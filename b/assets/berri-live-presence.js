@@ -1,6 +1,6 @@
 (() => {
-  const supabaseUrl = "https://hulovfywovcxwprxdnoa.supabase.co";
-  const publishableKey = "sb_publishable_bu5a4_y67XUXuQiiayz3pQ_CpaI_ni2";
+  const supabaseUrl = "https://suuzwcmcqvdltnqugozo.supabase.co";
+  const publishableKey = "sb_publishable_e4uHUEjDuCEpeXUu3MbmPw_DG4BS1HN";
   const eventName = "berri:presence-count";
   const peakEventName = "berri:presence-peak";
   let lastPeakCount = null;
