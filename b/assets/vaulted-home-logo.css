@@ -697,3 +697,7 @@
 .home-presence-peak{display:flex;align-items:center;gap:7px;min-width:0;color:var(--text-muted);font-size:11px;line-height:1.25}
 .home-presence-peak svg{flex:none;color:var(--accent)}
 @media(max-width:520px){.home-online-card{gap:7px!important}.home-presence-peak{font-size:10px}}
+
+/* Keep locked account tabs legible and mark them without wrapping their icon markup. */
+.vaulted-topnav .vaulted-nav-item>button[data-locked=true]{cursor:not-allowed;opacity:.62}
+.vaulted-topnav .vaulted-nav-item>button[data-locked=true]::after{content:"×";position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;color:var(--bright-text);font-size:23px;font-weight:900;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,.95)}
