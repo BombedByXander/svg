@@ -701,3 +701,6 @@
 /* Keep locked account tabs legible and mark them without wrapping their icon markup. */
 .vaulted-topnav .vaulted-nav-item>button[data-locked=true]{cursor:not-allowed;opacity:.62}
 .vaulted-topnav .vaulted-nav-item>button[data-locked=true]::after{content:"×";position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;color:var(--bright-text);font-size:23px;font-weight:900;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,.95)}
+
+/* The second desktop separator splits the locked account tabs into their own horizontal group. */
+.vaulted-topnav>div:nth-child(4){display:block!important;width:1px;height:26px;border:0;background:var(--border-3);margin:0 3px;flex:none}
