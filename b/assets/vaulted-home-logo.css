@@ -712,7 +712,8 @@
 .vaulted-topnav>div[data-category]{position:relative;padding-bottom:14px!important}
 .vaulted-topnav>div[data-category]::after{content:attr(data-category);position:absolute;left:50%;bottom:1px;transform:translateX(-50%);white-space:nowrap;color:var(--text-muted);font-size:9px;font-weight:600;line-height:11px;letter-spacing:.025em;pointer-events:none}
 
-/* Tab names sit above each icon; group names stay centered below their rows. */
-.vaulted-topnav>div[data-category]{padding-top:14px!important;padding-bottom:14px!important}
-.vaulted-topnav .vaulted-nav-item>button[data-tab-label]::before{content:attr(data-tab-label);position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;color:var(--text-muted);font-size:8px;font-weight:600;line-height:10px;letter-spacing:.015em;pointer-events:none}
+/* Slightly larger Vaulted mark for the horizontal navigation. */
 .vaulted-nav-brand{width:29px;height:29px}
+
+/* Center Explore beneath its full icon group. */
+.vaulted-topnav>div[data-category="Explore"]::after{left:0;right:0;transform:none;text-align:center}
