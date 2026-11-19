@@ -704,3 +704,6 @@
 
 /* The second desktop separator splits the locked account tabs into their own horizontal group. */
 .vaulted-topnav>div:nth-child(4){display:block!important;width:1px;height:26px;border:0;background:var(--border-3);margin:0 3px;flex:none}
+
+/* Keep the middle utilities group on the same horizontal row as the other navbar groups. */
+.vaulted-topnav>div:nth-child(3){display:flex!important;flex-direction:row!important;flex:none!important;align-items:center;gap:4px}
