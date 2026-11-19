@@ -716,4 +716,5 @@
 .vaulted-nav-brand{width:29px;height:29px}
 
 /* Center Explore beneath its full icon group. */
-.vaulted-topnav>div[data-category="Explore"]::after{left:0;right:0;transform:none;text-align:center}
+.vaulted-topnav>div[data-category="Explore"]::after{left:calc(50% + 32px);right:auto;transform:translateX(-50%);text-align:center}
+@media(max-width:700px){.vaulted-topnav>div[data-category="Explore"]::after{left:calc(50% + 28px)}}
