@@ -730,5 +730,5 @@
 
 /* Live analog dial, kept in the local time card. */
 .home-time-card{position:relative;padding-right:68px!important}
-.home-page .home-analog-clock{position:absolute;right:13px;top:50%;width:46px;height:46px;transform:translateY(-50%);overflow:visible;filter:drop-shadow(0 0 8px color-mix(in srgb,var(--accent) 25%,transparent))}
-@media(max-width:520px){.home-time-card{padding-right:60px!important}.home-page .home-analog-clock{right:10px;width:40px;height:40px}}
+.home-page .home-analog-clock{position:absolute;right:13px;top:50%;width:64px;height:64px;transform:translateY(-50%);overflow:visible;filter:drop-shadow(0 0 8px color-mix(in srgb,var(--accent) 25%,transparent))}
+@media(max-width:520px){.home-time-card{padding-right:60px!important}.home-page .home-analog-clock{right:10px;width:58px;height:58px}}
