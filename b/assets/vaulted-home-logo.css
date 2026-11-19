@@ -707,3 +707,7 @@
 
 /* Keep the middle utilities group on the same horizontal row as the other navbar groups. */
 .vaulted-topnav>div:nth-child(3){display:flex!important;flex-direction:row!important;flex:none!important;align-items:center;gap:4px}
+
+/* Compact category captions beneath each navbar icon group. */
+.vaulted-topnav>div[data-category]{position:relative;padding-bottom:14px!important}
+.vaulted-topnav>div[data-category]::after{content:attr(data-category);position:absolute;left:50%;bottom:1px;transform:translateX(-50%);white-space:nowrap;color:var(--text-muted);font-size:9px;font-weight:600;line-height:11px;letter-spacing:.025em;pointer-events:none}
