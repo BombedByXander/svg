@@ -1,3 +1,5 @@
+import { proxyApiRequest } from "./functions/_shared/api-proxy.js";
+
 const WISP_UPSTREAM = "https://lunaar.org/wisp/";
 const APP_ORIGINS = new Set([
   "https://vaultedd.pages.dev",
@@ -8,6 +10,10 @@ const APP_ORIGINS = new Set([
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    if (url.pathname.startsWith("/api/")) {
+      return proxyApiRequest(request);
+    }
 
     if (url.pathname === "/wisp/" || url.pathname.startsWith("/wisp/")) {
       if (request.headers.get("Upgrade")?.toLowerCase() !== "websocket") {

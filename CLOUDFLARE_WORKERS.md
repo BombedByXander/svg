@@ -23,6 +23,12 @@ npx wrangler deploy
 
 Wrangler reads `wrangler.toml` and uploads `b/` as static assets. No site build step is needed.
 
+## API and Wisp routing
+
+The Worker forwards `/api/*` requests to the same six API origins used by the Cherri client, including all music routes (`/api/music/*`) for YouTube Music, Tidal, SoundCloud, and SoundCloud via yt-dlp. It preserves request methods, query parameters, authorization headers, response bodies, and WebSocket upgrades. Safe read requests can fail over to another API origin when one is unavailable; write requests use the primary origin to avoid duplicate operations. The matching Pages Function lives in `functions/api/[[path]].js`.
+
+The app uses this same-origin API route on `workers.dev` and `vaultedd.pages.dev`. Static CDN entry points continue using Cherri's API-origin selection and availability checks.
+
 ## Wisp routing
 
 The Worker handles `/wisp/*` before static assets and forwards WebSocket upgrades to Xander's Arcade's working Wisp endpoint at `lunaar.org/wisp/`. It validates the browser Origin against Vaulted's known entry points, then forwards the allowed Origin upstream. Vaulted's proxy client connects to its Cloudflare hostname, so browsers do not connect directly to the upstream Wisp host. The same handler is available as a Pages Function in `functions/wisp/[[path]].js` for a Pages deployment serving `b/`.
