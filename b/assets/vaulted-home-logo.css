@@ -742,14 +742,11 @@
 .appearance-background-preview-search{display:flex;align-items:center;width:72%;min-height:28px;padding:0 10px;border:1px solid color-mix(in srgb,var(--bright-text) 28%,transparent);border-radius:10px;background:color-mix(in srgb,var(--bg-base) 48%,transparent);box-shadow:0 3px 10px #0003;color:var(--text-muted);font-size:10px;backdrop-filter:blur(6px)}
 
 
-/* Home layout: search first, greeting underneath, and a compact clock dock at bottom-right. */
-.home-page .home-hero>:not(.heaven-atmosphere){order:4}
-.home-page .home-hero>.home-title{order:1}
-.home-page .home-hero>.home-search{order:2}
-.home-page .home-hero>.home-greeting{order:3}
+/* Keep the original centered home stack, while the clock rests at bottom-right. */
+.home-page .home-hero>:not(.heaven-atmosphere),.home-page .home-hero>.home-title,.home-page .home-hero>.home-search,.home-page .home-hero>.home-greeting{order:initial}
 .home-page .home-status-row-widget:has(.home-time-card){position:fixed!important;top:auto!important;right:20px!important;bottom:20px!important;left:auto!important;z-index:40!important;width:216px!important;height:auto!important;transform:none!important}
-.home-page .home-status-row-widget:has(.home-time-card)::before{content:"v1.2.0";position:fixed;right:250px;bottom:25px;color:var(--text-muted);font:500 11px/1.2 var(--font-sans,system-ui,sans-serif);white-space:nowrap;opacity:.8;pointer-events:none}
+.home-page .home-version-label{right:250px!important;bottom:25px!important}
 .home-page .home-widgets-row{display:block!important;width:100%!important;height:auto!important}
-.home-page .home-time-card{width:100%!important;max-width:none!important}
+.home-page .home-time-card{width:100%!important;max-width:none!important;border:0!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:0!important}
 .home-page .home-online-card{display:none!important}
-@media(max-width:640px){.home-page .home-status-row-widget:has(.home-time-card){right:12px!important;bottom:12px!important;width:184px!important}.home-page .home-status-row-widget:has(.home-time-card)::before{right:calc(100vw - 12px - 184px - 10px);bottom:17px}}
+@media(max-width:640px){.home-page .home-status-row-widget:has(.home-time-card){right:12px!important;bottom:12px!important;width:184px!important}.home-page .home-version-label{right:calc(184px + 22px)!important;bottom:17px!important}}
