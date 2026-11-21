@@ -750,3 +750,8 @@
 .home-page .home-time-card{width:100%!important;max-width:none!important;border:0!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:0!important}
 .home-page .home-online-card{display:none!important}
 @media(max-width:640px){.home-page .home-status-row-widget:has(.home-time-card){right:12px!important;bottom:12px!important;width:184px!important}.home-page .home-version-label{right:calc(184px + 22px)!important;bottom:17px!important}}
+
+/* Fine-tune the fixed clock dock and align the global version tag beside it. */
+.home-page .home-status-row-widget:has(.home-time-card){bottom:44px!important}
+.home-page .home-version-label,.home-version-label{right:250px!important;bottom:49px!important}
+@media(max-width:640px){.home-page .home-status-row-widget:has(.home-time-card){bottom:36px!important}.home-page .home-version-label,.home-version-label{right:calc(184px + 22px)!important;bottom:41px!important}}
