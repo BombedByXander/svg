@@ -568,7 +568,7 @@
 
 /* Holiday string-light frame for the home search field. */
 .home-page .home-search{position:relative!important;isolation:isolate;overflow:visible!important}
-.home-page .home-search::before{content:"";position:absolute;z-index:3;pointer-events:none;inset:-7px -10px;border-radius:inherit;background:url("./search-holiday-lights.png") center/100% 250% no-repeat;opacity:.92}
+.home-page .home-search::before{content:"";position:absolute;z-index:3;pointer-events:none;inset:-7px -10px;border-radius:inherit;background:url("./search-snowflake-lights.png") center/100% 250% no-repeat;opacity:.92}
 .home-page .home-search>*{position:relative;z-index:4}
 .home-page .home-search:focus-within::before{opacity:1}
 @media(max-width:640px){.home-page .home-search::before{inset:-6px -7px;background-size:100% 230%}}
