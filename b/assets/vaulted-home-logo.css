@@ -745,13 +745,16 @@
 /* Keep the original centered home stack, while the clock rests at bottom-right. */
 .home-page .home-hero>:not(.heaven-atmosphere),.home-page .home-hero>.home-title,.home-page .home-hero>.home-search,.home-page .home-hero>.home-greeting{order:initial}
 .home-page .home-status-row-widget:has(.home-time-card){position:fixed!important;top:auto!important;right:20px!important;bottom:20px!important;left:auto!important;z-index:40!important;width:216px!important;height:auto!important;transform:none!important}
-.home-page .home-version-label{right:250px!important;bottom:25px!important}
 .home-page .home-widgets-row{display:block!important;width:100%!important;height:auto!important}
 .home-page .home-time-card{width:100%!important;max-width:none!important;border:0!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:0!important}
 .home-page .home-online-card{display:none!important}
-@media(max-width:640px){.home-page .home-status-row-widget:has(.home-time-card){right:12px!important;bottom:12px!important;width:184px!important}.home-page .home-version-label{right:calc(184px + 22px)!important;bottom:17px!important}}
+@media(max-width:640px){.home-page .home-status-row-widget:has(.home-time-card){right:12px!important;bottom:12px!important;width:184px!important}}
 
 /* Fine-tune the fixed clock dock and align the global version tag beside it. */
-.home-page .home-status-row-widget:has(.home-time-card){bottom:44px!important}
+.home-page .home-status-row-widget:has(.home-time-card){bottom:42px!important}
 .home-page .home-version-label,.home-version-label{right:250px!important;bottom:49px!important}
-@media(max-width:640px){.home-page .home-status-row-widget:has(.home-time-card){bottom:36px!important}.home-page .home-version-label,.home-version-label{right:calc(184px + 22px)!important;bottom:41px!important}}
+@media(max-width:640px){.home-page .home-status-row-widget:has(.home-time-card){bottom:34px!important}.home-page .home-version-label,.home-version-label{right:calc(184px + 22px)!important;bottom:41px!important}}
+
+/* The home surface is fixed to the viewport and must never expose a page scrollbar. */
+.home-page{overflow:hidden!important;overflow-y:hidden!important;overscroll-behavior:none!important;scrollbar-width:none!important}
+.home-page::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
