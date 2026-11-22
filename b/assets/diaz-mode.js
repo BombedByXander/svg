@@ -67,21 +67,23 @@
     canvas.width = Math.round(width * ratio);
     canvas.height = Math.round(height * ratio);
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
-    particles = Array.from({ length: motionPreference?.matches ? 10 : 24 }, () => makeParticle(true));
+    const reducedMotion = motionPreference?.matches === true;
+    const particleCount = Math.min(reducedMotion ? 32 : 84, Math.max(reducedMotion ? 14 : 36, Math.round(width / 22)));
+    particles = Array.from({ length: particleCount }, () => makeParticle(true));
   }
 
   function makeParticle(randomY = false) {
-    const width = 28 + Math.random() * 44;
+    const width = 24 + Math.random() * 42;
     return {
       x: Math.random() * Math.max(window.innerWidth, 1),
       y: randomY ? Math.random() * Math.max(window.innerHeight, 1) : -90,
       width,
       height: width * (1359 / 1157),
-      speed: 0.65 + Math.random() * 1.65,
-      drift: (Math.random() - 0.5) * 0.75,
+      speed: 0.8 + Math.random() * 2.2,
+      drift: (Math.random() - 0.5) * 1.1,
       rotation: (Math.random() - 0.5) * 0.5,
       spin: (Math.random() - 0.5) * 0.004,
-      opacity: 0.45 + Math.random() * 0.4,
+      opacity: 0.5 + Math.random() * 0.35,
     };
   }
 
