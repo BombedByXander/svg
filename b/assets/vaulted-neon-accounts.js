@@ -516,12 +516,26 @@
 
     if (path === "/api/users/list" && method === "GET") {
       let query = db.from("profiles").select("*", { count: "exact" }).order("created_at", { ascending: false });
-      const search = (url.searchParams.get("q") || "").trim().replace(/[,%()]/g, " ");
+      const rawSearch = (url.searchParams.get("q") || "").trim();
+      const search = rawSearch.replace(/[,%()]/g, " ");
       if (search && /^[a-z0-9_. -]{1,40}$/i.test(search)) query = query.or(`username.ilike.%${search}%,display_name.ilike.%${search}%`);
-      const { data, error, count } = await query.range((Math.max(1, Number(url.searchParams.get("page")) || 1) - 1) * 50, (Math.max(1, Number(url.searchParams.get("page")) || 1) * 50) - 1);
+      const pageSize = Math.min(50, Math.max(2, Math.trunc(Number(url.searchParams.get("limit"))) || 50));
+      const offset = (Math.max(1, Math.trunc(Number(url.searchParams.get("page"))) || 1) - 1) * pageSize;
+      let featured = null;
+      if (url.searchParams.get("directory") === "1" && !rawSearch) {
+        const result = await db.from("profiles").select("*").eq("username", "xander").maybeSingle();
+        if (result.error) return response({ error: result.error.message }, 500);
+        featured = result.data;
+        if (featured) query = query.neq("id", featured.id);
+      }
+      const start = featured && offset > 0 ? offset - 1 : offset;
+      const limit = featured && offset === 0 ? pageSize - 1 : pageSize;
+      const { data, error, count } = await query.range(start, start + limit - 1);
       if (error) return response({ error: error.message }, 500);
-      const users = await mapMany(db, data || []);
-      return response(url.searchParams.get("ids") === "1" ? { ids: users.map((user) => user.id), total: count || 0 } : { users, total: count || 0, unknown: [] });
+      const rows = data || [];
+      const users = await mapMany(db, featured && offset === 0 ? [featured, ...rows] : rows);
+      const total = (count || 0) + Number(Boolean(featured));
+      return response(url.searchParams.get("ids") === "1" ? { ids: users.map((user) => user.id), total } : { users, total, unknown: [] });
     }
 
     if (path === "/api/users/settings" && method === "PATCH") {

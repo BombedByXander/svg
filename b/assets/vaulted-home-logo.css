@@ -369,6 +369,18 @@
   transition:transform .16s cubic-bezier(.2,.8,.2,1),background .18s,color .18s
 }
 .vaulted-topnav .vaulted-nav-item>button:hover>svg,.vaulted-topnav .vaulted-nav-item>button:hover>img{transform:none!important}
+@supports not (translate: 1px 1px) {
+  .vaulted-topnav {
+    transform:translate(var(--nav-pull-x,0px),var(--nav-pull-y,0px));
+    transition:transform .32s cubic-bezier(.22,1,.36,1),box-shadow .3s ease!important;
+  }
+  @media(prefers-reduced-motion:reduce) {
+    .vaulted-topnav {transform:none!important;transition:none!important}
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  .vaulted-topnav .vaulted-nav-item>button {transform:none!important;transition:none!important}
+}
 .home-page .home-search.electric-search-border{
   background:color-mix(in srgb,var(--bg-2) 58%,transparent)!important;
   border:1px solid color-mix(in srgb,var(--bright-text) 14%,var(--border-3))!important;
@@ -669,6 +681,7 @@
 .members-directory-card{min-height:270px;border-radius:20px!important;box-shadow:0 12px 32px #00018;transition:transform .22s cubic-bezier(.2,.75,.25,1),border-color .2s,box-shadow .22s!important}
 .members-directory-card:hover{transform:translateY(-4px);box-shadow:0 20px 42px #0003;border-color:var(--accent)!important}
 .members-directory-card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.members-directory-card[data-featured=true]{grid-column:1/-1;justify-self:center;width:100%;max-width:340px}
 .members-directory-banner{height:104px!important;position:relative;background-size:cover!important;background-position:center!important;transition:transform .35s cubic-bezier(.2,.75,.25,1),filter .25s}
 .members-directory-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#00000008 15%,#00000066 100%);pointer-events:none}
 .members-directory-card:hover .members-directory-banner{filter:saturate(1.12)}
