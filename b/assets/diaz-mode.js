@@ -4,7 +4,7 @@
   const MODE_KEY = "vaulted-diaz-mode";
   const EVENT_NAME = "vaulted:diaz-mode";
   const APP_HOST_ID = "_jig29al";
-  const IMAGE_URL = "/assets/diaz.webp";
+  const IMAGE_URL = new URL("./diaz.webp", document.currentScript?.src || location.href).href;
   const STYLE_ID = "vaulted-diaz-mode-styles";
   const CANVAS_ID = "vaulted-diaz-particles";
   const motionPreference = window.matchMedia?.("(prefers-reduced-motion: reduce)");
