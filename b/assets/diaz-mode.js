@@ -18,6 +18,7 @@
   let enabled = false;
   let lastWidth = 0;
   let lastHeight = 0;
+  let lastFrameTime = 0;
 
   function isEnabled() {
     try {
@@ -79,7 +80,7 @@
       y: randomY ? Math.random() * Math.max(window.innerHeight, 1) : -90,
       width,
       height: width * (1359 / 1157),
-      speed: 0.8 + Math.random() * 2.2,
+      speed: 0.65 + Math.random() * 0.95,
       drift: (Math.random() - 0.5) * 1.1,
       rotation: (Math.random() - 0.5) * 0.5,
       spin: (Math.random() - 0.5) * 0.004,
@@ -87,16 +88,18 @@
     };
   }
 
-  function drawFrame() {
+  function drawFrame(timestamp) {
     animationFrame = 0;
     if (!enabled || document.hidden || !context || !image?.complete || !image.naturalWidth) return;
     resizeCanvas();
+    const frameScale = lastFrameTime ? Math.min((timestamp - lastFrameTime) / (1000 / 60), 2.5) : 1;
+    lastFrameTime = timestamp;
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     for (let index = 0; index < particles.length; index += 1) {
       const particle = particles[index];
-      particle.y += particle.speed;
-      particle.x += particle.drift;
-      particle.rotation += particle.spin;
+      particle.y += particle.speed * frameScale;
+      particle.x += particle.drift * frameScale;
+      particle.rotation += particle.spin * frameScale;
       if (particle.y - particle.height > window.innerHeight + 20) {
         particles[index] = makeParticle();
         continue;
@@ -160,6 +163,7 @@
     enabled = false;
     if (animationFrame) cancelAnimationFrame(animationFrame);
     animationFrame = 0;
+    lastFrameTime = 0;
     if (context && canvas) context.clearRect(0, 0, canvas.width, canvas.height);
     canvas?.remove();
     canvas = null;
@@ -193,6 +197,7 @@
     if (document.hidden && animationFrame) {
       cancelAnimationFrame(animationFrame);
       animationFrame = 0;
+      lastFrameTime = 0;
     } else if (enabled && !animationFrame) {
       animationFrame = requestAnimationFrame(drawFrame);
     }
