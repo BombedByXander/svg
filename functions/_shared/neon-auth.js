@@ -21,7 +21,9 @@ export async function handleNeonAuth(request) {
       (request.method === "POST" && origin !== url.origin)) {
     return Response.json({ message: "Invalid account request origin." }, { status: 403 });
   }
-  const headers = new Headers({ Origin: url.origin });
+  // After same-origin validation, use Vaulted's canonical origin so auth
+  // requests from the configured alternative domains share Neon allowlisting.
+  const headers = new Headers({ Origin: "https://vaultedd.pages.dev" });
   for (const name of ["Content-Type", "X-Neon-Client-Info"]) {
     const value = request.headers.get(name);
     if (value) headers.set(name, value);

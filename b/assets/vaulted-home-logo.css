@@ -314,6 +314,28 @@
 .vaulted-topnav .vaulted-nav-item>button:hover>svg,.vaulted-topnav .vaulted-nav-item>button:hover>img{transform:scale(1.1)}
 @media(prefers-reduced-motion:reduce){.vaulted-topnav{translate:none!important;scale:1!important;transition:none!important}.vaulted-topnav .vaulted-nav-item>button{transform:none!important;transition:none!important;will-change:auto}.vaulted-topnav::before,.vaulted-topnav .vaulted-nav-item>button>svg,.vaulted-topnav .vaulted-nav-item>button>img{transition:none!important;transform:none}.vaulted-topnav::before{transform:translate(var(--nav-hover-x,0px),var(--nav-hover-y,0px))}}
 
+.vaulted-music-player {
+  position:fixed; z-index:120; inset:auto 16px 16px auto;
+  width:min(480px,calc(100vw - 32px)); min-width:200px; padding:8px;
+  border:1px solid var(--border-2,#35404e); border-radius:16px;
+  background:var(--bg-1-base,#11151d); color:var(--bright-text,#f3f6fa); box-shadow:0 12px 40px #0008;
+}
+.vaulted-music-player-header {
+  display:flex; align-items:center; gap:10px; min-height:34px;
+  padding:0 4px 6px; font-size:12px;
+}
+.vaulted-music-player-header span {flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vaulted-music-player-header a {color:var(--accent,#59c4ff);white-space:nowrap}
+.vaulted-music-player-header button {width:28px;height:28px;border-radius:8px;font-size:18px}
+.vaulted-music-player-header button:hover {background:var(--bg-3,#252b35)}
+.vaulted-music-frame {display:block;width:100%;border:0;border-radius:10px;background:#000}
+.vaulted-music-frame-ytm {aspect-ratio:16/9;height:min(270px,calc((100vw - 56px)*.5625));min-height:200px}
+.vaulted-music-frame-ytm iframe {display:block;width:100%;height:100%;min-height:200px;border:0;border-radius:10px}
+.vaulted-music-frame-soundcloud {height:166px}
+.vaulted-music-frame-tidal {height:150px}
+.vaulted-music-player-status {color:var(--text-muted,#a3adba);padding:6px 4px 0;font-size:12px}
+.vaulted-music-player-status:empty {display:none}
+
 /* Keep the favorite shortcut tile footprint, but show only artwork and title. */
 .home-page .home-favorites{width:min(100%,720px);gap:12px!important;align-items:stretch}
 .home-page .home-favorites>button:not(.home-favorites-empty){width:108px!important;min-height:124px;padding:10px 8px;border:0!important;border-radius:14px;background:transparent!important;gap:9px!important;transition:transform .18s}

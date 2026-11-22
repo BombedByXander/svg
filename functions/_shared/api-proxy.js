@@ -9,6 +9,9 @@ const API_UPSTREAMS = [
 
 const APP_ORIGINS = new Set([
   "https://vaultedd.pages.dev",
+  "https://google.maplewoodpublicschools.org",
+  "https://studygeometry.cfd",
+  "https://xanderis.online",
   "https://vaulted.xjc-notgalaxy.workers.dev",
   "https://cdn.jsdelivr.net",
 ]);

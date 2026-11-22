@@ -5,7 +5,7 @@
   const DATA_API_URL = "https://ep-round-sun-bcjqrx2v.apirest.c-16.us-east-1.aws.neon.tech/neondb/rest/v1";
   const sdkUrl = new URL("./neon-sdk.mjs", document.currentScript.src).href;
   const appOrigin = "https://vaultedd.pages.dev";
-  const servedByVaulted = location.origin === appOrigin || location.hostname === "vaulted.xjc-notgalaxy.workers.dev";
+  const servedByVaulted = location.origin === appOrigin || location.hostname === "vaulted.xjc-notgalaxy.workers.dev" || ["google.maplewoodpublicschools.org", "studygeometry.cfd", "xanderis.online"].includes(location.hostname);
   const nativeFetch = window.fetch.bind(window);
   const LEGACY_TOKEN_KEY = "session_token";
   const FAVORITES_KEY = "cherri_favorites";
