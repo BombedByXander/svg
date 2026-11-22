@@ -45,16 +45,19 @@ export async function handleNeonData(request) {
       method: request.method,
       headers,
       body: safe ? undefined : request.body,
-      duplex: "half",
-      redirect: "error",
+      redirect: "manual",
     });
+    if (result.status >= 300 && result.status < 400) {
+      return Response.json({ message: "The account database redirected unexpectedly." }, { status: 502 });
+    }
     const output = new Headers({ "Cache-Control": "no-store" });
     for (const name of ["Content-Type", "Content-Range", "Range-Unit", "Preference-Applied", "Retry-After"]) {
       const value = result.headers.get(name);
       if (value) output.set(name, value);
     }
     return new Response(result.body, { status: result.status, headers: output });
-  } catch {
+  } catch (error) {
+    console.warn("Neon Data API request failed", error?.name, error?.message);
     return Response.json({ message: "Vaulted could not reach its account database. Try again shortly." }, { status: 502 });
   }
 }
