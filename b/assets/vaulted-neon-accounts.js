@@ -38,7 +38,7 @@
       clientPromise = import(sdkUrl).then(({ createClient, SupabaseAuthAdapter }) => {
         const db = createClient({
           auth: { url: servedByVaulted ? new URL("/api/neon-auth", location.origin).href : AUTH_URL, allowAnonymous: true, adapter: SupabaseAuthAdapter() },
-          dataApi: { url: DATA_API_URL },
+          dataApi: { url: servedByVaulted ? new URL("/api/neon-data", location.origin).href : DATA_API_URL },
         });
         db.auth.onAuthStateChange((event, session) => {
           if (event !== "INITIAL_SESSION" || session) setSession(session);
@@ -192,7 +192,9 @@
       if (registering && (typeof body.password !== "string" || body.password.length < 8)) {
         return response({ error: "Password must be at least 8 characters." }, 400);
       }
-      const alias = await db.rpc("vaulted_login_alias", { p_username: username });
+      const alias = await Promise.resolve().then(() =>
+        db.rpc("vaulted_login_alias", { p_username: username })
+      ).catch(() => null);
       const email = typeof alias?.data === "string" ? alias.data : authEmail(username);
       const password = body.password || "";
       const reservedUsername = registering && typeof alias?.data === "string";
@@ -695,7 +697,12 @@
     if (url.pathname.startsWith("/api/auth/")) {
       try {
         return await handleAuth(url.pathname, init) || response({ error: "Unsupported Vaulted authentication route." }, 404);
-      } catch (error) { return response({ error: error?.message || "Neon sign-in is unavailable." }, 503); }
+      } catch (error) {
+        const message = error?.message;
+        return response({ error: !message || /failed to fetch|networkerror|load failed/i.test(message)
+          ? "Vaulted could not connect to the account service. Reload and try again."
+          : message }, 503);
+      }
     }
     if (url.pathname === "/api/mod/access") {
       const accessResponse = await handleAdminAccess(url.pathname, init);

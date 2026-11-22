@@ -1,6 +1,7 @@
 import { proxyApiRequest } from "./functions/_shared/api-proxy.js";
 import { handleNeonProfileMedia } from "./functions/_shared/neon-profile-media.js";
 import { handleNeonAuth } from "./functions/_shared/neon-auth.js";
+import { handleNeonData } from "./functions/_shared/neon-data.js";
 
 const WISP_UPSTREAM = "https://lunaar.org/wisp/";
 const APP_ORIGINS = new Set([
@@ -14,6 +15,7 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname.startsWith("/api/neon-auth/")) return handleNeonAuth(request);
+    if (url.pathname.startsWith("/api/neon-data/")) return handleNeonData(request);
     if (url.pathname === "/api/profile-media") return handleNeonProfileMedia(request, env);
     if (url.pathname.startsWith("/api/")) {
       return proxyApiRequest(request);
