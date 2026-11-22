@@ -170,6 +170,67 @@
 [data-theme=carbon]{color-scheme:dark;--bg-base:#0b0e12;--bg-1-base:#13181e;--bg-2-base:#1b222b;--bg-3-base:#252f3a;--bg-4-base:#323e4c;--accent:#a8bfd3;--accent-2:#7897b0;--accent-glow:#a8bfd370;--text:#dce5ec;--text-muted:#96a5b2;--bright-text:#f7fbff;--border:#a8bfd338;--border-2:#a8bfd324;--border-3:#a8bfd317;--border-4:#a8bfd30d;background-color:#0b0e12}
 [data-theme=crimson-noir]{color-scheme:dark;--bg-base:#14090d;--bg-1-base:#1e0d13;--bg-2-base:#2b111a;--bg-3-base:#391923;--bg-4-base:#4a202d;--accent:#f18491;--accent-2:#cf5b6b;--accent-glow:#f1849170;--text:#f1dfe2;--text-muted:#b3939a;--bright-text:#fff8f9;--border:#f1849138;--border-2:#f1849124;--border-3:#f1849117;--border-4:#f184910d;background-color:#14090d}
 
+/* Dark themes based on the Vaulted color swatches. */
+[data-theme=midnight-blue] {
+  --bg-base:#090a1d; --bg-1-base:#101231; --bg-2-base:#171a44; --bg-3-base:#212757; --bg-4-base:#2c356f;
+  --accent:#8c9dff; --accent-2:#191970;
+  --text:#dfe4ff; --text-muted:#9ea9d3; --bright-text:#f7f8ff;
+}
+[data-theme=burgundy] {
+  --bg-base:#160910; --bg-1-base:#230c16; --bg-2-base:#310f1e; --bg-3-base:#431327; --bg-4-base:#561932;
+  --accent:#f486aa; --accent-2:#800020;
+  --text:#f1dce6; --text-muted:#c197aa; --bright-text:#fff4f8;
+}
+[data-theme=maroon] {
+  --bg-base:#180a09; --bg-1-base:#250e0d; --bg-2-base:#341411; --bg-3-base:#451a16; --bg-4-base:#57231d;
+  --accent:#ff9586; --accent-2:#800000;
+  --text:#f3ddd8; --text-muted:#c29b94; --bright-text:#fff5f1;
+}
+[data-theme=sage-green] {
+  --bg-base:#0e1510; --bg-1-base:#171f16; --bg-2-base:#202b1d; --bg-3-base:#2b3827; --bg-4-base:#374632;
+  --accent:#9caf88; --accent-2:#9caf88;
+  --text:#e2ebdc; --text-muted:#a7b49e; --bright-text:#f6faf3;
+}
+[data-theme=forest-green] {
+  --bg-base:#071409; --bg-1-base:#0d2010; --bg-2-base:#132d17; --bg-3-base:#1a3b1f; --bg-4-base:#234c29;
+  --accent:#6dd46f; --accent-2:#228b22;
+  --text:#dceedd; --text-muted:#96b99a; --bright-text:#f3fff3;
+}
+[data-theme=deep-teal] {
+  --bg-base:#051518; --bg-1-base:#082125; --bg-2-base:#0c3035; --bg-3-base:#113e44; --bg-4-base:#174f55;
+  --accent:#52cbd2; --accent-2:#006d77;
+  --text:#d9eced; --text-muted:#91b7bb; --bright-text:#effeff;
+}
+[data-theme=slate-blue] {
+  --bg-base:#110e1d; --bg-1-base:#19142b; --bg-2-base:#241d3d; --bg-3-base:#302750; --bg-4-base:#403263;
+  --accent:#aa9bf5; --accent-2:#6a5acd;
+  --text:#e9e3f8; --text-muted:#aca2c6; --bright-text:#fcf8ff;
+}
+[data-theme=lavender] {
+  --bg-base:#150f1d; --bg-1-base:#1e1629; --bg-2-base:#2b2039; --bg-3-base:#392a49; --bg-4-base:#493658;
+  --accent:#b497d6; --accent-2:#b497d6;
+  --text:#eee3f5; --text-muted:#b6a2c5; --bright-text:#fcf6ff;
+}
+[data-theme=charcoal] {
+  --bg-base:#0d1215; --bg-1-base:#151d22; --bg-2-base:#1e282f; --bg-3-base:#29353e; --bg-4-base:#36454f;
+  --accent:#a0b8c6; --accent-2:#36454f;
+  --text:#e0eaef; --text-muted:#9aaeb9; --bright-text:#f5fbff;
+}
+[data-theme=dusty-rose] {
+  --bg-base:#1a1011; --bg-1-base:#241617; --bg-2-base:#332021; --bg-3-base:#42292b; --bg-4-base:#533437;
+  --accent:#d6999a; --accent-2:#c08081;
+  --text:#f2e1e0; --text-muted:#bd9b9b; --bright-text:#fff6f5;
+}
+:is([data-theme=midnight-blue], [data-theme=burgundy], [data-theme=maroon], [data-theme=sage-green], [data-theme=forest-green], [data-theme=deep-teal], [data-theme=slate-blue], [data-theme=lavender], [data-theme=charcoal], [data-theme=dusty-rose]) {
+  color-scheme:dark;
+  background-color:var(--bg-base);
+  --accent-glow:color-mix(in srgb,var(--accent) 36%,transparent);
+  --border:color-mix(in srgb,var(--accent) 22%,transparent);
+  --border-2:color-mix(in srgb,var(--accent) 15%,transparent);
+  --border-3:color-mix(in srgb,var(--accent) 9%,transparent);
+  --border-4:color-mix(in srgb,var(--accent) 5%,transparent);
+}
+
 .vaulted-cloak-preview{margin-top:20px;padding-top:18px;border-top:1px solid var(--border)}
 .vaulted-cloak-preview-tab{display:flex;align-items:center;gap:10px;max-width:360px;padding:12px 16px;border-radius:12px 12px 0 0;background:var(--bg-3);color:var(--bright-text);font-size:13px}
 .vaulted-cloak-preview-tab img{flex:none;width:18px;height:18px;object-fit:contain}
