@@ -14,9 +14,15 @@ https://cdn.jsdelivr.net/gh/BombedByXander/svg@main/index.svg
 
 The SVG entry starts the signed loader and app. The app uses external network services for some features.
 
-## Supabase accounts
+## Neon accounts
 
-Run [`supabase/berri-accounts.sql`](supabase/berri-accounts.sql) in the new project SQL Editor. Keep the Email provider enabled and turn **Confirm email** off so username/password registration can create a session without sending mail. The account UI maps usernames to private synthetic Auth emails; an optional real email is stored privately as the recovery contact.
+Vaulted uses Managed Better Auth and the Data API on the Neon production branch. The sign-in origin is `https://vaultedd.pages.dev`. Keep email/password enabled and email verification optional for the synthetic sign-in addresses used by username/password accounts.
+
+After installing the base Vaulted schema, run [`neon/vaulted-account-cutover.sql`](neon/vaulted-account-cutover.sql) and refresh the Data API schema cache. The migration adds username aliases, upload authorization, and member presence.
+
+For profile pictures and banners, set `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` as server secrets in the Cloudflare deployment. Set `AWS_ENDPOINT_URL_S3`, `AWS_REGION`, and `S3_BUCKET` to the Neon Object Storage settings. The profile media bucket must allow public reads.
+
+After the owner creates their Neon account, verify its user ID in Neon Auth and insert that ID into `public.site_admins(user_id)` to enable the owner panel for `xander`.
 
 
 GitHub pushes to `main` can deploy the Worker automatically once Workers Builds is connected as described in the deployment guide. The repository's existing jsDelivr release automation is separate from Cloudflare deployment.

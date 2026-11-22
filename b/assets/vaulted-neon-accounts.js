@@ -1,52 +1,53 @@
 (() => {
   "use strict";
 
-  const SUPABASE_URL = "https://suuzwcmcqvdltnqugozo.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_e4uHUEjDuCEpeXUu3MbmPw_DG4BS1HN";
-  const PROJECT_REF = new URL(SUPABASE_URL).hostname.split(".")[0];
-  const AUTH_STORAGE_KEY = `sb-${PROJECT_REF}-auth-token`;
+  const AUTH_URL = "https://ep-round-sun-bcjqrx2v.neonauth.c-16.us-east-1.aws.neon.tech/neondb/auth";
+  const DATA_API_URL = "https://ep-round-sun-bcjqrx2v.apirest.c-16.us-east-1.aws.neon.tech/neondb/rest/v1";
+  const sdkUrl = new URL("./neon-sdk.mjs", document.currentScript.src).href;
+  const appOrigin = "https://vaultedd.pages.dev";
+  const servedByVaulted = location.origin === appOrigin || location.hostname === "vaulted.xjc-notgalaxy.workers.dev";
+  const nativeFetch = window.fetch.bind(window);
   const LEGACY_TOKEN_KEY = "session_token";
   const FAVORITES_KEY = "cherri_favorites";
-  const MEDIA_BUCKET = "berri-profile-media";
-  const API_PREFIX = "/api/";
-  const nativeFetch = window.fetch.bind(window);
+  const NEON_SESSION_KEY = "vaulted_neon_session";
   let clientPromise;
-  let client;
 
-  // Bridge a saved Supabase session to the token slot the existing UI expects.
-  try {
-    const saved = JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || "null");
-    if (saved?.access_token) localStorage.setItem(LEGACY_TOKEN_KEY, saved.access_token);
-  } catch {}
+  // Legacy UI code passes its session value to unrelated services. Give it
+  // a local user marker and let the Neon SDK own the real credentials.
+  function sessionMarker(user) {
+    return user ? "vaulted." + btoa(JSON.stringify({ sub: user.id })) + ".local" : null;
+  }
+
+  function setSession(session) {
+    setSessionMarker(sessionMarker(session?.user));
+  }
+
+  function setSessionMarker(marker) {
+    try {
+      for (const key of [NEON_SESSION_KEY, LEGACY_TOKEN_KEY]) {
+        if (marker?.startsWith("vaulted.")) localStorage.setItem(key, marker);
+        else localStorage.removeItem(key);
+      }
+    } catch {}
+  }
+
+  try { setSessionMarker(localStorage.getItem(NEON_SESSION_KEY)); } catch {}
 
   function loadClient() {
-    if (client) return Promise.resolve(client);
     if (!clientPromise) {
-      clientPromise = new Promise((resolve, reject) => {
-        const initialize = () => {
-          if (!window.supabase?.createClient) return reject(new Error("Supabase client did not load."));
-          client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-            auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
-          });
-          client.auth.onAuthStateChange((_event, session) => {
-            try {
-              if (session?.access_token) localStorage.setItem(LEGACY_TOKEN_KEY, session.access_token);
-              else localStorage.removeItem(LEGACY_TOKEN_KEY);
-            } catch {}
-            if (session?.user) setTimeout(() => {
-              syncFavorites(client, session.user);
-              window.vaultedEarn?.('daily');
-            }, 0);
-          });
-          resolve(client);
-        };
-        if (window.supabase?.createClient) return initialize();
-        const script = document.createElement("script");
-        script.src = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2";
-        script.async = true;
-        script.onload = initialize;
-        script.onerror = () => reject(new Error("Could not load Supabase Auth."));
-        document.head.appendChild(script);
+      clientPromise = import(sdkUrl).then(({ createClient, SupabaseAuthAdapter }) => {
+        const db = createClient({
+          auth: { url: servedByVaulted ? new URL("/api/neon-auth", location.origin).href : AUTH_URL, allowAnonymous: true, adapter: SupabaseAuthAdapter() },
+          dataApi: { url: DATA_API_URL },
+        });
+        db.auth.onAuthStateChange((event, session) => {
+          if (event !== "INITIAL_SESSION" || session) setSession(session);
+          if (event === "SIGNED_OUT") window.dispatchEvent(new Event("cherri:session"));
+        });
+        return db;
+      }).catch((error) => {
+        clientPromise = null;
+        throw error;
       });
     }
     return clientPromise;
@@ -70,30 +71,8 @@
   }
 
   function authEmail(username) {
-    const encoded = Array.from(normalizedUsername(username), (character) => character.charCodeAt(0).toString(16).padStart(2, "0")).join("");
-    return `u${encoded}@users.${PROJECT_REF}.supabase.co`;
-  }
-
-  async function signupConfigurationError() {
-    let settingsResponse;
-    try {
-      settingsResponse = await nativeFetch(`${SUPABASE_URL}/auth/v1/settings`, {
-        headers: { apikey: SUPABASE_KEY },
-        cache: "no-store",
-      });
-    } catch {
-      return "Could not check Supabase signup settings. Please try again.";
-    }
-    if (!settingsResponse.ok) return "Could not check Supabase signup settings. Please try again.";
-    let settings;
-    try { settings = await settingsResponse.json(); } catch {
-      return "Could not check Supabase signup settings. Please try again.";
-    }
-    if (!settings.external?.email) return "Enable the Email provider in Supabase Authentication settings.";
-    if (settings.mailer_autoconfirm !== true) {
-      return "Turn off Confirm email in Supabase Authentication settings before creating accounts. No account was created.";
-    }
-    return null;
+    const encoded = Array.from(username, (character) => character.charCodeAt(0).toString(16)).join("");
+    return "u" + encoded + "@accounts.vaultedd.pages.dev";
   }
 
   function mapProfile(row, tags = [], recoveryEmail = null, plusUntil = null) {
@@ -138,13 +117,21 @@
 
   async function mapMany(db, rows) {
     if (!rows?.length) return [];
-    const [{ data: tags }, plusResult] = await Promise.all([
-      db.from("profile_tags").select("user_id,tag,icon,color").in("user_id", rows.map((row) => row.id)),
-      db.rpc("vaulted_public_plus", { p_usernames: rows.map((row) => row.username) }),
-    ]);
+    const groups = [];
+    for (let offset = 0; offset < rows.length; offset += 100) groups.push(rows.slice(offset, offset + 100));
+    const details = await Promise.all(groups.map((group) => Promise.all([
+      db.from("profile_tags").select("user_id,tag,icon,color").in("user_id", group.map((row) => row.id)),
+      db.rpc("vaulted_public_plus", { p_usernames: group.map((row) => row.username) }),
+    ])));
     const byUser = new Map();
-    for (const item of tags || []) byUser.set(item.user_id, [...(byUser.get(item.user_id) || []), item]);
-    return rows.map((row) => mapProfile(row, byUser.get(row.id) || [], null, plusResult?.data?.[row.username] || null));
+    const plusByUsername = Object.assign(Object.create(null), ...details.map(([, plus]) => plus.data));
+    for (const [tags] of details) {
+      for (const tag of tags.data || []) {
+        if (!byUser.has(tag.user_id)) byUser.set(tag.user_id, []);
+        byUser.get(tag.user_id).push(tag);
+      }
+    }
+    return rows.map((row) => mapProfile(row, byUser.get(row.id) || [], null, plusByUsername[row.username] || null));
   }
 
   function localFavorites() {
@@ -186,68 +173,83 @@
     }, 150);
   }
 
-  async function getUser(db, token) {
-    const result = token ? await db.auth.getUser(token) : await db.auth.getUser();
-    if (result.error) return null;
-    return result.data.user || null;
+  async function getUser(db) {
+    const result = await db.auth.getUser();
+    return result.error ? null : result.data.user || null;
   }
 
   async function handleAuth(path, init) {
     const db = await loadClient();
     const body = await requestBody(init);
-    if (path === "/api/auth/register" && init?.method === "POST") {
+    if (!servedByVaulted && !["localhost", "127.0.0.1"].includes(location.hostname)) {
+      return response({ error: "Open https://vaultedd.pages.dev to sign in to Vaulted." }, 403);
+    }
+    const registering = path === "/api/auth/register";
+    const loggingIn = path === "/api/auth/login";
+    if ((registering || loggingIn) && init?.method === "POST") {
       const username = normalizedUsername(body.username);
       if (!/^[a-z0-9_.-]{3,24}$/.test(username)) return response({ error: "Username must be 3–24 letters, numbers, dots, dashes, or underscores." }, 400);
-      if (typeof body.password !== "string" || body.password.length < 6) return response({ error: "Password must be at least 6 characters." }, 400);
-      const configurationError = await signupConfigurationError();
-      if (configurationError) return response({ error: configurationError }, 503);
-      const { data, error } = await db.auth.signUp({
-        email: authEmail(username),
-        password: body.password,
-        options: { data: { username, display_name: username, recovery_email: String(body.email || "").trim() || null } },
-      });
-      if (error) {
-        const message = String(error.message || "");
-        // Supabase Auth can surface database-trigger failures during sign-up.
-        // Those are not proof that the username/email exists, so only map the
-        // Auth-specific duplicate-email response to the username conflict UI.
-        if (/user already registered|email.*already registered|already been registered/i.test(message)) {
-          return response({ error: "That username is already registered in Supabase Auth. Check Authentication → Users for a pending account, or choose another username." }, 409);
-        }
-        return response({ error: `Supabase signup failed: ${message || "unknown error"}${error.code ? ` (${error.code})` : ""}` }, 400);
+      if (registering && (typeof body.password !== "string" || body.password.length < 8)) {
+        return response({ error: "Password must be at least 8 characters." }, 400);
       }
-      if (!data.session) return response({ error: "Supabase did not create a login session. Check Authentication → Users before trying again." }, 400);
-      const profile = await profileForUser(db, data.user, true);
-      return response({ token: data.session.access_token, user: profile || { id: data.user.id, username, display: username, email: body.email || null } });
-    }
-    if (path === "/api/auth/login" && init?.method === "POST") {
-      const username = normalizedUsername(body.username);
-      const { data: mappedEmail, error: lookupError } = await db.rpc("auth_email_for_username", { p_username: username });
-      const email = !lookupError && typeof mappedEmail === "string" ? mappedEmail : authEmail(username);
-      const { data, error } = await db.auth.signInWithPassword({ email, password: body.password || "" });
-      if (error) return response({ error: "Incorrect username or password." }, 401);
-      const profile = await profileForUser(db, data.user, true);
-      return response({ token: data.session.access_token, user: profile || { id: data.user.id, username, display: username } });
+      const alias = loggingIn ? await db.rpc("vaulted_login_alias", { p_username: username }) : null;
+      const email = typeof alias?.data === "string" ? alias.data : authEmail(username);
+      const password = body.password || "";
+      const { data, error } = registering
+        ? await db.auth.signUp({ email, password, options: { data: { displayName: username } } })
+        : await db.auth.signInWithPassword({ email, password });
+      if (error || !data?.session || !data?.user) {
+        return response({ error: registering ? error?.message || "Neon Auth did not start a session." : "Incorrect username or password." }, registering ? 400 : 401);
+      }
+      try {
+        const initialized = await db.rpc("vaulted_initialize_account", {
+          p_username: username,
+          p_display_name: username,
+          p_login_email: data.user.email,
+        });
+        if (initialized.error) throw initialized.error;
+        const recoveryEmail = registering && String(body.email || "").trim();
+        if (recoveryEmail) {
+          const saved = await db.from("private_account_data").update({ recovery_email: recoveryEmail }).eq("user_id", data.user.id);
+          if (saved.error) throw saved.error;
+        }
+        const profile = await profileForUser(db, data.user, true);
+        setSession(data.session);
+        void syncFavorites(db, data.user).catch(console.warn);
+        return response({ token: sessionMarker(data.session.user), user: profile });
+      } catch (error) {
+        await db.auth.signOut();
+        setSession(null);
+        return response({ error: error?.message || "Could not initialize your profile. Try signing in again." }, 400);
+      }
     }
     if (path === "/api/auth/logout" && init?.method === "POST") {
       const { error } = await db.auth.signOut();
+      if (!error) setSession(null);
       return error ? response({ error: error.message }, 400) : response({ ok: true });
     }
     if (path === "/api/auth/me") {
-      const token = new Headers(init?.headers).get("Authorization")?.replace(/^Bearer\s+/i, "");
-      const user = await getUser(db, token);
-      if (!user) return response({ user: null, token: null }, 401);
-      const profile = await profileForUser(db, user, true);
-      return response({ user: profile || { id: user.id, username: user.user_metadata?.username || "", display: user.user_metadata?.username || "" }, token: user.aud ? token : token });
+      const { data, error } = await db.auth.getSession();
+      if (error || !data.session?.user) { setSession(null); return response({ user: null, token: null }, 401); }
+      setSession(data.session);
+      return response({ user: await profileForUser(db, data.session.user, true), token: sessionMarker(data.session.user) });
+    }
+    if (path === "/api/auth/delete" && init?.method === "POST") {
+      if (!(await getUser(db))) return response({ error: "Sign in to delete your account." }, 401);
+      if (typeof body.password !== "string" || !body.password) return response({ error: "Enter your password." }, 400);
+      const { error } = await db.auth.getBetterAuthInstance().deleteUser({ password: body.password });
+      if (error) return response({ error: error.message }, 400);
+      setSession(null);
+      window.dispatchEvent(new Event("cherri:session"));
+      return response({ ok: true });
     }
     if (path === "/api/auth/email" && init?.method === "POST") {
-      const token = new Headers(init?.headers).get("Authorization")?.replace(/^Bearer\s+/i, "");
-      const user = await getUser(db, token);
+      const user = await getUser(db);
       if (!user) return response({ error: "Sign in again to update your recovery email." }, 401);
       const { error: verifyError } = await db.auth.signInWithPassword({ email: user.email, password: body.password || "" });
       if (verifyError) return response({ error: "Your current password is incorrect." }, 401);
       const email = String(body.email || "").trim().toLowerCase() || null;
-      const { error } = await db.from("private_account_data").upsert({ user_id: user.id, recovery_email: email }, { onConflict: "user_id" });
+      const { error } = await db.from("private_account_data").update({ recovery_email: email }).eq("user_id", user.id);
       return error ? response({ error: error.message }, 400) : response({ email });
     }
     return null;
@@ -256,22 +258,20 @@
   async function handleAdminAccess(path, init) {
     if (path !== "/api/mod/access" || (init?.method || "GET").toUpperCase() !== "GET") return null;
     const db = await loadClient();
-    const token = new Headers(init?.headers).get("Authorization")?.replace(/^Bearer\s+/i, "");
-    const user = await getUser(db, token);
+    const user = await getUser(db);
     if (!user) return response({ riskTier: "none" }, 401);
-    const { data, error } = await db.rpc("berri_my_admin_tier");
+    const { data, error } = await db.rpc("vaulted_admin_access");
     if (error) {
       console.error("Could not check Berri admin access:", error);
-      return response({ riskTier: "none", error: "Admin access is not configured in Supabase yet." }, 503);
+      return response({ riskTier: "none", error: "Owner access is unavailable." }, 503);
     }
-    return response({ riskTier: typeof data === "string" ? data : "none" });
+    return response({ riskTier: data?.owner === true ? "owner" : "none" });
   }
 
   async function handleVaultedAdmin(path, url, init) {
     const method = (init?.method || "GET").toUpperCase();
     const db = await loadClient();
-    const token = new Headers(init?.headers).get("Authorization")?.replace(/^Bearer\s+/i, "");
-    const user = await getUser(db, token);
+    const user = await getUser(db);
     if (!user) return response({ error: "Sign in to open the owner panel." }, 401);
     const body = method === "POST" ? await requestBody(init) : {};
     let name;
@@ -381,7 +381,7 @@
   function shopFailure(error) {
     const missing = ['42P01', '42883', 'PGRST202', 'PGRST205'].includes(error?.code);
     return response({ error: missing
-      ? 'The shop needs its database setup. Run supabase/vaulted-shop.sql in your Supabase SQL Editor.'
+      ? 'Refresh the Neon Data API schema cache to load the shop.'
       : error?.message || 'The shop could not complete that request.' }, missing ? 503 : 400);
   }
 
@@ -463,9 +463,8 @@
   async function handleProfile(path, url, init) {
     const db = await loadClient();
     const method = (init?.method || (init?.body ? "POST" : "GET")).toUpperCase();
-    const token = new Headers(init?.headers).get("Authorization")?.replace(/^Bearer\s+/i, "");
     const needsCurrentUser = method === "PATCH" || path === "/api/users/card-gradient" || path === "/api/users/username-style" || path === "/api/users/upload-pfp" || path === "/api/users/upload-banner";
-    const current = needsCurrentUser ? await getUser(db, token) : null;
+    const current = needsCurrentUser ? await getUser(db) : null;
 
     if (path.startsWith("/api/users/profile/") && method === "GET") {
       const username = decodeURIComponent(path.slice("/api/users/profile/".length)).replace(/^@/, "").toLowerCase();
@@ -524,21 +523,20 @@
       if (body.bannerCrop && typeof body.bannerCrop === "object") patch.banner_crop = body.bannerCrop;
       if (body.username_style !== undefined) patch.username_style = body.username_style;
       if (typeof body.username === "string") {
+        const aliasCheck = await db.rpc("vaulted_login_alias", { p_username: "" });
+        if (aliasCheck.error) return response({ error: "Username changes are temporarily unavailable." }, 503);
         const username = normalizedUsername(body.username);
         if (!/^[a-z0-9_.-]{3,24}$/.test(username)) return response({ error: "Invalid username." }, 400);
         const { data: profile } = await db.from("profiles").select("last_username_change,username").eq("id", current.id).maybeSingle();
         if (profile?.username !== username && profile?.last_username_change && Date.now() - Date.parse(profile.last_username_change) < 14 * 86400000) {
           return response({ error: "You can change your username once every 14 days." }, 400);
         }
-        const { error: authError } = await db.auth.updateUser({ data: { username } });
-        if (authError) return response({ error: authError.message }, 400);
         patch.username = username;
         patch.last_username_change = new Date().toISOString();
       }
-      if (typeof body.password === "string" && body.password.length >= 6) {
-        const { error: verifyError } = await db.auth.signInWithPassword({ email: current.email, password: body.currentPassword || "" });
-        if (verifyError) return response({ error: "Your current password is incorrect." }, 401);
-        const { error: authError } = await db.auth.updateUser({ password: body.password });
+      if (typeof body.password === "string" && body.password) {
+        if (body.password.length < 8) return response({ error: "Password must be at least 8 characters." }, 400);
+        const { error: authError } = await db.auth.getBetterAuthInstance().changePassword({ currentPassword: body.currentPassword || "", newPassword: body.password });
         if (authError) return response({ error: authError.message }, 400);
       }
       if (Object.keys(patch).length) {
@@ -583,12 +581,13 @@
         return Number.isFinite(value) ? value : fallback;
       };
       const crop = { focusX: cropValue("focusX", 50), focusY: cropValue("focusY", 50), zoom: cropValue("zoom", 1) };
-      const extension = file.type === "image/jpeg" ? "jpg" : file.type.split("/")[1];
-      const objectPath = `${current.id}/${isAvatar ? "avatar" : "banner"}-${crypto.randomUUID()}.${extension}`;
-      const { error: uploadError } = await db.storage.from(MEDIA_BUCKET).upload(objectPath, file, { upsert: true, contentType: file.type });
-      if (uploadError) return response({ error: uploadError.message }, 400);
-      const { data: publicData } = db.storage.from(MEDIA_BUCKET).getPublicUrl(objectPath);
-      const publicUrl = publicData.publicUrl;
+      const upload = await nativeFetch(new URL("/api/profile-media", location.origin), {
+        method: "POST",
+        headers: { Authorization: "Bearer " + (await db.auth.getSession()).data.session?.access_token },
+        body: file,
+      });
+      const { url: publicUrl, error: uploadError } = await upload.json();
+      if (!upload.ok) return response({ error: uploadError }, upload.status);
       const update = isAvatar
         ? { avatar_url: publicUrl, avatar_crop: crop }
         : { banner_url: publicUrl, banner_crop: crop };
@@ -610,10 +609,43 @@
     return response({ entries: rows.slice(0, pageSize), page: requestedPage, hasMore: rows.length > pageSize, pageSize });
   }
 
+  function saveStorage(values) {
+    return Object.fromEntries(Object.entries(values || {}).filter(([key]) =>
+      key !== LEGACY_TOKEN_KEY && key !== NEON_SESSION_KEY && !/^sb-.*-auth-token$/.test(key)
+    ));
+  }
+
+  async function handleCloudSave(url, init) {
+    const db = await loadClient();
+    const user = await getUser(db);
+    if (!user) return response({ error: "Sign in to sync your saves." }, 401);
+    const key = { user_id: user.id, origin: location.origin };
+    if (init?.method === "PUT") {
+      if (typeof init.body !== "string" || new TextEncoder().encode(init.body).length > 1024 * 1024) {
+        return response({ error: "Cloud save is larger than 1 MB." }, 413);
+      }
+      const { ls, idb, hash } = await requestBody(init);
+      const { data, error } = await db.from("vaulted_cloud_saves")
+        .upsert({ ...key, snapshot: { ls: saveStorage(ls), idb, hash } }, { onConflict: "user_id,origin" })
+        .select("updated_at").single();
+      if (error) return response({ error: error.message }, 503);
+      return response({ updatedAt: data.updated_at });
+    }
+    if (init?.method && init.method !== "GET") return response({ error: "Method not allowed." }, 405);
+    const meta = url.searchParams.has("meta");
+    const { data, error } = await db.from("vaulted_cloud_saves").select(meta ? "updated_at" : "snapshot,updated_at")
+      .eq("user_id", key.user_id).eq("origin", key.origin).maybeSingle();
+    if (error) return response({ error: error.message }, 503);
+    if (!data) return response({ error: "No cloud save yet." }, 404);
+    if (meta) return response({ updatedAt: data.updated_at });
+    return response({ ...data.snapshot, ls: saveStorage(data.snapshot?.ls), updatedAt: data.updated_at });
+  }
+
   window.fetch = async (input, init) => {
     const rawUrl = typeof input === "string" ? input : input?.url || String(input);
     const url = new URL(rawUrl, location.href);
-    if (!url.pathname.startsWith(API_PREFIX)) return nativeFetch(input, init);
+    if (url.origin !== location.origin && url.origin !== appOrigin) return nativeFetch(input, init);
+    if (!url.pathname.startsWith("/api/")) return nativeFetch(input, init);
     if (url.pathname === "/api/announcements" && (!init?.method || init.method.toUpperCase() === "GET")) {
       try { return await handleAnnouncements(); }
       catch (error) { return response({ error: error?.message || "Announcements are unavailable." }, 500); }
@@ -630,9 +662,27 @@
       try { return await handleShop(url.pathname, init); }
       catch (error) { return shopFailure(error); }
     }
+    if (url.pathname === "/api/presence" || url.pathname === "/api/presence/scope" || url.pathname === "/api/presence/heartbeat") {
+      try {
+        const db = await loadClient();
+        if (!(await getUser(db))) return response({ online: [], idle: [] });
+        const scope = url.pathname.endsWith("/scope") && init?.method === "POST" ? (await requestBody(init)).scope : null;
+        const { data, error } = await db.rpc("vaulted_presence_account", {
+          p_heartbeat: url.pathname.endsWith("/heartbeat"),
+          p_scope: scope,
+        });
+        if (error) return response({ error: "Neon presence is unavailable." }, 503);
+        return response(data);
+      } catch { return response({ error: "Neon presence is unavailable." }, 503); }
+    }
+    if (url.pathname === "/api/saves") {
+      try { return await handleCloudSave(url, init); }
+      catch { return response({ error: "Cloud saves are unavailable." }, 503); }
+    }
     if (url.pathname.startsWith("/api/auth/")) {
-      const authResponse = await handleAuth(url.pathname, init);
-      return authResponse || response({ error: "Unsupported Supabase authentication route." }, 404);
+      try {
+        return await handleAuth(url.pathname, init) || response({ error: "Unsupported Vaulted authentication route." }, 404);
+      } catch (error) { return response({ error: error?.message || "Neon sign-in is unavailable." }, 503); }
     }
     if (url.pathname === "/api/mod/access") {
       const accessResponse = await handleAdminAccess(url.pathname, init);
@@ -641,8 +691,9 @@
     const path = url.pathname;
     const isProfilePath = path.startsWith("/api/users/") || path.startsWith("/api/members");
     if (isProfilePath) {
-      const profileResponse = await handleProfile(path, url, init);
-      return profileResponse || response({ error: "Unsupported Supabase profile route." }, 404);
+      try {
+        return await handleProfile(path, url, init) || response({ error: "Unsupported Vaulted profile route." }, 404);
+      } catch (error) { return response({ error: error?.message || "Could not load your profile." }, 503); }
     }
     return nativeFetch(input, init);
   };
@@ -652,10 +703,10 @@
 
   loadClient().then(async (db) => {
     const { data } = await db.auth.getSession();
+    setSession(data.session);
     if (data.session?.access_token) {
-      try { localStorage.setItem(LEGACY_TOKEN_KEY, data.session.access_token); } catch {}
       window.dispatchEvent(new Event("cherri:session"));
       await syncFavorites(db, data.session.user);
     }
-  }).catch((error) => console.error("Berri Supabase account bridge did not initialize:", error));
+  }).catch((error) => console.error("Vaulted Neon account bridge did not initialize:", error));
 })();
