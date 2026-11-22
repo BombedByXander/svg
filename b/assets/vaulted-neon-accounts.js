@@ -192,23 +192,36 @@
       if (registering && (typeof body.password !== "string" || body.password.length < 8)) {
         return response({ error: "Password must be at least 8 characters." }, 400);
       }
-      const alias = loggingIn ? await db.rpc("vaulted_login_alias", { p_username: username }) : null;
+      const alias = await db.rpc("vaulted_login_alias", { p_username: username });
       const email = typeof alias?.data === "string" ? alias.data : authEmail(username);
       const password = body.password || "";
-      const { data, error } = registering
+      const reservedUsername = registering && typeof alias?.data === "string";
+      let { data, error } = registering && !reservedUsername
         ? await db.auth.signUp({ email, password, options: { data: { displayName: username } } })
         : await db.auth.signInWithPassword({ email, password });
+      const duplicateSignup = registering && !reservedUsername && (
+        /^USER_ALREADY_EXISTS(?:_|$)/i.test(String(error?.code || "")) ||
+        /user already exists|email is already registered/i.test(String(error?.message || ""))
+      );
+      if (duplicateSignup) {
+        ({ data, error } = await db.auth.signInWithPassword({ email, password }));
+      }
       if (error || !data?.session || !data?.user) {
+        if (duplicateSignup || reservedUsername) {
+          return response({ error: "That username already has an account. Sign in with its original password or choose a different username." }, 409);
+        }
         return response({ error: registering ? error?.message || "Neon Auth did not start a session." : "Incorrect username or password." }, registering ? 400 : 401);
       }
       try {
+        const resumingSignup = duplicateSignup || reservedUsername;
+        const existingProfile = resumingSignup ? await profileForUser(db, data.user, true) : null;
         const initialized = await db.rpc("vaulted_initialize_account", {
           p_username: username,
           p_display_name: username,
           p_login_email: data.user.email,
         });
         if (initialized.error) throw initialized.error;
-        const recoveryEmail = registering && String(body.email || "").trim();
+        const recoveryEmail = registering && !existingProfile && String(body.email || "").trim();
         if (recoveryEmail) {
           const saved = await db.from("private_account_data").update({ recovery_email: recoveryEmail }).eq("user_id", data.user.id);
           if (saved.error) throw saved.error;
