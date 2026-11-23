@@ -854,3 +854,27 @@
 /* The home surface is fixed to the viewport and must never expose a page scrollbar. */
 .home-page{overflow:hidden!important;overflow-y:hidden!important;overscroll-behavior:none!important;scrollbar-width:none!important}
 .home-page::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+
+/* Homepage search hover: grow the field and its decorative light overlay together. */
+@media (hover:hover) and (pointer:fine) {
+  .home-page .home-search {
+    transform-origin: center;
+    transition: transform 180ms cubic-bezier(.2,.8,.2,1), border-color 180ms ease, box-shadow 180ms ease !important;
+  }
+  .home-page .home-search:hover {
+    transform: scale(1.02) !important;
+    border-color: color-mix(in srgb, var(--accent) 54%, var(--border-4)) !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent) !important;
+  }
+  .home-page .home-search::before {
+    transition: transform 180ms cubic-bezier(.2,.8,.2,1), opacity 180ms ease;
+  }
+  .home-page .home-search:hover::before {
+    transform: scale(1.015);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .home-page .home-search,
+  .home-page .home-search::before { transition-duration: .01ms !important; }
+}
