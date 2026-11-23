@@ -859,7 +859,7 @@
 @media (hover:hover) and (pointer:fine) {
   .home-page .home-search {
     transform-origin: center;
-    transition: transform 180ms cubic-bezier(.2,.8,.2,1), border-color 180ms ease, box-shadow 180ms ease !important;
+    transition: transform 280ms cubic-bezier(.22,1,.36,1), border-color 240ms ease, box-shadow 240ms ease !important;
   }
   .home-page .home-search:hover {
     transform: scale(1.02) !important;
@@ -867,7 +867,7 @@
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent) !important;
   }
   .home-page .home-search::before {
-    transition: transform 180ms cubic-bezier(.2,.8,.2,1), opacity 180ms ease;
+    transition: transform 280ms cubic-bezier(.22,1,.36,1), opacity 240ms ease;
   }
   .home-page .home-search:hover::before {
     transform: scale(1.015);
@@ -876,5 +876,5 @@
 }
 @media (prefers-reduced-motion:reduce) {
   .home-page .home-search,
-  .home-page .home-search::before { transition-duration: .01ms !important; }
+  .home-page .home-search::before { transition-duration: 280ms !important; }
 }
