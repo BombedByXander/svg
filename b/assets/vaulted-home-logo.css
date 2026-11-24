@@ -935,3 +935,10 @@
  .vaulted-topnav>div[data-category]{height:auto!important;min-height:0;background:none!important;border:0!important;margin:0!important}
 }
 @media(max-width:700px){.vaulted-topnav>.vaulted-side-shortcuts,.vaulted-topnav>.vaulted-sidebar-tabs{display:none!important}}
+
+/* Ensure the home-page floating dock rules do not re-center the new sidebar. */
+.glass-shell.vaulted-topnav-shell>.vaulted-topnav{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;translate:none!important}
+.vaulted-sidebar-tabs{min-height:0!important;max-height:32vh!important}
+.vaulted-topnav>div[data-category]{position:relative;padding:0!important}
+.vaulted-topnav>div[data-category]::after{display:none!important}
+@media(max-width:700px){.glass-shell.vaulted-topnav-shell>.vaulted-topnav{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important}}
