@@ -878,3 +878,60 @@
   .home-page .home-search,
   .home-page .home-search::before { transition-duration: 280ms !important; }
 }
+
+
+/* Achroma-inspired Vaulted sidebar and homepage quick links. */
+.glass-shell.vaulted-topnav-shell{flex-direction:row!important;align-items:stretch!important}
+.glass-shell.vaulted-topnav-shell>.vaulted-topnav{box-sizing:border-box;position:relative;z-index:30;align-self:stretch!important;flex:0 0 240px!important;width:240px!important;max-width:240px!important;height:100%;min-height:0;margin:0!important;padding:16px 12px 14px!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start;gap:12px!important;overflow-x:hidden;overflow-y:auto;border:0!important;border-right:1px solid color-mix(in srgb,var(--border-3) 72%,transparent)!important;border-radius:0!important;background:radial-gradient(circle at 45% 110%,color-mix(in srgb,var(--accent) 26%,transparent),transparent 54%),radial-gradient(circle,color-mix(in srgb,var(--bright-text) 7%,transparent) .7px,transparent .9px) 0 0/16px 16px,color-mix(in srgb,var(--bg-1-base) 91%,transparent)!important;box-shadow:inset -1px 0 0 color-mix(in srgb,var(--bright-text) 3%,transparent),8px 0 32px #00000012!important;backdrop-filter:blur(30px) saturate(1.3)!important;-webkit-backdrop-filter:blur(30px) saturate(1.3)!important;scrollbar-width:thin;scrollbar-color:var(--border-3) transparent}
+.glass-shell.vaulted-topnav-shell>.flex.flex-col.flex-1{min-width:0;min-height:0;flex:1 1 auto!important}
+.vaulted-topnav .vaulted-side-shortcuts{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;flex:none!important;padding:0 4px 12px;border-bottom:1px solid var(--border-4)}
+.vaulted-side-shortcuts>button{height:56px;min-width:0;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--border-3) 42%,transparent);border-radius:12px;background:color-mix(in srgb,var(--bg-2) 50%,transparent);color:var(--bright-text);font-size:24px;line-height:1;transition:transform .2s cubic-bezier(.2,.8,.2,1),background .2s,border-color .2s,box-shadow .2s}
+.vaulted-side-shortcuts>button:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--bg-3) 72%,transparent);border-color:color-mix(in srgb,var(--accent) 48%,var(--border-3));box-shadow:0 8px 18px #0002}
+.vaulted-side-shortcuts img{width:22px;height:22px;object-fit:contain;border-radius:6px}
+.vaulted-sidebar-tabs{display:flex!important;flex-direction:column;gap:5px;flex:none!important;max-height:34%;min-height:112px;overflow:auto;padding:0 0 12px;border-bottom:1px solid var(--border-4)}
+.vaulted-sidebar-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:22px;padding:0 4px 5px;color:var(--text-muted);font-size:10px;font-weight:700;letter-spacing:.07em}
+.vaulted-sidebar-heading button{border:0;background:transparent;color:var(--text-muted);font-size:11px;font-weight:600;letter-spacing:0;white-space:nowrap}
+.vaulted-sidebar-heading button:hover{color:var(--bright-text)}
+.vaulted-sidebar-tab{display:flex;align-items:center;gap:4px;min-height:36px;padding:0 8px;border:1px solid transparent;border-radius:10px;color:var(--text-muted);transition:background .16s,color .16s,border-color .16s}
+.vaulted-sidebar-tab:hover{background:color-mix(in srgb,var(--bg-2) 82%,transparent);color:var(--text)}
+.vaulted-sidebar-tab.is-active{background:var(--bright-text);color:var(--bg-base);box-shadow:0 2px 8px #0002}
+.vaulted-sidebar-tab>button:first-child{display:flex;align-items:center;gap:9px;min-width:0;flex:1;height:32px;border:0;background:transparent;color:inherit;text-align:left;font-size:12px;font-weight:550}
+.vaulted-sidebar-tab>button:first-child img,.vaulted-sidebar-tab-favicon{display:grid;place-items:center;width:16px;height:16px;flex:none;object-fit:cover;border-radius:4px}
+.vaulted-sidebar-tab-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vaulted-sidebar-tab-close{width:22px;height:24px;flex:none;border:0;border-radius:6px;background:transparent;color:inherit;font-size:16px;opacity:.65}
+.vaulted-sidebar-tab-close:hover{background:color-mix(in srgb,var(--bg-3) 58%,transparent);opacity:1}
+.vaulted-sidebar-divider{display:block!important;flex:none!important;width:100%!important;height:1px!important;min-height:1px;margin:0!important;border:0!important;background:var(--border-4)!important}
+.vaulted-topnav>div[data-category]{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:3px!important;flex:none!important;width:100%!important}
+.vaulted-topnav>div[data-category]::before{content:attr(data-category);display:block;padding:2px 8px 4px;color:var(--text-muted);font-size:10px;font-weight:700;letter-spacing:.075em;text-transform:uppercase}
+.vaulted-topnav>div[data-category="Explore"]{flex:0 0 auto!important}
+.vaulted-topnav .vaulted-nav-item{width:100%!important;max-width:100%!important;padding:0!important;flex:none!important}
+.vaulted-topnav .vaulted-nav-item>button{width:100%!important;height:36px!important;min-height:36px;padding:0 10px!important;justify-content:flex-start!important;gap:10px!important;border-radius:10px!important;font-size:12px!important}
+.vaulted-topnav .vaulted-nav-item>button>span{display:block!important;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.vaulted-topnav .vaulted-nav-item>button>svg,.vaulted-topnav .vaulted-nav-item>button>img{width:16px;height:16px;flex:none}
+.vaulted-topnav .vaulted-nav-item>button[aria-current="page"]{background:color-mix(in srgb,var(--accent) 18%,var(--bg-2))!important;color:var(--bright-text)!important;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 34%,transparent)}
+.home-page .home-hero{padding-left:24px;padding-right:24px}
+.home-page .home-search{width:min(480px,calc(100% - 32px))!important}
+.home-feature-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:14px auto 0;padding:0 16px;max-width:720px}
+.home-feature-links button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:32px;padding:0 14px;border:1px solid color-mix(in srgb,var(--border-3) 78%,transparent);border-radius:999px;background:color-mix(in srgb,var(--bg-2) 70%,transparent);color:var(--text);font-size:12px;font-weight:550;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:transform .2s cubic-bezier(.2,.8,.2,1),background .2s,border-color .2s,color .2s,box-shadow .2s}
+.home-feature-links button:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--accent) 14%,var(--bg-2));border-color:color-mix(in srgb,var(--accent) 45%,var(--border-3));color:var(--bright-text);box-shadow:0 6px 16px #0002}
+.home-feature-links button:focus-visible,.vaulted-side-shortcuts button:focus-visible,.vaulted-sidebar-tab button:focus-visible,.vaulted-sidebar-heading button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:700px){
+ .glass-shell.vaulted-topnav-shell{flex-direction:column-reverse!important}
+ .glass-shell.vaulted-topnav-shell>.vaulted-topnav{order:2;align-self:stretch!important;flex:0 0 auto!important;width:100%!important;max-width:none!important;height:auto;max-height:88px;padding:6px 8px!important;flex-direction:row!important;align-items:center!important;gap:8px!important;overflow-x:auto;overflow-y:hidden;border-right:0!important;border-top:1px solid var(--border-3)!important}
+ .vaulted-side-shortcuts,.vaulted-sidebar-tabs,.vaulted-sidebar-divider{display:none!important}
+ .vaulted-topnav>div[data-category]{width:max-content!important;flex-direction:row!important;align-items:center!important;gap:2px!important}
+ .vaulted-topnav>div[data-category]::before{display:none}
+ .vaulted-topnav .vaulted-nav-item{width:auto!important}
+ .vaulted-topnav .vaulted-nav-item>button{width:42px!important;height:42px!important;justify-content:center!important;padding:0!important}
+ .vaulted-topnav .vaulted-nav-item>button>span{display:none!important}
+ .home-feature-links{gap:6px}
+ .home-feature-links button{padding:0 10px;font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){.vaulted-side-shortcuts>button,.home-feature-links button{transition:none!important}}
+
+/* Reset legacy dock separator rules after moving the tabs into the sidebar. */
+@media(min-width:701px){
+ .vaulted-topnav>.vaulted-sidebar-tabs{display:flex!important;width:100%!important;height:auto!important;min-height:112px;background:none!important;border:0!important;margin:0!important;flex:none!important}
+ .vaulted-topnav>div[data-category]{height:auto!important;min-height:0;background:none!important;border:0!important;margin:0!important}
+}
+@media(max-width:700px){.vaulted-topnav>.vaulted-side-shortcuts,.vaulted-topnav>.vaulted-sidebar-tabs{display:none!important}}
