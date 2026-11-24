@@ -942,3 +942,8 @@
 .vaulted-topnav>div[data-category]{position:relative;padding:0!important}
 .vaulted-topnav>div[data-category]::after{display:none!important}
 @media(max-width:700px){.glass-shell.vaulted-topnav-shell>.vaulted-topnav{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important}}
+
+/* Keep the social shortcut tiles and their icon boxes identical in size. */
+.vaulted-topnav .vaulted-side-shortcuts{grid-template-columns:repeat(3,60px)!important;justify-content:space-between!important;gap:8px!important}
+.vaulted-topnav .vaulted-side-shortcuts>button{box-sizing:border-box!important;width:60px!important;height:60px!important;min-width:60px!important;max-width:60px!important;padding:0!important;aspect-ratio:1!important}
+.vaulted-topnav .vaulted-side-shortcuts>button img{display:block;width:24px!important;height:24px!important;min-width:24px;min-height:24px;max-width:24px;max-height:24px;object-fit:contain;border-radius:5px}
