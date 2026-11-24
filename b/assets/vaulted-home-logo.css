@@ -991,3 +991,40 @@
 .vaulted-topnav.vaulted-sidebar-collapsed .vaulted-sidebar-collapse{display:none!important}
 .home-page .home-hero{isolation:isolate!important}
 .home-page .home-hero>.vaulted-home-video-bg{position:fixed!important;inset:0!important;z-index:-1!important;display:block!important;width:100vw!important;height:100vh!important;height:100dvh!important;object-fit:cover!important;pointer-events:none!important}
+
+/* Desktop sidebar correction: keep all six shortcut tiles visible and let the homepage video read through the glass. */
+@media (min-width: 701px) {
+  .glass-shell.vaulted-topnav-shell > .vaulted-topnav {
+    background: color-mix(in srgb, var(--bg-1-base) 18%, transparent) !important;
+    background-image: none !important;
+    backdrop-filter: blur(22px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(1.2) !important;
+  }
+  .vaulted-topnav .vaulted-side-shortcuts {
+    display: grid !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 128px !important;
+    max-height: none !important;
+    flex: 0 0 auto !important;
+    grid-template-columns: repeat(3, 60px) !important;
+    grid-template-rows: repeat(2, 60px) !important;
+    grid-auto-flow: row !important;
+    grid-auto-rows: 60px !important;
+    align-content: start !important;
+    justify-content: start !important;
+    gap: 8px !important;
+    overflow: visible !important;
+  }
+  .vaulted-topnav .vaulted-side-shortcuts > button {
+    display: grid !important;
+    box-sizing: border-box !important;
+    width: 60px !important;
+    min-width: 60px !important;
+    max-width: 60px !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    max-height: 60px !important;
+    flex: none !important;
+  }
+}
