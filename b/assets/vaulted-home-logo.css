@@ -971,3 +971,7 @@
 .vaulted-topnav.vaulted-sidebar-collapsed .vaulted-nav-item>button{width:48px!important;height:42px!important;justify-content:center!important;padding:0!important}
 .vaulted-topnav.vaulted-sidebar-collapsed .vaulted-nav-item>button>span{display:none!important}
 @media(max-width:700px){.vaulted-toolbar-sync{font-size:11px;padding:0 6px}.vaulted-toolbar-sidebar-toggle{width:28px;height:32px}}
+
+/* Match the reference shortcut grid: three columns, compact 60×56 tiles. */
+.vaulted-topnav .vaulted-side-shortcuts{grid-template-columns:repeat(3,60px)!important;justify-content:start!important;gap:8px!important;padding-left:8px!important}
+.vaulted-topnav .vaulted-side-shortcuts>button{width:60px!important;height:56px!important;min-width:60px!important;max-width:60px!important;aspect-ratio:auto!important}
