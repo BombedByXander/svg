@@ -1342,7 +1342,7 @@
 
 :host(.vaulted-home-active) .vaulted-home-scene {
   background:
-    radial-gradient(ellipse 24% 66% at 48% 76%, rgb(53 220 190 / .58), transparent 68%),
+    radial-gradient(ellipse 21% 33% at 53% 40%, rgb(45 225 195 / .78) 0%, rgb(45 225 195 / .48) 45%, transparent 76%),
     radial-gradient(ellipse 48% 78% at 26% 108%, rgb(92 124 255 / .35), transparent 67%),
     radial-gradient(ellipse 47% 82% at 78% 110%, rgb(255 107 154 / .29), transparent 69%),
     #07070b;
