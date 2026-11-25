@@ -58,7 +58,7 @@
 @media(prefers-reduced-motion:reduce){[data-theme=rgb-gamer] :is(button[aria-pressed=true],[role=tab][aria-selected=true],[data-state=active],[aria-current=page]){animation:none!important}}
 
 
-/* Heaven — midnight, silver moonlight, and distant celestial light. */
+/* Heaven â€” midnight, silver moonlight, and distant celestial light. */
 [data-theme=heaven]{
  color-scheme:dark;
  --bg-base:#070a12;--bg-1-base:#0c101c;--bg-2-base:#121827;--bg-3-base:#1b2438;--bg-4-base:#27334b;
@@ -463,7 +463,7 @@
 .home-page .home-hero{position:relative!important;z-index:1!important}
 
 .home-title-text{position:relative!important;display:inline-block!important;overflow:visible!important}
-.home-title-text::after{content:"®";position:absolute;right:-.27em;bottom:.28em;font-size:.22em;font-weight:700;line-height:1;background-image:inherit;background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;opacity:.95;pointer-events:none;z-index:2}
+.home-title-text::after{content:"Â®";position:absolute;right:-.27em;bottom:.28em;font-size:.22em;font-weight:700;line-height:1;background-image:inherit;background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent;opacity:.95;pointer-events:none;z-index:2}
 
 .home-title{overflow:visible!important}
 
@@ -472,7 +472,7 @@
 
 .home-title{overflow:visible!important}
 .home-title-text{position:relative!important;display:inline-block!important;overflow:visible!important;padding-right:.3em!important}
-.home-title-text::after{content:"®"!important;display:block!important;position:absolute!important;right:0!important;bottom:.24em!important;font-size:.22em!important;font-weight:700!important;line-height:1!important;margin:0!important;transform:none!important;opacity:1!important;white-space:nowrap!important;pointer-events:none!important;z-index:2!important;background-image:inherit!important;background-clip:text!important;-webkit-background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important}
+.home-title-text::after{content:"Â®"!important;display:block!important;position:absolute!important;right:0!important;bottom:.24em!important;font-size:.22em!important;font-weight:700!important;line-height:1!important;margin:0!important;transform:none!important;opacity:1!important;white-space:nowrap!important;pointer-events:none!important;z-index:2!important;background-image:inherit!important;background-clip:text!important;-webkit-background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent!important}
 .home-title-trademark{display:none!important}
 
 .home-title-text{padding-right:.2em!important}
@@ -481,13 +481,13 @@
 /* Keep the registered mark fully visible and legible at the end of the wordmark. */
 .home-title,.home-title-text{overflow:visible!important}
 .home-title-text{position:relative!important;display:inline-block!important;padding-right:.42em!important}
-.home-title-text::after{content:"®"!important;position:absolute!important;right:0!important;bottom:.14em!important;display:block!important;font-size:.19em!important;font-weight:700!important;line-height:1!important;white-space:nowrap!important;overflow:visible!important;pointer-events:none!important;background:none!important;background-image:none!important;background-clip:border-box!important;-webkit-background-clip:border-box!important;color:var(--accent-2)!important;-webkit-text-fill-color:var(--accent-2)!important;opacity:1!important;z-index:5!important}
+.home-title-text::after{content:"Â®"!important;position:absolute!important;right:0!important;bottom:.14em!important;display:block!important;font-size:.19em!important;font-weight:700!important;line-height:1!important;white-space:nowrap!important;overflow:visible!important;pointer-events:none!important;background:none!important;background-image:none!important;background-clip:border-box!important;-webkit-background-clip:border-box!important;color:var(--accent-2)!important;-webkit-text-fill-color:var(--accent-2)!important;opacity:1!important;z-index:5!important}
 /* The public profile fullscreen action is intentionally labeled so it is easy to find. */
 .profile-card{position:relative!important}
 .profile-card-fullscreen-btn{display:inline-flex!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;min-width:112px!important;width:auto!important;padding:0 12px!important;gap:8px!important;z-index:100!important}
 .profile-card-fullscreen-btn::after{content:"Fullscreen";font-size:11px;font-weight:600;line-height:1;white-space:nowrap}
 
-/* Tighten the ® spacing while keeping the glyph inside the wordmark layout. */
+/* Tighten the Â® spacing while keeping the glyph inside the wordmark layout. */
 .home-title-text{padding-right:.22em!important}
 .home-title-text::after{font-size:.17em!important;right:0!important;bottom:.14em!important}
 
@@ -796,7 +796,7 @@
 
 /* Keep locked account tabs legible and mark them without wrapping their icon markup. */
 .vaulted-topnav .vaulted-nav-item>button[data-locked=true]{cursor:not-allowed;opacity:.62}
-.vaulted-topnav .vaulted-nav-item>button[data-locked=true]::after{content:"×";position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;color:var(--bright-text);font-size:23px;font-weight:900;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,.95)}
+.vaulted-topnav .vaulted-nav-item>button[data-locked=true]::after{content:"Ã—";position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;color:var(--bright-text);font-size:23px;font-weight:900;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,.95)}
 
 /* The second desktop separator splits the locked account tabs into their own horizontal group. */
 .vaulted-topnav>div:nth-child(4){display:block!important;width:1px;height:26px;border:0;background:var(--border-3);margin:0 3px;flex:none}
@@ -821,7 +821,7 @@
 .appearance-section-summary::-webkit-details-marker{display:none}
 .appearance-section-summary::after{content:"+";display:grid;place-items:center;width:24px;height:24px;border-radius:8px;background:var(--bg-3);color:var(--text-muted);font-size:16px;font-weight:500;transition:transform .18s ease,background .18s ease}
 .appearance-section[open]>.appearance-section-summary{margin-bottom:16px}
-.appearance-section[open]>.appearance-section-summary::after{content:"−";background:color-mix(in srgb,var(--accent) 12%,var(--bg-3));color:var(--accent)}
+.appearance-section[open]>.appearance-section-summary::after{content:"âˆ’";background:color-mix(in srgb,var(--accent) 12%,var(--bg-3));color:var(--accent)}
 @media(prefers-reduced-motion:reduce){.appearance-section-summary::after{transition:none}}
 
 /* Live analog dial, kept in the local time card. */
@@ -972,11 +972,11 @@
 .vaulted-topnav.vaulted-sidebar-collapsed .vaulted-nav-item>button>span{display:none!important}
 @media(max-width:700px){.vaulted-toolbar-sync{font-size:11px;padding:0 6px}.vaulted-toolbar-sidebar-toggle{width:28px;height:32px}}
 
-/* Match the reference shortcut grid: three columns, compact 60×56 tiles. */
+/* Match the reference shortcut grid: three columns, compact 60Ã—56 tiles. */
 .vaulted-topnav .vaulted-side-shortcuts{grid-template-columns:repeat(3,60px)!important;justify-content:start!important;gap:8px!important;padding-left:8px!important}
 .vaulted-topnav .vaulted-side-shortcuts>button{width:60px!important;height:56px!important;min-width:60px!important;max-width:60px!important;aspect-ratio:auto!important}
 
-/* The reference uses a fixed 3×2 shortcut grid above the tab list. Let the
+/* The reference uses a fixed 3Ã—2 shortcut grid above the tab list. Let the
    active page/theme background show through the sidebar without a dot or glass layer. */
 .glass-shell.vaulted-topnav-shell>.vaulted-topnav{padding-left:20px!important;padding-right:20px!important;background:color-mix(in srgb,var(--bg-1-base) 42%,transparent)!important;background-image:none!important;box-shadow:inset -1px 0 0 color-mix(in srgb,var(--bright-text) 4%,transparent),8px 0 28px #0003!important;backdrop-filter:blur(22px) saturate(1.2)!important;-webkit-backdrop-filter:blur(22px) saturate(1.2)!important;border-right:1px solid color-mix(in srgb,var(--bright-text) 8%,transparent)!important}
 .vaulted-topnav .vaulted-side-shortcuts{display:grid!important;grid-template-columns:repeat(3,60px)!important;grid-auto-rows:56px!important;justify-content:start!important;align-content:start!important;gap:8px!important;box-sizing:border-box;width:100%!important;margin:0 0 0!important;padding:0 0 8px!important;overflow:visible!important;border:0!important;border-bottom:1px solid var(--border-4)!important}
@@ -1332,7 +1332,11 @@
   position: absolute;
   inset: -45% -20%;
   pointer-events: none;
-  background: radial-gradient(ellipse 24% 66% at 20% 70%, rgb(92 124 255 / .72), transparent 68%), radial-gradient(ellipse 25% 62% at 54% 76%, rgb(255 107 154 / .66), transparent 70%), radial-gradient(ellipse 22% 66% at 82% 72%, rgb(255 179 92 / .62), transparent 68%);
+  background: radial-gradient(ellipse 15% 64% at 20% 70%, rgb(92 124 255 / .74) 10%, transparent 70%),
+    radial-gradient(ellipse 15% 64% at 35% 75%, rgb(38 216 80 / .74) 10%, transparent 70%),
+    radial-gradient(ellipse 15% 64% at 50% 76%, rgb(255 107 154 / .74) 10%, transparent 70%),
+    radial-gradient(ellipse 15% 64% at 65% 74%, rgb(0 208 192 / .74) 10%, transparent 70%),
+    radial-gradient(ellipse 15% 64% at 80% 72%, rgb(255 179 92 / .74) 10%, transparent 70%);
   filter: blur(38px) saturate(1.2);
   transform: rotate(-13deg) scale(1.12);
   animation: vaulted-aurora-drift 8s ease-in-out infinite alternate; will-change: transform;
@@ -1340,7 +1344,7 @@
 @keyframes vaulted-aurora-drift { 0% { transform: rotate(-17deg) translate3d(-8%,5%,0) scale(1.02); } 50% { transform: rotate(-7deg) translate3d(1%,-4%,0) scale(1.2); } 100% { transform: rotate(-1deg) translate3d(8%,4%,0) scale(1.04); } }
 
 
-/* Keep the Home background to its original three colors. */
+
 .vaulted-browser-toolbar .vaulted-toolbar-sync { display: none !important; }
 .vaulted-browser-toolbar { gap: 4px !important; }
 .vaulted-browser-toolbar > .vaulted-toolbar-sidebar-toggle { order: 0; }
