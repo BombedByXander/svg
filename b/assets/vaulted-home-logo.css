@@ -1202,3 +1202,70 @@
 .home-page .home-hero > .vaulted-home-video-bg { display: block !important; }
 .home-page .home-hero > .vaulted-reactbits-neon-host { position: absolute !important; inset: 0 !important; z-index: 0 !important; }
 .home-page .home-hero > .vaulted-reactbits-neon-host ~ :not(.home-legal):not(.home-credit):not(.vaulted-neon-overlay-canvas) { position: relative !important; z-index: 1 !important; }
+
+/* Home is a single viewport: keep the video, dot field, sidebar, and controls
+   inside it without exposing document or sidebar scrollbars. */
+:host:has(.home-page) {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  overflow: hidden !important;
+}
+:host:has(.home-page) > * { width: 100% !important; height: 100% !important; min-height: 0 !important; overflow: hidden !important; }
+:host:has(.home-page) .glass-shell.vaulted-topnav-shell { height: 100% !important; min-height: 0 !important; overflow: hidden !important; }
+:host:has(.home-page) .glass-shell.vaulted-topnav-shell > .vaulted-topnav {
+  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+}
+:host:has(.home-page) .vaulted-sidebar-tabs { overflow: hidden !important; }
+:host:has(.home-page) .home-page {
+  position: relative !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+  scrollbar-width: none !important;
+}
+:host:has(.home-page) .home-page .home-hero {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+}
+:host:has(.home-page) .home-page .home-hero::before {
+  content: "" !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: -2 !important;
+  display: block !important;
+  pointer-events: none !important;
+  background-image: radial-gradient(circle, rgba(255,255,255,.23) .8px, transparent 1px) !important;
+  background-size: 24px 24px !important;
+  background-position: 0 0 !important;
+  opacity: .48 !important;
+}
+:host:has(.home-page) .home-page .home-hero > .vaulted-home-video-bg { z-index: -1 !important; mix-blend-mode: screen !important; }
+:host:has(.home-page) .home-page .home-hero > :not(.vaulted-home-video-bg) { position: relative; z-index: 1; }
+@media (max-height: 780px) and (min-width: 701px) {
+  :host:has(.home-page) .glass-shell.vaulted-topnav-shell > .vaulted-topnav { gap: 5px !important; padding-top: 8px !important; padding-bottom: 8px !important; }
+  :host:has(.home-page) .vaulted-topnav .vaulted-side-shortcuts { grid-auto-rows: 44px !important; gap: 6px !important; padding-bottom: 4px !important; }
+  :host:has(.home-page) .vaulted-topnav .vaulted-side-shortcuts > button { height: 44px !important; min-height: 44px !important; max-height: 44px !important; }
+  :host:has(.home-page) .vaulted-topnav > .vaulted-sidebar-tabs { min-height: 76px !important; max-height: 18vh !important; gap: 2px !important; }
+  :host:has(.home-page) .vaulted-topnav .vaulted-sidebar-tab { min-height: 30px !important; }
+  :host:has(.home-page) .vaulted-topnav .vaulted-nav-item > button { height: 29px !important; min-height: 29px !important; }
+  :host:has(.home-page) .vaulted-topnav .vaulted-sidebar-collapse { height: 24px !important; margin-bottom: 2px !important; }
+}
+@media (max-height: 640px) and (min-width: 701px) {
+  :host:has(.home-page) .glass-shell.vaulted-topnav-shell > .vaulted-topnav { gap: 3px !important; padding-top: 5px !important; padding-bottom: 5px !important; }
+  :host:has(.home-page) .vaulted-topnav .vaulted-side-shortcuts { grid-auto-rows: 36px !important; gap: 4px !important; }
+  :host:has(.home-page) .vaulted-topnav .vaulted-side-shortcuts > button { height: 36px !important; min-height: 36px !important; max-height: 36px !important; }
+  :host:has(.home-page) .vaulted-topnav > .vaulted-sidebar-tabs { min-height: 62px !important; }
+  :host:has(.home-page) .vaulted-topnav .vaulted-nav-item > button { height: 25px !important; min-height: 25px !important; }
+}
