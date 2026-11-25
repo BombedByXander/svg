@@ -1276,6 +1276,10 @@
   isolation: isolate !important;
   background: #050505 !important;
 }
+:host:has(.home-page) .glass-shell.vaulted-topnav-shell > .flex.flex-col.flex-1 {
+  background: transparent !important;
+  background-color: transparent !important;
+}
 :host:has(.home-page) .vaulted-home-background {
   position: absolute !important;
   inset: 0 !important;
