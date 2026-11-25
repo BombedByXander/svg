@@ -75,18 +75,24 @@ class VaultedAurora extends HTMLElement {
         const sample = heights => heights[index] + (heights[index + 1] - heights[index]) * blend;
         const fold = sample(frontHeights);
         const ripple = Math.sin(x * .026 + drift + Math.sin(x * .014 - drift));
-        const crest = 105 + .58 * fold + 13 * ripple;
+        // Share a broad sweep, but let each hem wander within its own strip.
+        const sweep = 160 + .32 * (fold - 100);
+        const crest = sweep + 5 * ripple;
+        const backCrest = sweep - 13 + 7 * Math.tanh((sample(backHeights) - 100) / 35)
+          + 3 * Math.cos(x * .013 - drift * .73);
+        const lowerCrest = sweep + 14 + 7 * Math.tanh((sample(lowerHeights) - 100) / 35)
+          + 3 * Math.sin(x * .019 + drift * 1.21);
         const reach = 105 + 25 * Math.sin(x * .018 - drift * .65) + 16 * grain[x / 2];
 
         // A distant veil follows its own contour behind the brighter front.
         ctx.globalAlpha = .34;
         ctx.drawImage(curtain, x, 0, 2, 200, x,
-          70 + .4 * sample(backHeights) + 15 * Math.cos(x * .013 - drift * .73) - .69 * 105, 2, 105);
+          backCrest - .69 * 105, 2, 105);
         ctx.globalAlpha = .78 + .18 * grain[x / 2];
         ctx.drawImage(curtain, x, 0, 2, 200, x, crest - .69 * reach, 2, reach);
         // Diffuse reflection below the hem keeps the horizon softly lit.
         ctx.globalAlpha = .23;
-        ctx.drawImage(curtain, x, 60, 2, 140, x, 64 + .54 * sample(lowerHeights) + 10 * Math.sin(x * .019 + drift * 1.21), 2, 195);
+        ctx.drawImage(curtain, x, 60, 2, 140, x, lowerCrest - (138 - 60) / 140 * 195, 2, 195);
       }
       ctx.globalAlpha = 1;
     };
