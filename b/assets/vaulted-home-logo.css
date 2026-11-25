@@ -1332,7 +1332,7 @@
   position: absolute;
   inset: -45% -20%;
   pointer-events: none;
-  background: radial-gradient(ellipse 24% 66% at 20% 70%, rgb(92 124 255 / .72), transparent 68%), radial-gradient(ellipse 25% 62% at 54% 76%, rgb(255 107 154 / .66), transparent 70%), radial-gradient(ellipse 22% 66% at 82% 72%, rgb(255 179 92 / .62), transparent 68%);
+  background: radial-gradient(ellipse 24% 66% at 20% 70%, rgb(92 124 255 / .72), transparent 68%), radial-gradient(ellipse 25% 62% at 54% 76%, rgb(255 107 154 / .66), transparent 70%), radial-gradient(ellipse 22% 66% at 82% 72%, rgb(255 179 92 / .62), transparent 68%), radial-gradient(ellipse 24% 62% at 48% 78%, rgb(53 220 190 / .52), transparent 70%);
   filter: blur(38px) saturate(1.2);
   transform: rotate(-13deg) scale(1.12);
   animation: vaulted-aurora-drift 8s ease-in-out infinite alternate; will-change: transform;
