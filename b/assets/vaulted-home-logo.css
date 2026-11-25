@@ -1215,7 +1215,7 @@
   pointer-events: none !important; mix-blend-mode: screen !important;
 }
 :host(:not(.vaulted-home-active)) .home-page .home-hero > video.vaulted-home-video-bg { display: none !important; }
-:host(.vaulted-home-active) canvas.vaulted-home-glass-backdrop { display: block !important; }
+:host(.vaulted-home-active) canvas.vaulted-home-glass-backdrop { display: block !important; mix-blend-mode: screen !important; }
 :host(:not(.vaulted-home-active)) canvas.vaulted-home-glass-backdrop { display: none !important; }
 :host(.vaulted-home-active) .home-page .home-hero > :not(.vaulted-home-video-bg) { position: relative !important; z-index: 2 !important; }
 @media (max-height: 780px) and (min-width: 701px) {
