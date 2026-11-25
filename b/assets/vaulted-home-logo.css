@@ -1341,7 +1341,6 @@
 
 
 /* Keep the Home background to its original three colors. */
-.vaulted-topnav .vaulted-sidebar-tabs { display: none !important; }
 .vaulted-browser-toolbar .vaulted-toolbar-sync { display: none !important; }
 .vaulted-browser-toolbar { gap: 4px !important; }
 .vaulted-browser-toolbar > .vaulted-toolbar-sidebar-toggle { order: 0; }
@@ -1349,7 +1348,6 @@
 .vaulted-browser-toolbar > .flex-1.relative { order: 2; }
 .vaulted-browser-toolbar > .vaulted-music-bar { order: 3; }
 
-.vaulted-topnav .vaulted-sidebar-tabs { display:none !important; }
 .vaulted-browser-toolbar .vaulted-active-tab { display:flex;align-items:center;gap:8px;flex:none;max-width:150px;height:32px;padding:0 8px;border:1px solid var(--border-4);border-radius:8px;background:var(--bg-2);color:var(--bright-text);font-size:12px; }
 .vaulted-active-tab-name { overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
 .vaulted-active-tab button { border:0;background:transparent;color:inherit;font-size:17px;cursor:pointer; }
