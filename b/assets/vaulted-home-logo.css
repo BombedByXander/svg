@@ -1332,8 +1332,13 @@
   position: absolute;
   inset: -45% -20%;
   pointer-events: none;
-  background: radial-gradient(ellipse 24% 66% at 20% 70%, rgb(92 124 255 / .72), transparent 68%), radial-gradient(ellipse 25% 62% at 54% 76%, rgb(255 107 154 / .66), transparent 70%), radial-gradient(ellipse 22% 66% at 82% 72%, rgb(255 179 92 / .62), transparent 68%);
-  filter: blur(38px) saturate(1.2);
+  background:
+    linear-gradient(176deg, transparent 34%, rgb(92 124 255 / .03) 43%, rgb(92 124 255 / .52) 54%, rgb(92 124 255 / .2) 63%, transparent 75%),
+    linear-gradient(184deg, transparent 40%, rgb(255 107 154 / .04) 47%, rgb(255 107 154 / .46) 57%, rgb(255 107 154 / .18) 67%, transparent 79%),
+    linear-gradient(172deg, transparent 48%, rgb(255 179 92 / .02) 55%, rgb(255 179 92 / .4) 64%, transparent 78%);
+  background-size: 125% 115%;
+  background-position: center bottom;
+  filter: blur(42px) saturate(1.25);
   transform: rotate(-13deg) scale(1.12);
   animation: vaulted-aurora-drift 8s ease-in-out infinite alternate; will-change: transform;
 }
