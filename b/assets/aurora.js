@@ -3,6 +3,29 @@ const auroraColors = [
   [0.69, "#ff6b9a"], [0.88, "#ffb35c"]
 ];
 
+// Paint the light once. Each frame bends narrow slices of this curtain.
+function paintCurtain() {
+  const texture = document.createElement("canvas");
+  texture.width = 800;
+  texture.height = 200;
+  const brush = texture.getContext("2d");
+  const colors = brush.createLinearGradient(0, 0, 800, 0);
+  for (const [offset, color] of auroraColors) colors.addColorStop(offset, color);
+  brush.fillStyle = colors;
+  brush.fillRect(0, 0, 800, 200);
+
+  // A narrow luminous hem beneath tall, translucent shafts of light.
+  const veil = brush.createLinearGradient(0, 0, 0, 200);
+  for (const [offset, alpha] of [[0, 0], [.19, .04], [.42, .18],
+    [.59, .44], [.67, .86], [.69, .98], [.73, .42], [.86, .17], [1, 0]]) {
+    veil.addColorStop(offset, "rgba(255,255,255," + alpha + ")");
+  }
+  brush.globalCompositeOperation = "destination-in";
+  brush.fillStyle = veil;
+  brush.fillRect(0, 0, 800, 200);
+  return texture;
+}
+
 class VaultedAurora extends HTMLElement {
   connectedCallback() {
     const canvas = document.createElement("canvas");
@@ -12,9 +35,9 @@ class VaultedAurora extends HTMLElement {
     this.replaceChildren(canvas);
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-    for (const [offset, color] of auroraColors) gradient.addColorStop(offset, color);
-
+    const curtain = paintCurtain();
+    const grain = Array.from({ length: 400 }, () => Math.random());
+    const phase = Math.random() * 100;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const randomPush = () => (Math.random() - 0.5) * (Math.random() < 0.3 ? 1200 : 480);
     const patches = Array.from({ length: 11 }, () => ({
@@ -40,18 +63,27 @@ class VaultedAurora extends HTMLElement {
         return 100 + displacement * (reduced.matches ? 0.55 : 1);
       });
       ctx.clearRect(0, 0, 800, 300);
-      ctx.beginPath();
-      ctx.moveTo(0, heights[0]);
-      for (let i = 1; i < heights.length; i++) {
-        const x = i * 80;
-        ctx.quadraticCurveTo(x - 80, heights[i - 1], x - 40, (heights[i - 1] + heights[i]) / 2);
+      const drift = phase + time * (reduced.matches ? .00022 : .00055);
+      for (let x = 0; x < 800; x += 2) {
+        const index = Math.floor(x / 80);
+        const t = (x % 80) / 80;
+        const blend = t * t * (3 - 2 * t);
+        const fold = heights[index] + (heights[index + 1] - heights[index]) * blend;
+        const ripple = Math.sin(x * .026 + drift + Math.sin(x * .014 - drift));
+        const crest = 105 + .58 * fold + 13 * ripple;
+        const reach = 105 + 25 * Math.sin(x * .018 - drift * .65) + 16 * grain[x / 2];
+
+        // A distant veil follows its own contour behind the brighter front.
+        ctx.globalAlpha = .34;
+        ctx.drawImage(curtain, x, 0, 2, 200, x,
+          70 + .4 * heights[10 - index] + 15 * Math.cos(x * .013 + drift) - .69 * 105, 2, 105);
+        ctx.globalAlpha = .78 + .18 * grain[x / 2];
+        ctx.drawImage(curtain, x, 0, 2, 200, x, crest - .69 * reach, 2, reach);
+        // Diffuse reflection below the hem keeps the horizon softly lit.
+        ctx.globalAlpha = .23;
+        ctx.drawImage(curtain, x, 60, 2, 140, x, crest - 45, 2, 195);
       }
-      ctx.lineTo(800, heights[10]);
-      ctx.lineTo(800, 300);
-      ctx.lineTo(0, 300);
-      ctx.closePath();
-      ctx.fillStyle = gradient;
-      ctx.fill();
+      ctx.globalAlpha = 1;
     };
     draw(previous);
     this.timer = setInterval(() => {

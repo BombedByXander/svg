@@ -1330,8 +1330,8 @@
 .vaulted-home-scene > vaulted-aurora {
   display: block;
   position: absolute;
-  inset: 38% -18% -18%;
-  filter: blur(clamp(18px, 3.5vh, 44px));
+  inset: 19% -7% -14%;
+  filter: blur(clamp(1px, .22vh, 3px));
   opacity: .82;
 }
 
