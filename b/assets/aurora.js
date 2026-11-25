@@ -40,17 +40,18 @@ class VaultedAurora extends HTMLElement {
     const phase = Math.random() * 100;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const randomPush = () => (Math.random() - 0.5) * (Math.random() < 0.3 ? 1200 : 480);
-    const patches = Array.from({ length: 11 }, () => ({
+    const makePatches = () => Array.from({ length: 11 }, () => ({
       height: 65 + Math.random() * 70,
       speed: (Math.random() - 0.5) * 90,
       push: randomPush(),
       nextPush: Math.random() * 600
     }));
+    const front = makePatches(), back = makePatches(), lower = makePatches();
     let previous = performance.now();
     const draw = time => {
       const dt = Math.min((time - previous) / 1000, 0.05);
       previous = time;
-      const heights = patches.map(patch => {
+      const advance = patches => patches.map(patch => {
         patch.nextPush -= dt * 1000;
         if (patch.nextPush <= 0) {
           patch.push = randomPush();
@@ -62,13 +63,17 @@ class VaultedAurora extends HTMLElement {
         const displacement = 90 * Math.tanh((patch.height - 100) / 90);
         return 100 + displacement * (reduced.matches ? 0.55 : 1);
       });
+      const frontHeights = advance(front);
+      const backHeights = advance(back);
+      const lowerHeights = advance(lower);
       ctx.clearRect(0, 0, 800, 300);
       const drift = phase + time * (reduced.matches ? .00022 : .00055);
       for (let x = 0; x < 800; x += 2) {
         const index = Math.floor(x / 80);
         const t = (x % 80) / 80;
         const blend = t * t * (3 - 2 * t);
-        const fold = heights[index] + (heights[index + 1] - heights[index]) * blend;
+        const sample = heights => heights[index] + (heights[index + 1] - heights[index]) * blend;
+        const fold = sample(frontHeights);
         const ripple = Math.sin(x * .026 + drift + Math.sin(x * .014 - drift));
         const crest = 105 + .58 * fold + 13 * ripple;
         const reach = 105 + 25 * Math.sin(x * .018 - drift * .65) + 16 * grain[x / 2];
@@ -76,12 +81,12 @@ class VaultedAurora extends HTMLElement {
         // A distant veil follows its own contour behind the brighter front.
         ctx.globalAlpha = .34;
         ctx.drawImage(curtain, x, 0, 2, 200, x,
-          70 + .4 * heights[10 - index] + 15 * Math.cos(x * .013 + drift) - .69 * 105, 2, 105);
+          70 + .4 * sample(backHeights) + 15 * Math.cos(x * .013 - drift * .73) - .69 * 105, 2, 105);
         ctx.globalAlpha = .78 + .18 * grain[x / 2];
         ctx.drawImage(curtain, x, 0, 2, 200, x, crest - .69 * reach, 2, reach);
         // Diffuse reflection below the hem keeps the horizon softly lit.
         ctx.globalAlpha = .23;
-        ctx.drawImage(curtain, x, 60, 2, 140, x, crest - 45, 2, 195);
+        ctx.drawImage(curtain, x, 60, 2, 140, x, 64 + .54 * sample(lowerHeights) + 10 * Math.sin(x * .019 + drift * 1.21), 2, 195);
       }
       ctx.globalAlpha = 1;
     };
