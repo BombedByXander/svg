@@ -19,27 +19,28 @@
   let lastWidth = 0;
   let lastHeight = 0;
   let lastFrameTime = 0;
+  let typed = "";
 
   function isEnabled() {
-    try {
-      return localStorage.getItem(MODE_KEY) === "1";
-    } catch {
-      return false;
-    }
+    try { return localStorage.getItem(MODE_KEY) === "1"; } catch { return false; }
   }
+
+  function isHome() { return Boolean(appRoot?.querySelector(".home-page")); }
 
   function ensureStyles(root) {
     if (root.getElementById(STYLE_ID)) return;
     const style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
-      #${CANVAS_ID} { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1; }
+      #${CANVAS_ID} { position: fixed; top: 0; left: 0; width: 0; height: 100vh; pointer-events: none; z-index: 2; overflow: hidden; }
       .home-title.diaz-wordmark { display: inline-flex; align-items: center; justify-content: center; gap: .12em; }
       .diaz-wordmark .diaz-logo-image { display: block; flex: 0 0 auto; width: .82em; height: .82em; object-fit: contain; filter: drop-shadow(0 2px 12px color-mix(in srgb, var(--accent) 45%, transparent)); }
       @media (max-width: 520px) { .diaz-wordmark .diaz-logo-image { width: .72em; height: .72em; } }
     `;
     root.appendChild(style);
   }
+
+  function getSidebar() { return appRoot?.querySelector(".vaulted-topnav"); }
 
   function getParticleCanvas(root) {
     if (canvas?.isConnected) return canvas;
@@ -59,8 +60,15 @@
 
   function resizeCanvas() {
     if (!canvas || !context) return;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const sidebar = getSidebar();
+    if (!sidebar || !isHome()) return;
+    const rect = sidebar.getBoundingClientRect();
+    const width = Math.max(1, Math.round(rect.width));
+    const height = Math.max(1, window.innerHeight);
+    canvas.style.left = `${Math.round(rect.left)}px`;
+    canvas.style.top = "0px";
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
     if (width === lastWidth && height === lastHeight) return;
     lastWidth = width;
     lastHeight = height;
@@ -69,17 +77,17 @@
     canvas.height = Math.round(height * ratio);
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
     const reducedMotion = motionPreference?.matches === true;
-    const particleCount = Math.min(reducedMotion ? 32 : 84, Math.max(reducedMotion ? 14 : 36, Math.round(width / 22)));
-    particles = Array.from({ length: particleCount }, () => makeParticle(true));
+    const particleCount = Math.min(reducedMotion ? 24 : 54, Math.max(reducedMotion ? 12 : 24, Math.round(width / 3)));
+    particles = Array.from({ length: particleCount }, () => makeParticle(true, width, height));
   }
 
-  function makeParticle(randomY = false) {
-    const width = 24 + Math.random() * 42;
+  function makeParticle(randomY = false, width = lastWidth, height = lastHeight) {
+    const size = 24 + Math.random() * 42;
     return {
-      x: Math.random() * Math.max(window.innerWidth, 1),
-      y: randomY ? Math.random() * Math.max(window.innerHeight, 1) : -90,
-      width,
-      height: width * (1359 / 1157),
+      x: Math.random() * Math.max(width, 1),
+      y: randomY ? Math.random() * Math.max(height, 1) : -90,
+      width: size,
+      height: size * (1359 / 1157),
       speed: 0.65 + Math.random() * 0.95,
       drift: (Math.random() - 0.5) * 1.1,
       rotation: (Math.random() - 0.5) * 0.5,
@@ -94,14 +102,14 @@
     resizeCanvas();
     const frameScale = lastFrameTime ? Math.min((timestamp - lastFrameTime) / (1000 / 60), 2.5) : 1;
     lastFrameTime = timestamp;
-    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    context.clearRect(0, 0, lastWidth, lastHeight);
     for (let index = 0; index < particles.length; index += 1) {
       const particle = particles[index];
       particle.y += particle.speed * frameScale;
       particle.x += particle.drift * frameScale;
       particle.rotation += particle.spin * frameScale;
-      if (particle.y - particle.height > window.innerHeight + 20) {
-        particles[index] = makeParticle();
+      if (particle.y - particle.height > lastHeight + 20) {
+        particles[index] = makeParticle(false, lastWidth, lastHeight);
         continue;
       }
       context.save();
@@ -132,7 +140,7 @@
     if (!appRoot) return;
     const title = appRoot.querySelector(".home-title");
     const wordmark = title?.querySelector(".home-title-text");
-    const active = isEnabled() && Boolean(title && wordmark);
+    const active = isEnabled() && Boolean(isHome() && title && wordmark);
     if (active) {
       ensureStyles(appRoot);
       if (!wordmark.hasAttribute("data-diaz-original")) wordmark.setAttribute("data-diaz-original", wordmark.textContent || "vаultеd");
@@ -164,18 +172,29 @@
     if (animationFrame) cancelAnimationFrame(animationFrame);
     animationFrame = 0;
     lastFrameTime = 0;
-    if (context && canvas) context.clearRect(0, 0, canvas.width, canvas.height);
+    if (context && canvas) context.clearRect(0, 0, lastWidth, lastHeight);
     canvas?.remove();
     canvas = null;
     context = null;
   }
 
+  function toggleDiazMode() {
+    const next = !isEnabled();
+    try { localStorage.setItem(MODE_KEY, next ? "1" : "0"); } catch {}
+    window.dispatchEvent(new Event(EVENT_NAME));
+  }
+
+  function onKeyDown(event) {
+    if (!isHome() || event.ctrlKey || event.altKey || event.metaKey) { typed = ""; return; }
+    if (event.key.length !== 1 || !/[a-z]/i.test(event.key)) { typed = ""; return; }
+    typed = (typed + event.key.toLowerCase()).slice(-8);
+    if (typed === "diazmode") { typed = ""; toggleDiazMode(); }
+  }
+
   function attachToAppRoot(root) {
     appRoot = root;
     if (!observer) {
-      observer = new MutationObserver(() => {
-        applyMode();
-      });
+      observer = new MutationObserver(() => applyMode());
       observer.observe(root, { childList: true, subtree: true });
     }
     applyMode();
@@ -188,6 +207,7 @@
     return root;
   };
 
+  window.addEventListener("keydown", onKeyDown, true);
   window.addEventListener(EVENT_NAME, applyMode);
   window.addEventListener("storage", (event) => {
     if (event.key === MODE_KEY || event.key === null) applyMode();
@@ -195,11 +215,7 @@
   window.addEventListener("resize", resizeCanvas, { passive: true });
   document.addEventListener("visibilitychange", () => {
     if (document.hidden && animationFrame) {
-      cancelAnimationFrame(animationFrame);
-      animationFrame = 0;
-      lastFrameTime = 0;
-    } else if (enabled && !animationFrame) {
-      animationFrame = requestAnimationFrame(drawFrame);
-    }
+      cancelAnimationFrame(animationFrame); animationFrame = 0; lastFrameTime = 0;
+    } else if (enabled && !animationFrame) animationFrame = requestAnimationFrame(drawFrame);
   });
 })();
