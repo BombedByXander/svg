@@ -1332,10 +1332,18 @@
   position: absolute;
   inset: -45% -20%;
   pointer-events: none;
-  background: radial-gradient(ellipse 24% 66% at 20% 70%, rgb(92 124 255 / .72), transparent 68%), radial-gradient(ellipse 25% 62% at 54% 76%, rgb(255 107 154 / .66), transparent 70%), radial-gradient(ellipse 22% 66% at 82% 72%, rgb(255 179 92 / .62), transparent 68%), radial-gradient(ellipse 24% 62% at 48% 78%, rgb(53 220 190 / .52), transparent 70%);
+  background: radial-gradient(ellipse 24% 66% at 20% 70%, rgb(92 124 255 / .72), transparent 68%), radial-gradient(ellipse 25% 62% at 54% 76%, rgb(255 107 154 / .66), transparent 70%), radial-gradient(ellipse 22% 66% at 82% 72%, rgb(255 179 92 / .62), transparent 68%);
   filter: blur(38px) saturate(1.2);
   transform: rotate(-13deg) scale(1.12);
   animation: vaulted-aurora-drift 8s ease-in-out infinite alternate; will-change: transform;
 }
 @keyframes vaulted-aurora-drift { 0% { transform: rotate(-17deg) translate3d(-8%,5%,0) scale(1.02); } 50% { transform: rotate(-7deg) translate3d(1%,-4%,0) scale(1.2); } 100% { transform: rotate(-1deg) translate3d(8%,4%,0) scale(1.04); } }
 
+
+:host(.vaulted-home-active) .vaulted-home-scene {
+  background:
+    radial-gradient(ellipse 24% 66% at 48% 76%, rgb(53 220 190 / .58), transparent 68%),
+    radial-gradient(ellipse 48% 78% at 26% 108%, rgb(92 124 255 / .35), transparent 67%),
+    radial-gradient(ellipse 47% 82% at 78% 110%, rgb(255 107 154 / .29), transparent 69%),
+    #07070b;
+}
