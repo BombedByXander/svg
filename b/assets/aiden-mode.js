@@ -42,7 +42,7 @@
 
   function spawn(randomY = false) {
     const index = Math.floor(Math.random() * images.length), image = images[index];
-    const size = index === 0 ? 38 + Math.random() * 26 : 48 + Math.random() * 28;
+    const size = index === 0 ? 82 + Math.random() * 38 : 48 + Math.random() * 28;
     const aspect = image.naturalWidth && image.naturalHeight ? image.naturalHeight / image.naturalWidth : 1;
     return { image, x: Math.random() * width, y: randomY ? Math.random() * height : -Math.max(80, size * aspect),
       w: size, h: size * aspect, speed: 1.15 + Math.random() * 1.45,
@@ -122,3 +122,4 @@
     else if (enabled && !raf) raf = requestAnimationFrame(draw);
   });
 })();
+
