@@ -1335,7 +1335,7 @@
   background: radial-gradient(ellipse 24% 66% at 20% 70%, rgb(92 124 255 / .72), transparent 68%), radial-gradient(ellipse 25% 62% at 54% 76%, rgb(255 107 154 / .66), transparent 70%), radial-gradient(ellipse 22% 66% at 82% 72%, rgb(255 179 92 / .62), transparent 68%);
   filter: blur(38px) saturate(1.2);
   transform: rotate(-13deg) scale(1.12);
-  animation: vaulted-aurora-drift 22s ease-in-out infinite alternate;
+  animation: vaulted-aurora-drift 8s ease-in-out infinite alternate; will-change: transform;
 }
-@keyframes vaulted-aurora-drift { from { transform: rotate(-13deg) translate3d(-2%,2%,0) scale(1.12); } to { transform: rotate(-5deg) translate3d(3%,-2%,0) scale(1.2); } }
-@media (prefers-reduced-motion: reduce) { :host(.vaulted-home-active) .vaulted-home-scene::before { animation: none; } }
+@keyframes vaulted-aurora-drift { 0% { transform: rotate(-17deg) translate3d(-8%,5%,0) scale(1.02); } 50% { transform: rotate(-7deg) translate3d(1%,-4%,0) scale(1.2); } 100% { transform: rotate(-1deg) translate3d(8%,4%,0) scale(1.04); } }
+
