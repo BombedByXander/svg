@@ -1322,3 +1322,20 @@
 }
 .vaulted-topnav-shell > .vaulted-topnav { grid-area: 2 / 1; }
 .vaulted-topnav-shell > .flex.flex-col.flex-1 { grid-area: 2 / 2; }
+
+:host(.vaulted-home-active) .vaulted-home-scene {
+  overflow: hidden;
+  background: radial-gradient(ellipse 48% 78% at 26% 108%, rgb(92 124 255 / .35), transparent 67%), radial-gradient(ellipse 47% 82% at 78% 110%, rgb(255 107 154 / .29), transparent 69%), #07070b;
+}
+:host(.vaulted-home-active) .vaulted-home-scene::before {
+  content: "";
+  position: absolute;
+  inset: -45% -20%;
+  pointer-events: none;
+  background: radial-gradient(ellipse 24% 66% at 20% 70%, rgb(92 124 255 / .72), transparent 68%), radial-gradient(ellipse 25% 62% at 54% 76%, rgb(255 107 154 / .66), transparent 70%), radial-gradient(ellipse 22% 66% at 82% 72%, rgb(255 179 92 / .62), transparent 68%);
+  filter: blur(38px) saturate(1.2);
+  transform: rotate(-13deg) scale(1.12);
+  animation: vaulted-aurora-drift 22s ease-in-out infinite alternate;
+}
+@keyframes vaulted-aurora-drift { from { transform: rotate(-13deg) translate3d(-2%,2%,0) scale(1.12); } to { transform: rotate(-5deg) translate3d(3%,-2%,0) scale(1.2); } }
+@media (prefers-reduced-motion: reduce) { :host(.vaulted-home-active) .vaulted-home-scene::before { animation: none; } }
