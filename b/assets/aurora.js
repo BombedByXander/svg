@@ -16,13 +16,13 @@ class VaultedAurora extends HTMLElement {
     for (const [offset, color] of auroraColors) gradient.addColorStop(offset, color);
 
     // Each patch picks its next height and duration independently.
-    const target = () => 42 + Math.random() * 104;
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    const target = () => reduced.matches ? 68 + Math.random() * 52 : 42 + Math.random() * 104;
     const duration = () => 1900 + Math.random() * 5400;
     const now = performance.now();
     const patches = Array.from({ length: 11 }, () => ({
       from: target(), to: target(), start: now - Math.random() * 1000, duration: duration()
     }));
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const draw = time => {
       const heights = patches.map(patch => {
         if (time >= patch.start + patch.duration) {
@@ -50,7 +50,7 @@ class VaultedAurora extends HTMLElement {
     };
     draw(now);
     this.timer = setInterval(() => {
-      if (!document.hidden && !reduced.matches) draw(performance.now());
+      if (!document.hidden) draw(performance.now());
     }, 50);
   }
 
