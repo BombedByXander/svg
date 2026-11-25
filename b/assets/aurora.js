@@ -4,7 +4,7 @@ const auroraColors = [
 ];
 
 // Paint the light once. Each frame bends narrow slices of this curtain.
-function paintCurtain() {
+function paintCurtain(stops) {
   const texture = document.createElement("canvas");
   texture.width = 800;
   texture.height = 200;
@@ -16,8 +16,7 @@ function paintCurtain() {
 
   // A narrow luminous hem beneath tall, translucent shafts of light.
   const veil = brush.createLinearGradient(0, 0, 0, 200);
-  for (const [offset, alpha] of [[0, 0], [.19, .04], [.42, .18],
-    [.59, .44], [.67, .86], [.69, .98], [.73, .42], [.86, .17], [1, 0]]) {
+  for (const [offset, alpha] of stops) {
     veil.addColorStop(offset, "rgba(255,255,255," + alpha + ")");
   }
   brush.globalCompositeOperation = "destination-in";
@@ -35,7 +34,9 @@ class VaultedAurora extends HTMLElement {
     this.replaceChildren(canvas);
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    const curtain = paintCurtain();
+    const curtain = paintCurtain([[0, 0], [.19, .04], [.42, .18],
+    [.59, .44], [.67, .86], [.69, .98], [.73, .42], [.86, .17], [1, 0]]);
+    const glow = paintCurtain([[0, 0], [.12, .4], [.42, .46], [1, .25]]);
     const grain = Array.from({ length: 400 }, () => Math.random());
     const phase = Math.random() * 100;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
@@ -83,6 +84,10 @@ class VaultedAurora extends HTMLElement {
         const lowerCrest = sweep + 14 + 7 * Math.tanh((sample(lowerHeights) - 100) / 35)
           + 3 * Math.sin(x * .019 + drift * 1.21);
         const reach = 105 + 25 * Math.sin(x * .018 - drift * .65) + 16 * grain[x / 2];
+
+        const glowTop = lowerCrest - 14;
+        ctx.globalAlpha = .85;
+        ctx.drawImage(glow, x, 0, 2, 200, x, glowTop, 2, canvas.height - glowTop);
 
         // A distant veil follows its own contour behind the brighter front.
         ctx.globalAlpha = .34;
