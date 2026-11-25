@@ -1,0 +1,7 @@
+React Bits components bundled into reactbits-surfaces.js
+
+- Neon Glyphs: https://reactbits.dev/backgrounds/neon-glyphs
+- Glass Surface: https://reactbits.dev/components/glass-surface
+- Upstream source: https://github.com/DavidHDev/react-bits
+
+The React Bits component license is included in REACTBITS-LICENSE.txt.
