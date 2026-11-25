@@ -1293,3 +1293,11 @@
   pointer-events: none;
   background: radial-gradient(circle, rgba(255,255,255,.19) 1px, transparent 1.2px) 0 0 / 28px 28px;
 }
+
+/* Clip the horizontal ends of the glass inside the sidebar's existing host. */
+.glass-shell.vaulted-topnav-shell > .vaulted-topnav > .vaulted-reactbits-glass-host > .glass-surface {
+  --glass-overscan: 112px;
+  top: calc(0px - var(--glass-overscan)) !important;
+  bottom: auto !important;
+  height: calc(100% + 2 * var(--glass-overscan)) !important;
+}
