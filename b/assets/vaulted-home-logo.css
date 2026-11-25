@@ -1309,3 +1309,16 @@
 .vaulted-reactbits-glass-host :is(.glass-surface__rim, .glass-surface__sheen, .glass-surface__line, .glass-surface__glow) {
   opacity: .32;
 }
+
+.glass-shell.vaulted-topnav-shell {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+}
+.vaulted-topnav-shell > .vaulted-browser-toolbar {
+  grid-area: 1 / 1 / 2 / -1;
+  min-width: 0;
+  z-index: 40;
+}
+.vaulted-topnav-shell > .vaulted-topnav { grid-area: 2 / 1; }
+.vaulted-topnav-shell > .flex.flex-col.flex-1 { grid-area: 2 / 2; }
