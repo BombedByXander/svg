@@ -1340,10 +1340,11 @@
 @keyframes vaulted-aurora-drift { 0% { transform: rotate(-17deg) translate3d(-8%,5%,0) scale(1.02); } 50% { transform: rotate(-7deg) translate3d(1%,-4%,0) scale(1.2); } 100% { transform: rotate(-1deg) translate3d(8%,4%,0) scale(1.04); } }
 
 
-:host(.vaulted-home-active) .vaulted-home-scene {
-  background:
-    radial-gradient(ellipse 16% 34% at 7% 82%, rgb(45 225 195 / .72) 0%, rgb(45 225 195 / .44) 45%, transparent 76%),
-    radial-gradient(ellipse 48% 78% at 26% 108%, rgb(92 124 255 / .35), transparent 67%),
-    radial-gradient(ellipse 47% 82% at 78% 110%, rgb(255 107 154 / .29), transparent 69%),
-    #07070b;
-}
+/* Keep the Home background to its original three colors. */
+.vaulted-topnav .vaulted-sidebar-tabs { display: none !important; }
+.vaulted-browser-toolbar .vaulted-toolbar-sync { display: none !important; }
+.vaulted-browser-toolbar { gap: 4px !important; }
+.vaulted-browser-toolbar > .vaulted-toolbar-sidebar-toggle { order: 0; }
+.vaulted-browser-toolbar > div.flex.items-center.gap-0\.5:first-of-type { order: 1; }
+.vaulted-browser-toolbar > .flex-1.relative { order: 2; }
+.vaulted-browser-toolbar > .vaulted-music-bar { order: 3; }
