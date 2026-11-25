@@ -1192,10 +1192,10 @@
   pointer-events: none !important;
 }
 .home-page .home-legal {
-  position: fixed !important; left: 12px !important; right: auto !important; bottom: 8px !important;
+  position: fixed !important; left: calc(var(--vaulted-sidebar-width, 240px) + 12px) !important; right: auto !important; bottom: 8px !important;
   top: auto !important; transform: none !important; z-index: 30 !important; white-space: nowrap !important;
 }
 .home-page .home-credit {
-  position: fixed !important; left: 50% !important; right: auto !important; bottom: 8px !important;
+  position: fixed !important; left: calc(var(--vaulted-sidebar-width, 240px) + (100vw - var(--vaulted-sidebar-width, 240px)) / 2) !important; right: auto !important; bottom: 8px !important;
   top: auto !important; transform: translateX(-50%) !important; z-index: 30 !important; white-space: nowrap !important;
 }
