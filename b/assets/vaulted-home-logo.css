@@ -1209,7 +1209,7 @@
   opacity: .48 !important;
 }
 :host(.vaulted-home-active) video.vaulted-home-video-bg {
-  position: fixed !important; inset: 0 !important; z-index: 1 !important;
+  position: fixed !important; inset: 0 !important; z-index: 11 !important;
   display: block !important; width: 100vw !important; height: 100vh !important;
   height: 100dvh !important; object-fit: cover !important;
   pointer-events: none !important; mix-blend-mode: screen !important;
