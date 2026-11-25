@@ -1088,3 +1088,23 @@
   }
   .vaulted-topnav.vaulted-sidebar-collapsed .vaulted-nav-item > button > span { display: none !important; }
 }
+
+/* Glass Surface treatment for the navigation rail. */
+.glass-shell.vaulted-topnav-shell > .vaulted-topnav {
+  background-image: linear-gradient(145deg, color-mix(in srgb, var(--bright-text) 13%, transparent), color-mix(in srgb, var(--bright-text) 3%, transparent) 42%, color-mix(in srgb, var(--bg-1-base) 42%, transparent)) !important;
+  backdrop-filter: blur(24px) saturate(1.65) contrast(1.04) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.65) contrast(1.04) !important;
+  border-right: 1px solid color-mix(in srgb, var(--bright-text) 16%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--bright-text) 15%, transparent), inset -1px 0 0 color-mix(in srgb, var(--bright-text) 8%, transparent), 8px 0 32px #0004 !important;
+}
+.home-page .home-hero { position: relative !important; }
+.home-page .vaulted-neon-glyphs {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+  opacity: .74 !important;
+  mix-blend-mode: screen !important;
+}
