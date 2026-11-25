@@ -1301,3 +1301,11 @@
   bottom: auto !important;
   height: calc(100% + 2 * var(--glass-overscan)) !important;
 }
+
+.vaulted-reactbits-glass-host > .glass-surface,
+.vaulted-reactbits-glass-host .glass-surface__frame {
+  box-shadow: inset 0 0 2px rgb(155 165 182 / 10%), inset 0 0 8px rgb(20 22 28 / 12%);
+}
+.vaulted-reactbits-glass-host :is(.glass-surface__rim, .glass-surface__sheen, .glass-surface__line, .glass-surface__glow) {
+  opacity: .32;
+}
