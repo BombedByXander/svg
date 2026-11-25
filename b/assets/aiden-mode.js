@@ -63,7 +63,7 @@
     width = nextWidth; height = nextHeight; pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
     canvas.width = Math.round(width * pixelRatio); canvas.height = Math.round(height * pixelRatio);
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    const count = prefersReducedMotion?.matches ? 12 : Math.min(36, Math.max(18, Math.round(width / 48)));
+    const count = prefersReducedMotion?.matches ? 24 : Math.min(72, Math.max(36, Math.round(width / 48) * 2));
     particles = Array.from({ length: count }, () => spawn(true));
   }
 

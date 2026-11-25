@@ -77,7 +77,7 @@
     canvas.height = Math.round(height * ratio);
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
     const reducedMotion = motionPreference?.matches === true;
-    const particleCount = Math.min(reducedMotion ? 24 : 54, Math.max(reducedMotion ? 12 : 24, Math.round(width / 3)));
+    const particleCount = Math.min(reducedMotion ? 48 : 108, Math.max(reducedMotion ? 24 : 48, Math.round(width / 3) * 2));
     particles = Array.from({ length: particleCount }, () => makeParticle(true, width, height));
   }
 
