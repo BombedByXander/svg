@@ -1201,4 +1201,6 @@
 }
 .home-page .home-hero > .vaulted-home-video-bg { display: block !important; }
 .home-page .home-hero > .vaulted-reactbits-neon-host { position: absolute !important; inset: 0 !important; z-index: 0 !important; }
-.home-page .home-hero > .vaulted-reactbits-neon-host ~ :not(.home-legal):not(.home-credit) { position: relative !important; z-index: 1 !important; }
+.home-page .home-hero > .vaulted-reactbits-neon-host ~ :not(.home-legal):not(.home-credit):not(.vaulted-neon-overlay-canvas) { position: relative !important; z-index: 1 !important; }
+
+.home-page .home-hero > .vaulted-neon-overlay-canvas { position: absolute !important; inset: 0 !important; z-index: 0 !important; width: 100% !important; height: 100% !important; pointer-events: none !important; opacity: .92 !important; mix-blend-mode: screen !important; }
