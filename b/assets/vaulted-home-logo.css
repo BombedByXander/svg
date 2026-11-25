@@ -1166,7 +1166,7 @@
 .home-page { background: transparent !important; z-index: 10 !important; }
 .home-page::before, .home-page::after { content: none !important; display: none !important; }
 .home-page .home-hero { position: relative !important; z-index: 10 !important; background: transparent !important; isolation: isolate !important; }
-.home-page .vaulted-home-video-bg { display: none !important; }
+
 .glass-shell.vaulted-topnav-shell {
   position: relative !important; z-index: 20 !important; background: transparent !important;
   background-image: none !important; box-shadow: none !important; backdrop-filter: none !important;
@@ -1192,10 +1192,13 @@
   pointer-events: none !important;
 }
 .home-page .home-legal {
-  position: fixed !important; left: calc(var(--vaulted-sidebar-width, 240px) + 12px) !important; right: auto !important; bottom: 8px !important;
+  position: fixed !important; left: 252px !important; right: auto !important; bottom: 8px !important;
   top: auto !important; transform: none !important; z-index: 30 !important; white-space: nowrap !important;
 }
 .home-page .home-credit {
-  position: fixed !important; left: calc(var(--vaulted-sidebar-width, 240px) + (100vw - var(--vaulted-sidebar-width, 240px)) / 2) !important; right: auto !important; bottom: 8px !important;
+  position: fixed !important; left: calc(50vw + 120px) !important; right: auto !important; bottom: 8px !important;
   top: auto !important; transform: translateX(-50%) !important; z-index: 30 !important; white-space: nowrap !important;
 }
+.home-page .home-hero > .vaulted-home-video-bg { display: block !important; }
+.home-page .home-hero > .vaulted-reactbits-neon-host { position: absolute !important; inset: 0 !important; z-index: 0 !important; }
+.home-page .home-hero > .vaulted-reactbits-neon-host ~ * { position: relative !important; z-index: 1 !important; }
