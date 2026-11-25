@@ -1208,12 +1208,13 @@
   background-position: 0 0 !important;
   opacity: .48 !important;
 }
-:host(.vaulted-home-active) .home-page .home-hero > .vaulted-home-video-bg {
+:host(.vaulted-home-active) video.vaulted-home-video-bg {
   position: fixed !important; inset: 0 !important; z-index: 1 !important;
   display: block !important; width: 100vw !important; height: 100vh !important;
   height: 100dvh !important; object-fit: cover !important;
   pointer-events: none !important; mix-blend-mode: screen !important;
 }
+:host(:not(.vaulted-home-active)) video.vaulted-home-video-bg { display: none !important; }
 :host(.vaulted-home-active) .home-page .home-hero > :not(.vaulted-home-video-bg) { position: relative !important; z-index: 2 !important; }
 @media (max-height: 780px) and (min-width: 701px) {
   
@@ -1256,11 +1257,6 @@
   -webkit-backdrop-filter: none !important;
 }
 :host(.vaulted-home-active) .vaulted-topnav > .vaulted-reactbits-glass-host { z-index: 0 !important; }
-:host(.vaulted-home-active) .vaulted-topnav > .vaulted-reactbits-glass-host {
-  background: rgba(255,255,255,.04) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(1.5) !important;
-  backdrop-filter: blur(18px) saturate(1.5) !important;
-}
 :host(.vaulted-home-active) .vaulted-reactbits-glass-host > .glass-surface {
   position: absolute !important; inset: 0 !important; display: block !important;
   width: 100% !important; height: 100% !important; border-radius: 0 !important;
