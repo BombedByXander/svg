@@ -1146,11 +1146,11 @@
 .glass-shell.vaulted-topnav-shell > .vaulted-topnav::before,
 .glass-shell.vaulted-topnav-shell > .vaulted-topnav::after { content: none !important; display: none !important; }
 .home-page .home-legal {
-  position: fixed !important; left: 252px !important; right: auto !important; bottom: 8px !important;
+  position: absolute !important; left: 12px !important; right: auto !important; bottom: 8px !important;
   top: auto !important; transform: none !important; z-index: 30 !important; white-space: nowrap !important;
 }
 .home-page .home-credit {
-  position: fixed !important; left: calc(50vw + 120px) !important; right: auto !important; bottom: 8px !important;
+  position: absolute !important; left: 50% !important; right: auto !important; bottom: 8px !important;
   top: auto !important; transform: translateX(-50%) !important; z-index: 30 !important; white-space: nowrap !important;
 }
 .home-page .home-hero > .vaulted-home-video-bg { display: block !important; }
@@ -1215,7 +1215,7 @@
   pointer-events: none !important; mix-blend-mode: screen !important;
 }
 :host(:not(.vaulted-home-active)) .home-page .home-hero > video.vaulted-home-video-bg { display: none !important; }
-:host(.vaulted-home-active) .home-page .home-hero > :not(.vaulted-home-video-bg) { position: relative !important; z-index: 2 !important; }
+:host(.vaulted-home-active) .home-page .home-hero > :not(.vaulted-home-video-bg, .home-legal, .home-credit) { position: relative !important; z-index: 2 !important; }
 @media (max-height: 780px) and (min-width: 701px) {
   
 :host(.vaulted-home-active) .glass-shell.vaulted-topnav-shell > .vaulted-topnav { gap: 5px !important; padding-top: 8px !important; padding-bottom: 8px !important; }
@@ -1272,7 +1272,7 @@
 /* The active Home route paints one backdrop across both columns. */
 .vaulted-topnav-shell > .vaulted-home-scene {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(circle, #424242 1px, transparent 1.2px) 0 0 / 28px 28px #070707;
+  background: #070707;
   isolation: isolate;
 }
 .vaulted-home-scene > video {
@@ -1284,4 +1284,12 @@
 }
 .glass-shell.vaulted-topnav-shell > .vaulted-topnav > .vaulted-reactbits-glass-host {
   position: absolute !important; inset: 0 !important; z-index: 0 !important;
+}
+
+.vaulted-home-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255,255,255,.19) 1px, transparent 1.2px) 0 0 / 28px 28px;
 }
