@@ -1208,13 +1208,15 @@
   background-position: 0 0 !important;
   opacity: .48 !important;
 }
-:host(.vaulted-home-active) video.vaulted-home-video-bg {
-  position: fixed !important; inset: 0 !important; z-index: 11 !important;
+:host(.vaulted-home-active) .home-page .home-hero > video.vaulted-home-video-bg {
+  position: fixed !important; inset: 0 !important; z-index: 1 !important;
   display: block !important; width: 100vw !important; height: 100vh !important;
   height: 100dvh !important; object-fit: cover !important;
   pointer-events: none !important; mix-blend-mode: screen !important;
 }
-:host(:not(.vaulted-home-active)) video.vaulted-home-video-bg { display: none !important; }
+:host(:not(.vaulted-home-active)) .home-page .home-hero > video.vaulted-home-video-bg { display: none !important; }
+:host(.vaulted-home-active) canvas.vaulted-home-glass-backdrop { display: block !important; }
+:host(:not(.vaulted-home-active)) canvas.vaulted-home-glass-backdrop { display: none !important; }
 :host(.vaulted-home-active) .home-page .home-hero > :not(.vaulted-home-video-bg) { position: relative !important; z-index: 2 !important; }
 @media (max-height: 780px) and (min-width: 701px) {
   
