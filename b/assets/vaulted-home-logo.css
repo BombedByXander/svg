@@ -1256,6 +1256,11 @@
   -webkit-backdrop-filter: none !important;
 }
 :host(.vaulted-home-active) .vaulted-topnav > .vaulted-reactbits-glass-host { z-index: 0 !important; }
+:host(.vaulted-home-active) .vaulted-topnav > .vaulted-reactbits-glass-host {
+  background: rgba(255,255,255,.04) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.5) !important;
+  backdrop-filter: blur(18px) saturate(1.5) !important;
+}
 :host(.vaulted-home-active) .vaulted-reactbits-glass-host > .glass-surface {
   position: absolute !important; inset: 0 !important; display: block !important;
   width: 100% !important; height: 100% !important; border-radius: 0 !important;
