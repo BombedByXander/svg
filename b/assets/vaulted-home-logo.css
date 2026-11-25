@@ -1325,25 +1325,24 @@
 
 :host(.vaulted-home-active) .vaulted-home-scene {
   overflow: hidden;
-  background: radial-gradient(ellipse 48% 78% at 26% 108%, rgb(92 124 255 / .35), transparent 67%), radial-gradient(ellipse 47% 82% at 78% 110%, rgb(255 107 154 / .29), transparent 69%), #07070b;
+  background: #0c0b13;
 }
 :host(.vaulted-home-active) .vaulted-home-scene::before {
   content: "";
   position: absolute;
-  inset: -45% -20%;
-  pointer-events: none;
-  background: radial-gradient(ellipse 15% 64% at 20% 70%, rgb(92 124 255 / .74) 10%, transparent 70%),
-    radial-gradient(ellipse 15% 64% at 35% 75%, rgb(38 216 80 / .74) 10%, transparent 70%),
-    radial-gradient(ellipse 15% 64% at 50% 76%, rgb(255 107 154 / .74) 10%, transparent 70%),
-    radial-gradient(ellipse 15% 64% at 65% 74%, rgb(0 208 192 / .74) 10%, transparent 70%),
-    radial-gradient(ellipse 15% 64% at 80% 72%, rgb(255 179 92 / .74) 10%, transparent 70%);
-  filter: blur(38px) saturate(1.2);
-  transform: rotate(-13deg) scale(1.12);
-  animation: vaulted-aurora-drift 8s ease-in-out infinite alternate; will-change: transform;
+  inset: 38% -18% -18%;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201000%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22sky%22%3E%3Cstop%20offset%3D%2212%25%22%20stop-color%3D%22%235c7cff%22/%3E%3Cstop%20offset%3D%2233%25%22%20stop-color%3D%22%2335cd76%22/%3E%3Cstop%20offset%3D%2248%25%22%20stop-color%3D%22%2300c8c1%22/%3E%3Cstop%20offset%3D%2269%25%22%20stop-color%3D%22%23ff6b9a%22/%3E%3Cstop%20offset%3D%2288%25%22%20stop-color%3D%22%23ffb35c%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath%20fill%3D%22url%28%23sky%29%22%20d%3D%22M0%20130%20C180%20140%20240%20224%20430%20159%20S650%20166%20775%20108%20S946%2096%201000%2070%20V400%20H0Z%22/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  filter: blur(clamp(18px, 3.5vh, 44px));
+  opacity: .82;
+  animation: vaulted-aurora-drift 12s ease-in-out infinite alternate;
 }
-@keyframes vaulted-aurora-drift { 0% { transform: rotate(-17deg) translate3d(-8%,5%,0) scale(1.02); } 50% { transform: rotate(-7deg) translate3d(1%,-4%,0) scale(1.2); } 100% { transform: rotate(-1deg) translate3d(8%,4%,0) scale(1.04); } }
-
-
+@keyframes vaulted-aurora-drift {
+  from { transform: translate(-5%, 3%) skewY(-2deg); }
+  to { transform: translate(5%, -5%) skewY(2deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  :host(.vaulted-home-active) .vaulted-home-scene::before { animation: none; }
+}
 
 .vaulted-browser-toolbar .vaulted-toolbar-sync { display: none !important; }
 .vaulted-browser-toolbar { gap: 4px !important; }
