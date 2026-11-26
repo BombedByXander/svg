@@ -6,37 +6,57 @@
   <title>POSTAL 2</title>
   <link rel="icon" href="data:,">
   <style>
-    html,body{margin:0;min-height:100%;background:#08090c;color:#eee;font:15px/1.5 Arial,sans-serif}
-    #overlay{max-width:640px;margin:8vh auto;padding:28px}
-    h1{font-size:40px;margin:0 0 20px;text-transform:uppercase}
-    button{background:#eee;color:#111;border:0;border-radius:8px;padding:10px 24px;font:inherit;cursor:pointer}
-    button:disabled{opacity:.5;cursor:default}details{margin-top:22px;color:#bbb}#status{color:#bbb}
-    [hidden],.hidden{display:none!important}#canvas{outline:none}
-  </style>
+:root{color-scheme:dark;font-family:Arial,Helvetica,sans-serif;color:#f5f3ee;background:#090a0c;--orange:#ff641f;--muted:#a6a5a1}
+*{box-sizing:border-box}body{margin:0}button,summary{font:inherit}button{cursor:pointer}button:focus-visible,summary:focus-visible{outline:3px solid #ffb082;outline-offset:6px}[hidden],.hidden{display:none!important}#canvas{outline:none}
+#overlay,#loading{position:relative;isolation:isolate;min-height:100svh;overflow:hidden;background:#090a0c}
+.scene{position:absolute;inset:0;z-index:-2;background:url('intro-background.png') center/cover;opacity:.48;animation:drift 32s ease-in-out infinite alternate}
+.scene:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#090a0c 0%,#090a0ceb 26%,#090a0c70 72%,#090a0c30),linear-gradient(0deg,#090a0c 0%,transparent 55%,#090a0c70)}
+#overlay:after,#loading:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' opacity='.15' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");opacity:.18}
+.masthead{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:30px clamp(24px,5vw,80px);font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}.brand{display:flex;align-items:center;gap:17px}.brand strong{font-size:23px;font-weight:800;letter-spacing:-1.3px;text-transform:lowercase;color:#f5f3ee}.brand .divider{height:15px;width:1px;background:#ffffff35}.availability{display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.1em}.availability:before{content:"";width:5px;height:5px;background:var(--orange);border-radius:50%;box-shadow:0 0 12px #ff641f80}
+.hero{padding:clamp(30px,7vh,90px) clamp(24px,7vw,110px) 40px;max-width:900px}.eyebrow{display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.22em;font-weight:700;text-transform:uppercase;color:#ffb28d}.eyebrow:before{content:"";height:2px;width:30px;background:var(--orange)}
+h1{margin:22px 0 20px;font-family:Impact,'Arial Black',Arial,sans-serif;font-size:clamp(82px,12vw,172px);font-weight:900;line-height:.86;letter-spacing:-.035em;text-transform:uppercase}h1 em{font-style:normal;color:var(--orange)}.tagline{font-size:clamp(20px,2.2vw,29px);font-weight:500;letter-spacing:-.035em;margin:26px 0 10px}.description{max-width:400px;color:var(--muted);font-size:14px;line-height:1.7;margin:0}
+.actions{display:flex;align-items:center;gap:24px;margin-top:32px}#play{display:flex;align-items:center;justify-content:space-between;gap:58px;border:1px solid #ff8d54;border-radius:6px;background:var(--orange);padding:17px 20px;color:#160c06;font-size:14px;font-weight:800;box-shadow:0 6px 30px #ff641f18;transition:background .2s,transform .2s,box-shadow .2s}#play:hover{background:#ff864e;transform:translateY(-2px);box-shadow:0 8px 35px #ff641f38}#play:disabled{opacity:.45;cursor:default;transform:none}.play-symbol{width:28px;height:28px;border:1px solid #34180666;border-radius:50%;display:grid;place-items:center}.play-symbol svg{width:11px;height:11px;fill:currentColor}
+.control-help{position:relative;color:#d0cec8;font-size:12px}.control-help summary{cursor:pointer;list-style:none;border-bottom:1px solid #ffffff4d;padding:6px 0}.control-help summary::-webkit-details-marker{display:none}.controls-panel{position:absolute;z-index:5;left:0;bottom:42px;width:min(350px,80vw);padding:20px;border:1px solid #ffffff24;border-radius:12px;background:#151516;box-shadow:0 15px 50px #0009;font-size:12px;line-height:1.7;color:#bdbab4}.controls-panel p{margin:0 0 10px}.controls-panel p:last-child{margin:0}kbd{display:inline-block;background:#ffffff10;border:1px solid #ffffff18;border-radius:4px;padding:1px 5px;color:#eee;font:10px Arial}
+.launch-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px clamp(24px,5vw,80px);border-top:1px solid #ffffff12;margin-top:28px;color:#777974;font-size:10px;letter-spacing:.08em}.launch-footer .specs{display:flex;gap:24px}.specs span{display:flex;align-items:center;gap:7px}.specs b{color:#bbbcb6;font-size:10px;font-weight:500}.footer-note{color:#8d8d87;font-size:11px;letter-spacing:0}#status{font-size:12px;color:#ffbc98;max-width:500px;line-height:1.6;margin:18px 0 0}#status:empty{display:none}
+#loading{position:fixed;inset:0;z-index:2147483646;display:flex;flex-direction:column}#loading .scene{filter:blur(7px);opacity:.23}#loading .scene:after{background:linear-gradient(0deg,#090a0c,transparent 70%)}.loading-content{width:min(660px,calc(100% - 48px));margin:auto; padding:35px 0 70px}.loading-wordmark{font:900 clamp(60px,9vw,96px)/1 Impact,'Arial Black',sans-serif;letter-spacing:-.025em;margin:0 0 45px}.loading-wordmark span{color:var(--orange)}.loading-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:22px}.loading-heading h2{font-size:22px;letter-spacing:-.025em;font-weight:500;margin:0}.loading-heading small{display:block;font-size:9px;letter-spacing:.16em;color:var(--orange);font-weight:700;margin-bottom:9px}.percent{font-size:40px;line-height:1;letter-spacing:-.06em;font-variant-numeric:tabular-nums}.percent small{font-size:16px;color:#878883;letter-spacing:0;margin-left:4px}
+#loading-bar{height:7px;background:#ffffff10;border-radius:10px;overflow:hidden;position:relative}#loading-fill{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#d74613,#ff6b27,#ffad67);box-shadow:0 0 25px #ff641f60;transition:width .25s ease-out;position:relative}#loading-fill:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,#ffffff65,transparent);animation:shimmer 1.8s ease-in-out infinite;transform:translateX(-100%)}.progress-meta{display:flex;justify-content:space-between;gap:15px;margin-top:12px;font-size:11px;color:#878883;font-variant-numeric:tabular-nums}#loading-text{color:#c1bdb7}#loading-detail{margin:18px 0 0;min-height:18px;font-size:11px;color:#ffbc98;line-height:1.6}.stages{display:flex;gap:0;margin-top:38px;list-style:none;padding:0}.stages li{display:flex;align-items:center;gap:9px;font-size:10px;color:#60635f;letter-spacing:.08em;flex:1}.stages li:not(:last-child):after{content:"";height:1px;background:#ffffff15;flex:1;margin:0 16px 0 4px}.stages i{display:grid;place-items:center;font-style:normal;border:1px solid #ffffff20;border-radius:50%;height:22px;width:22px;font-size:9px;flex-shrink:0}.stages .active{color:#eee}.stages .active i{border-color:var(--orange);color:var(--orange);box-shadow:0 0 18px #ff641f20}.stages .done{color:#c38b6f}.stages .done i{background:#ff641f15;border-color:#ff641f50}.loading-note{font-size:11px;line-height:1.7;color:#777c76;max-width:420px;margin:20px 0 0}#retry{margin-top:18px;border:1px solid #ffffff30;background:#ffffff0c;color:white;border-radius:6px;padding:10px 16px;font-size:12px}
+@keyframes shimmer{to{transform:translateX(100%)}}@keyframes drift{to{transform:scale(1.075) translate(-.5%,.4%)}}
+@media(min-width:760px) and (min-height:650px){#overlay{display:flex;flex-direction:column}.hero{flex:1}.launch-footer{margin-top:auto}}
+@media(max-width:600px){.masthead{padding-top:23px}.brand{gap:12px}.availability{font-size:8px}.brand>span:last-child{font-size:8px}.hero{padding-top:42px}h1{margin-top:25px}.actions{gap:20px}#play{gap:40px}.launch-footer{flex-wrap:wrap;gap:14px;margin-top:20px}.launch-footer .specs{gap:18px}.footer-note{font-size:10px}.loading-content{padding-bottom:30px}.loading-wordmark{margin-bottom:35px}.loading-heading h2{font-size:18px}.percent{font-size:34px}.stages li{font-size:8px;letter-spacing:0}.stages li:not(:last-child):after{margin-right:8px;margin-left:0}.stages{gap:5px}.stages i{height:20px;width:20px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+#overlay{display:flex;flex-direction:column}.hero{flex:1}.percent small{display:inline;margin-bottom:0;font-weight:400;letter-spacing:0}
+@media(max-width:600px){.brand .divider,.brand>span:last-child{display:none}.availability{white-space:nowrap}}
+</style>
 </head>
 <body>
   <main id="overlay">
-    <h1>postal 2</h1>
-    <button id="play">play</button>
-    <details>
-      <summary>controls</summary>
-      <p>WASD: move. Mouse: look. Left/right click: primary/alternate attack.
-        Wheel or number keys: select weapon. Q: kick. Space: jump.
-        E: use inventory item. F5/F8: quicksave/load. Esc: menu/release mouse.
-        Enter/Space: continue day-start screen. F11: fullscreen.</p>
-      <p>Click the game to capture the mouse. After switching windows or tabs,
-        click the game again to recapture it.</p>
-    </details>
-    <p id="status" role="status"></p>
+    <div class="scene" aria-hidden="true"></div>
+    <header class="masthead"><div class="brand"><strong>vaulted</strong><span class="divider"></span><span>The game library</span></div><span class="availability">Ready when you are</span></header>
+    <section class="hero" aria-labelledby="game-title">
+      <div class="eyebrow">Welcome to Paradise</div>
+      <h1 id="game-title">POSTAL <em>2</em></h1>
+      <p class="tagline">Just another day in Paradise.</p>
+      <p class="description">Step into the shoes of the Postal Dude.<br>A quiet town. A simple to-do list. Your call.</p>
+      <div class="actions"><button id="play" type="button"><span>Play Postal 2</span><span class="play-symbol" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 1.5 10 6l-7 4.5z"/></svg></span></button>
+      <details class="control-help"><summary>View controls ↗</summary><div class="controls-panel"><p><kbd>W A S D</kbd> Move · Mouse to look<br><kbd>Space</kbd> Jump · <kbd>Q</kbd> Kick<br><kbd>E</kbd> Use inventory · Scroll to change weapon</p><p>Left / right click: primary / alternate attack.<br><kbd>Esc</kbd> Menu or release mouse · <kbd>F11</kbd> Fullscreen</p><p>Click the game to capture the mouse. After changing tabs, click again to recapture it.</p></div></details></div>
+      <p id="status" role="status"></p>
+    </section>
+    <footer class="launch-footer"><div class="specs"><span><b>01</b> Keyboard + mouse</span><span><b>02</b> Browser edition</span></div><span class="footer-note">Your next bad idea starts here.</span></footer>
   </main>
-  <div id="loading" hidden aria-label="Loading POSTAL 2" style="position:fixed;inset:0;background:black;color:white;z-index:2147483646">
-    <div style="position:absolute;bottom:8vh;left:50%;transform:translateX(-50%);width:min(76vw,720px)">
-      <p id="loading-text" role="status" style="font:bold 16px Arial,sans-serif;text-align:right;margin:0 0 12px;overflow-wrap:anywhere">Starting POSTAL 2</p>
-      <div id="loading-bar" role="progressbar" aria-label="Current chunk" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="height:10px;border:1px solid white">
-        <div id="loading-fill" style="height:100%;width:0;background:white"></div>
-      </div>
+  <section id="loading" hidden aria-label="Loading Postal 2">
+    <div class="scene" aria-hidden="true"></div>
+    <header class="masthead"><div class="brand"><strong>vaulted</strong><span class="divider"></span><span>The game library</span></div><span class="availability">Preparing your game</span></header>
+    <div class="loading-content">
+      <div class="loading-wordmark" aria-hidden="true">POSTAL <span>2</span></div>
+      <div class="loading-heading"><div><small>You're almost in Paradise</small><h2 id="loading-heading">Starting the engine</h2></div><div class="percent"><span id="loading-percent">0</span><small>%</small></div></div>
+      <div id="loading-bar" role="progressbar" aria-label="Current file progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="loading-fill"></div></div>
+      <div class="progress-meta"><span id="loading-text" role="status">Preparing your game</span><span id="loading-bytes">Current file · 0 / 0 MB</span></div>
+      <p id="loading-detail" role="status"></p>
+      <ol class="stages" aria-label="Startup stages"><li class="active"><i>01</i> ENGINE</li><li><i>02</i> GAME FILES</li><li><i>03</i> READY</li></ol>
+      <p class="loading-note">Game files load as needed. Your first visit can take a few minutes; downloaded files are cached for next time.</p>
+      <button id="retry" type="button" hidden>Try again ↗</button>
     </div>
-  </div>
+  </section>
   <canvas id="canvas" width="1280" height="720" tabindex="0" hidden></canvas>
   <div id="hud" hidden>
     <span id="fps"></span>
@@ -48,48 +68,43 @@
   </div>
   <script>
 (() => {
-  const panel = document.getElementById('loading');
-  const label = document.getElementById('loading-text');
-  const bar = document.getElementById('loading-bar');
-  const fill = document.getElementById('loading-fill');
-  let started = false, finished = false, nextPaint = 0, latest;
+  const $ = id => document.getElementById(id);
+  const panel = $('loading'), bar = $('loading-bar'), fill = $('loading-fill');
+  const steps = [...document.querySelectorAll('.stages li')];
+  let started = false, finished = false, nextPaint = 0, latest, activeStage = 0;
+  const stage = index => { if(index<=activeStage)return;activeStage=index; steps.forEach((el,i)=>{el.classList.toggle('active',i===activeStage);el.classList.toggle('done',i<activeStage)}); };
   const paint = () => {
     nextPaint = 0;
     if (!latest || finished) return;
-    label.textContent = latest.text;
-    const percent = Math.round(Math.max(0, Math.min(1, latest.ratio)) * 100);
-    bar.setAttribute('aria-valuenow', String(percent));
-    fill.style.width = percent + '%';
+    $('loading-text').textContent = latest.text;
+    const percent = Math.round(Math.max(0,Math.min(1,latest.ratio))*100);
+    $('loading-percent').textContent = percent;
+    bar.setAttribute('aria-valuenow',String(percent));
+    fill.style.width = percent+'%';
+    if(latest.bytes) $('loading-bytes').textContent = latest.bytes;
   };
-  const show = (text, ratio = 0) => {
-    latest = {text, ratio};
-    if (!nextPaint) nextPaint = requestAnimationFrame(paint);
-  };
-  const start = () => {
-    if (started) return;
-    started = true;
-    document.getElementById('overlay').hidden = true;
-    panel.hidden = false;
-    document.body.style.background = 'black';
-    document.body.style.margin = '0';
-    document.body.style.overflow = 'hidden';
-    show('Starting POSTAL 2');
-  };
+  const show = (text,ratio=0,bytes) => {latest={text,ratio,bytes};if(!nextPaint)nextPaint=requestAnimationFrame(paint)};
+  $('retry').onclick = () => location.reload();
   window.postal2Loading = {
-    start,
-    status(text) { if (started && !finished) show(text); },
-    progress({file, index, count, loaded, size, phase}) {
-      if (!started || finished) return;
-      const kind = file.startsWith('postal2-wasm') ? 'Engine' : file.startsWith('postal2-image') ? 'Program' : 'Game data';
-      const action = phase === 'cached' ? 'Reading cache' : phase === 'verify' ? 'Checking' : 'Downloading';
-      show(`${action}: ${kind} chunk ${index + 1}/${count} (${file}) — ${(loaded / 1000000).toFixed(2)} / ${(size / 1000000).toFixed(2)} MB`, loaded / size);
+    start() {if(started)return;started=true;$('overlay').hidden=true;panel.hidden=false;document.body.style.overflow='hidden';show('Preparing your game');},
+    status(text) {
+      if(!started||finished)return;
+      if(/Failed to start|graphics context was lost/i.test(text)) {$('loading-heading').textContent='Something interrupted the launch';$('loading-detail').textContent=text;$('retry').hidden=false;return;}
+      if(/Download delayed/i.test(text)) {$('loading-detail').textContent='The download is taking longer than expected. Retrying automatically…';return;}
+      if(/starting|compiling/i.test(text)&&activeStage<1) $('loading-heading').textContent='Starting the engine';
     },
-    finish() {
-      finished = true;
-      panel.hidden = true;
-      if (nextPaint) cancelAnimationFrame(nextPaint);
-      nextPaint = 0;
+    progress({file,loaded,size,phase}) {
+      if(!started||finished)return;
+      const engine=file.startsWith('postal2-wasm'),program=file.startsWith('postal2-image');
+      stage(engine||program?0:1);
+      const heading=activeStage===0?'Starting the engine':'Getting Paradise ready';
+      if($('loading-heading').textContent!==heading)$('loading-heading').textContent=heading;
+      const action=phase==='cached'?'Reading saved files':phase==='verify'?'Verifying download':'Downloading';
+      const kind=engine?'engine':program?'game runtime':'game assets';
+      if($('loading-detail').textContent)$('loading-detail').textContent='';
+      show(`${action} · ${kind}`,size?loaded/size:0,`Current file · ${(loaded/1000000).toFixed(1)} / ${(size/1000000).toFixed(1)} MB`);
     },
+    finish() {stage(2);finished=true;panel.hidden=true;if(nextPaint)cancelAnimationFrame(nextPaint);nextPaint=0;},
   };
 })();
 
@@ -239,7 +254,7 @@
     Rexcomp(M).catch(e => { status('Failed to start: ' + e); console.error(e); });
     canvas.focus();
   };
-  if (q.has('autostart')) $('play').onclick();
+  // Launch only after the player presses Play, including links with autostart parameters.
 })();
 
   </script>
