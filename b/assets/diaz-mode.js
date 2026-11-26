@@ -32,7 +32,9 @@
     const style = document.createElement("style");
     style.id = STYLE_ID;
     style.textContent = `
-      #${CANVAS_ID} { position: fixed; top: 0; left: 0; width: 0; height: 100vh; pointer-events: none; z-index: 2; overflow: hidden; }
+      /* Keep the rain above the sidebar shell; the shell itself is a z-indexed
+         stacking context, so a low canvas z-index silently hides every head. */
+      #${CANVAS_ID} { position: fixed; top: 0; left: 0; width: 0; height: 100vh; pointer-events: none; z-index: 30; overflow: hidden; }
       .home-title.diaz-wordmark { display: inline-flex; align-items: center; justify-content: center; gap: .12em; }
       .diaz-wordmark .diaz-logo-image { display: block; flex: 0 0 auto; width: .82em; height: .82em; object-fit: contain; filter: drop-shadow(0 2px 12px color-mix(in srgb, var(--accent) 45%, transparent)); }
       @media (max-width: 520px) { .diaz-wordmark .diaz-logo-image { width: .72em; height: .72em; } }
