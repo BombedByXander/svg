@@ -1385,3 +1385,8 @@
 
 /* Stronger vertical wordmark gradient with a bright highlight and deeper base. */
 .home-page .home-title-text{background-image:linear-gradient(180deg,#fff 0%,color-mix(in srgb,var(--accent-2) 78%,white) 36%,color-mix(in srgb,var(--accent) 60%,#252936) 100%)!important}
+
+/* Keep the wordmark and greeting grouped with a consistent optical gap. */
+.home-page .home-title{line-height:1.04!important}
+.home-page .home-greeting{margin-top:12px!important;line-height:1.4!important}
+.home-page .home-title-text{padding-right:.30em!important}
