@@ -1390,3 +1390,10 @@
 .home-page .home-title{line-height:1.04!important}
 .home-page .home-greeting{margin-top:12px!important;line-height:1.4!important}
 .home-page .home-title-text{padding-right:.30em!important}
+
+/* Center the address independently of unequal button groups. */
+.vaulted-browser-toolbar>.vaulted-toolbar-right{margin-left:auto!important;flex:none!important;order:6}
+.vaulted-browser-toolbar>.vaulted-urlbar{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;flex:none!important;width:var(--urlbar-width,260px)!important;max-width:var(--urlbar-max,calc(100% - 360px))!important;min-width:0!important;transition:width .18s ease,background-color .16s,border-color .16s;z-index:2}
+@media(max-width:600px){.vaulted-browser-toolbar>.vaulted-urlbar{position:relative!important;left:auto!important;top:auto!important;transform:none!important;flex:1 1 0!important;width:0!important;max-width:none!important}.vaulted-browser-toolbar>.vaulted-toolbar-right{margin-left:0!important}}
+@media(prefers-reduced-motion:reduce){.vaulted-browser-toolbar>.vaulted-urlbar{transition:none!important}}
+@media(min-width:601px){.vaulted-urlbar>.top-full{width:max(100%,360px);max-width:calc(100vw - 24px);left:50%;right:auto;translate:-50% 0}}
