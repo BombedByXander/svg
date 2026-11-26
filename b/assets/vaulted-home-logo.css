@@ -1370,4 +1370,4 @@
 
 /* Keep home-page text readable over the moving aurora. */
 .home-page .home-clock-time,.home-page .home-clock-meta,.home-page .home-copyright,.home-page .home-made-by{ text-shadow:0 1px 3px #000,0 0 8px #0009!important }
-.home-page .home-clock-time{-webkit-text-fill-color:transparent!important;filter:drop-shadow(0 1px 2px #000) drop-shadow(0 0 5px #0009)!important}.home-page .home-clock-meta{text-shadow:0 1px 3px #000,0 0 7px #0009!important}
+.home-page .home-clock-time{text-shadow:0 1px 2px #000!important;filter:none!important}.home-page .home-clock-meta{text-shadow:0 1px 2px #000!important}.home-page .home-copyright,.home-page .home-made-by{text-shadow:0 1px 2px #000!important}
