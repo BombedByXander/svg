@@ -1382,3 +1382,6 @@
   background: color-mix(in srgb, currentColor 22%, transparent);
   pointer-events: none;
 }
+
+/* Stronger vertical wordmark gradient with a bright highlight and deeper base. */
+.home-page .home-title-text{background-image:linear-gradient(180deg,#fff 0%,color-mix(in srgb,var(--accent-2) 78%,white) 36%,color-mix(in srgb,var(--accent) 60%,#252936) 100%)!important}
