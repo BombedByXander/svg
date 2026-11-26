@@ -8,6 +8,8 @@ vm.runInContext(source.slice(source.indexOf('function vaultedGameUrl('),source.i
 vm.runInContext(source.slice(source.indexOf('function cd('),source.indexOf('function eN(')),context);
 vm.runInContext(source.slice(source.indexOf('function CN('),source.indexOf('function FsA(')),context);
 assert.equal(context.vaultedGameUrl(legacy),current);
+assert.equal(new URLSearchParams(context.vaultedGameRoute('/l?g='+encodeURIComponent(legacy)+'&name=Postal+2').split('?')[1]).get('g'),current);
+assert.equal(new URLSearchParams(context.vaultedGameRoute('launcher?g='+encodeURIComponent(legacy)).split('?')[1]).get('g'),current);
 assert.equal(context.vaultedGameUrl(legacy+'?autostart=1'),current);
 assert.equal(context.vaultedGameUrl('https://example.com/other-game'),'https://example.com/other-game');
 assert.equal(context.vaultedLauncherUrl({name:'Postal 2',launch:legacy,img:'postal.png'}),'/l?g='+encodeURIComponent(current));
