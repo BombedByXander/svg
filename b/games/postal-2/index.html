@@ -26,6 +26,10 @@ h1{margin:22px 0 20px;font-family:Impact,'Arial Black',Arial,sans-serif;font-siz
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 #overlay{display:flex;flex-direction:column}.hero{flex:1}.percent small{display:inline;margin-bottom:0;font-weight:400;letter-spacing:0}
 @media(max-width:600px){.brand .divider,.brand>span:last-child{display:none}.availability{white-space:nowrap}}
+
+.port-credit{margin:-4px 0 22px;color:#ff9b68;font-size:12px;letter-spacing:.025em;line-height:1.6}.loading-wordmark{margin-bottom:12px}.loading-credit{margin:0 0 30px}.current-file{text-align:right}.current-file-label{display:block;color:#aaa79f;font-size:9px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}.asset-progress{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 0 16px}.asset-progress>div{display:flex;align-items:baseline;gap:9px}.asset-progress strong{font-size:25px;letter-spacing:-.04em;font-variant-numeric:tabular-nums;font-weight:600;color:#ffab7d}.asset-progress span{font-size:12px;color:#e5ded6}.asset-progress p{font-size:11px;color:#a9a59d;margin:0 0 4px;white-space:nowrap}.file-explainer{font-size:11px;color:#bcb5ab;line-height:1.5;margin:13px 0 0}#loading{overflow-y:auto}.loading-content{padding-bottom:30px}.stages{margin-top:20px}#loading-detail{min-height:0;margin-top:10px}#loading-detail:empty{display:none}
+@media(max-width:600px){.port-credit{font-size:10px;max-width:310px}.asset-progress{align-items:start;flex-direction:column;gap:6px}.asset-progress strong{font-size:23px}.asset-progress p{margin:0}.asset-progress span{font-size:11px}.loading-credit{margin-bottom:24px}.loading-heading{margin-bottom:16px}.loading-content{padding-top:20px}.file-explainer{font-size:10px}}
+@media(max-height:650px){.loading-wordmark{font-size:54px}.loading-credit{margin-bottom:20px}.loading-content{padding-top:12px;padding-bottom:24px}.loading-heading{margin-bottom:12px}.stages{margin-top:14px}}
 </style>
 </head>
 <body>
@@ -35,6 +39,7 @@ h1{margin:22px 0 20px;font-family:Impact,'Arial Black',Arial,sans-serif;font-siz
     <section class="hero" aria-labelledby="game-title">
       <div class="eyebrow">Welcome to Paradise</div>
       <h1 id="game-title">POSTAL <em>2</em></h1>
+      <p class="port-credit">webported by 98corbins, xander, CheddarOS</p>
       <p class="tagline">Just another day in Paradise.</p>
       <p class="description">Step into the shoes of the Postal Dude.<br>A quiet town. A simple to-do list. Your call.</p>
       <div class="actions"><button id="play" type="button"><span>Play Postal 2</span><span class="play-symbol" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M3 1.5 10 6l-7 4.5z"/></svg></span></button>
@@ -48,12 +53,15 @@ h1{margin:22px 0 20px;font-family:Impact,'Arial Black',Arial,sans-serif;font-siz
     <header class="masthead"><div class="brand"><strong>vaulted</strong><span class="divider"></span><span>The game library</span></div><span class="availability">Preparing your game</span></header>
     <div class="loading-content">
       <div class="loading-wordmark" aria-hidden="true">POSTAL <span>2</span></div>
-      <div class="loading-heading"><div><small>You're almost in Paradise</small><h2 id="loading-heading">Starting the engine</h2></div><div class="percent"><span id="loading-percent">0</span><small>%</small></div></div>
+      <p class="port-credit loading-credit">webported by 98corbins, xander, CheddarOS</p>
+      <div class="loading-heading"><div><small>You're almost in Paradise</small><h2 id="loading-heading">Starting the engine</h2></div><div class="current-file"><span class="current-file-label">Current file</span><div class="percent"><span id="loading-percent">0</span><small>%</small></div></div></div>
+      <div class="asset-progress" aria-live="polite" aria-atomic="true"><div><strong id="loading-files">0 / 241</strong><span>game files ready</span></div><p id="loading-engine">Engine · 0 / 8 files ready</p></div>
       <div id="loading-bar" role="progressbar" aria-label="Current file progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="loading-fill"></div></div>
       <div class="progress-meta"><span id="loading-text" role="status">Preparing your game</span><span id="loading-bytes">Current file · 0 / 0 MB</span></div>
+      <p class="file-explainer">Each new file restarts this bar. The file count above keeps increasing.</p>
       <p id="loading-detail" role="status"></p>
       <ol class="stages" aria-label="Startup stages"><li class="active"><i>01</i> ENGINE</li><li><i>02</i> GAME FILES</li><li><i>03</i> READY</li></ol>
-      <p class="loading-note">Game files load as needed. Your first visit can take a few minutes; downloaded files are cached for next time.</p>
+      <p class="loading-note">Files load as needed, so the game can start before all 241 files are downloaded. Your first visit can take a few minutes; files are cached for next time.</p>
       <button id="retry" type="button" hidden>Try again ↗</button>
     </div>
   </section>
@@ -71,11 +79,14 @@ h1{margin:22px 0 20px;font-family:Impact,'Arial Black',Arial,sans-serif;font-siz
   const $ = id => document.getElementById(id);
   const panel = $('loading'), bar = $('loading-bar'), fill = $('loading-fill');
   const steps = [...document.querySelectorAll('.stages li')];
+  const gameFiles=new Set(),engineFiles=new Set();let gameTotal=241;const engineTotal=8;
   let started = false, finished = false, nextPaint = 0, latest, activeStage = 0;
   const stage = index => { if(index<=activeStage)return;activeStage=index; steps.forEach((el,i)=>{el.classList.toggle('active',i===activeStage);el.classList.toggle('done',i<activeStage)}); };
   const paint = () => {
     nextPaint = 0;
     if (!latest || finished) return;
+    $('loading-files').textContent=`${gameFiles.size} / ${gameTotal}`;
+    $('loading-engine').textContent=`Engine · ${engineFiles.size} / ${engineTotal} files ready`;
     $('loading-text').textContent = latest.text;
     const percent = Math.round(Math.max(0,Math.min(1,latest.ratio))*100);
     $('loading-percent').textContent = percent;
@@ -93,13 +104,15 @@ h1{margin:22px 0 20px;font-family:Impact,'Arial Black',Arial,sans-serif;font-siz
       if(/Download delayed/i.test(text)) {$('loading-detail').textContent='The download is taking longer than expected. Retrying automatically…';return;}
       if(/starting|compiling/i.test(text)&&activeStage<1) $('loading-heading').textContent='Starting the engine';
     },
-    progress({file,loaded,size,phase}) {
+    progress({file,count,loaded,size,phase}) {
       if(!started||finished)return;
       const engine=file.startsWith('postal2-wasm'),program=file.startsWith('postal2-image');
+      if(!engine&&!program&&Number.isInteger(count)&&count>0)gameTotal=count;
+      if(phase==='cached'||phase==='ready')(engine||program?engineFiles:gameFiles).add(file);
       stage(engine||program?0:1);
       const heading=activeStage===0?'Starting the engine':'Getting Paradise ready';
       if($('loading-heading').textContent!==heading)$('loading-heading').textContent=heading;
-      const action=phase==='cached'?'Reading saved files':phase==='verify'?'Verifying download':'Downloading';
+      const action=phase==='cached'?'Reading saved files':phase==='verify'?'Verifying download':phase==='ready'?'File ready':'Downloading';
       const kind=engine?'engine':program?'game runtime':'game assets';
       if($('loading-detail').textContent)$('loading-detail').textContent='';
       show(`${action} · ${kind}`,size?loaded/size:0,`Current file · ${(loaded/1000000).toFixed(1)} / ${(size/1000000).toFixed(1)} MB`);
@@ -109,7 +122,7 @@ h1{margin:22px 0 20px;font-family:Impact,'Arial Black',Arial,sans-serif;font-siz
 })();
 
   </script>
-  <script src="https://cdn.jsdelivr.net/gh/BombedByXander/lib-backup@7f10e52009319bc6c3b896a11235ce9bc28f6fe7/postal-2/postal2-data.js" data-chunks-base="https://raw.githubusercontent.com/BombedByXander/lib-backup/7f10e52009319bc6c3b896a11235ce9bc28f6fe7/postal-2/chunks/" data-runtime-base="https://raw.githubusercontent.com/BombedByXander/lib-backup/7f10e52009319bc6c3b896a11235ce9bc28f6fe7/postal-2/runtime/"></script>
+  <script src="https://cdn.jsdelivr.net/gh/BombedByXander/lib-backup@a7b50aaa1bad729f24e0c1ebcb8e2663067e9004/postal-2/postal2-data.js" data-chunks-base="https://raw.githubusercontent.com/BombedByXander/lib-backup/7f10e52009319bc6c3b896a11235ce9bc28f6fe7/postal-2/chunks/" data-runtime-base="https://raw.githubusercontent.com/BombedByXander/lib-backup/7f10e52009319bc6c3b896a11235ce9bc28f6fe7/postal-2/runtime/"></script>
   <script src="https://cdn.jsdelivr.net/gh/BombedByXander/lib-backup@7f10e52009319bc6c3b896a11235ce9bc28f6fe7/postal-2/postal2.js"></script>
   <script>
 (() => {

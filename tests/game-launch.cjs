@@ -1,0 +1,18 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync('b/assets/bundle-vaulted-home-apps-20261029.js','utf8');
+const legacy='https://postal2.c0rbin.fun/',current='https://vaultedd.pages.dev/b/games/postal-2/index.html';
+const data={favorites:[legacy],recent:[{name:'Postal 2',launch:legacy,img:'postal.png'}]};
+const meta=new Map();
+const context=vm.createContext({URL,URLSearchParams,location:{href:'https://vaultedd.pages.dev/b/'},sessionStorage:{setItem:(k,v)=>meta.set(k,v)},NT:'favorites',MT:'recent',uC:k=>data[k],zC:(k,v)=>data[k]=v,ld:()=>false});
+vm.runInContext(source.slice(source.indexOf('function vaultedGameUrl('),source.indexOf('function vaultedLaunchMeta(')),context);
+vm.runInContext(source.slice(source.indexOf('function cd('),source.indexOf('function eN(')),context);
+vm.runInContext(source.slice(source.indexOf('function CN('),source.indexOf('function FsA(')),context);
+assert.equal(context.vaultedGameUrl(legacy),current);
+assert.equal(context.vaultedGameUrl(legacy+'?autostart=1'),current);
+assert.equal(context.vaultedGameUrl('https://example.com/other-game'),'https://example.com/other-game');
+assert.equal(context.vaultedLauncherUrl({name:'Postal 2',launch:legacy,img:'postal.png'}),'/l?g='+encodeURIComponent(current));
+assert.ok(meta.has('vaulted:launch:'+current));
+assert.equal(context.cd()[0],current);assert.equal(data.favorites[0],current);
+assert.equal(context.CN()[0].launch,current);assert.equal(data.recent[0].launch,current);assert.equal(data.recent[0].name,'Postal 2');
+assert.equal(JSON.parse(fs.readFileSync('b/assets/json/xander.json')).find(g=>g.name==='Postal 2').url,current);
+console.log('Passed: old URLs, saved favorites, recent games, launch metadata, and current catalog.');
