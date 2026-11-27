@@ -32,7 +32,13 @@ class VaultedAurora extends HTMLElement {
     canvas.height = 300;
     canvas.style.cssText = "display:block;width:100%;height:100%";
     this.replaceChildren(canvas);
-    const ctx = canvas.getContext("2d");
+    // Keep the visual lightweight on Chromebooks and other low-power devices.
+    const cores = Number(navigator.hardwareConcurrency || 8);
+    const memory = Number(navigator.deviceMemory || 8);
+    const lowPower = /CrOS/i.test(navigator.userAgent) || cores <= 4 || memory <= 4 || navigator.connection?.saveData;
+    const sliceWidth = lowPower ? 4 : 2;
+    const frameDelay = lowPower ? 66 : 33;
+    const ctx = canvas.getContext("2d", { alpha: true, desynchronized: lowPower });
     if (!ctx) return;
     const curtain = paintCurtain([[0, 0], [.19, .04], [.42, .18],
     [.59, .44], [.67, .86], [.69, .98], [.73, .42], [.86, .17], [1, 0]]);
@@ -69,7 +75,7 @@ class VaultedAurora extends HTMLElement {
       const lowerHeights = advance(lower);
       ctx.clearRect(0, 0, 800, 300);
       const drift = phase + time * (reduced.matches ? .00022 : .00055);
-      for (let x = 0; x < 800; x += 2) {
+      for (let x = 0; x < 800; x += sliceWidth) {
         const index = Math.floor(x / 80);
         const t = (x % 80) / 80;
         const blend = t * t * (3 - 2 * t);
@@ -87,24 +93,25 @@ class VaultedAurora extends HTMLElement {
 
         const glowTop = lowerCrest - 14;
         ctx.globalAlpha = .85;
-        ctx.drawImage(glow, x, 0, 2, 200, x, glowTop, 2, canvas.height - glowTop);
+        ctx.drawImage(glow, x, 0, sliceWidth, 200, x, glowTop, sliceWidth, canvas.height - glowTop);
 
         // A distant veil follows its own contour behind the brighter front.
         ctx.globalAlpha = .34;
-        ctx.drawImage(curtain, x, 0, 2, 200, x,
-          backCrest - .69 * 105, 2, 105);
+        ctx.drawImage(curtain, x, 0, sliceWidth, 200, x,
+          backCrest - .69 * 105, sliceWidth, 105);
         ctx.globalAlpha = .78 + .18 * grain[x / 2];
-        ctx.drawImage(curtain, x, 0, 2, 200, x, crest - .69 * reach, 2, reach);
+        ctx.drawImage(curtain, x, 0, sliceWidth, 200, x, crest - .69 * reach, sliceWidth, reach);
         // Diffuse reflection below the hem keeps the horizon softly lit.
         ctx.globalAlpha = .23;
-        ctx.drawImage(curtain, x, 60, 2, 140, x, lowerCrest - (138 - 60) / 140 * 195, 2, 195);
+        ctx.drawImage(curtain, x, 60, sliceWidth, 140, x, lowerCrest - (138 - 60) / 140 * 195, sliceWidth, 195);
       }
       ctx.globalAlpha = 1;
     };
     draw(previous);
+    if (reduced.matches) return;
     this.timer = setInterval(() => {
       if (!document.hidden) draw(performance.now());
-    }, 33);
+    }, frameDelay);
   }
 
   disconnectedCallback() { clearInterval(this.timer); }
